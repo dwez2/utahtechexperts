@@ -42,10 +42,10 @@
 
 	// Nav.
 
-		// Title Bar.
+		// Title Bar.--- I disabled the hamburger on the main page enabled this if you want to add more pages to to the site 
 			$(
 				'<div id="titleBar">' +
-					'<a href="#navPanel" class="toggle"></a>' +
+				//	'<a href="#navPanel" class="toggle"></a>' +
 					'<span class="title">' + $('#logo').html() + '</span>' +
 				'</div>'
 			)
