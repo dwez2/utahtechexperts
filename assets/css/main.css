@@ -3887,12 +3887,12 @@ input, select, textarea {
 				top: 0;
 				width: 100%;
 				z-index: 10001;
-				background: #D9AF62;   /* I changed this from black to gold */ 
+				background: #D9AF62;   /* I changed this from black to gold I also changed the titleBar .title from white to black  */ 
 				box-shadow: 0 0.125em 0.125em 0 rgba(0, 0, 0, 0.125);
 			}
 
 				#titleBar .title {
-					color: #ffffff;
+					color: #212426;
 					display: block;
 					font-weight: 300;
 					height: 44px;
