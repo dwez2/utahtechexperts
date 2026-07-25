@@ -117,6 +117,76 @@
 				padding-bottom: 0;
 			}
 
+			.cyber-pulse {
+				position: relative;
+				overflow: hidden;
+				background:
+					radial-gradient(circle at 18% 25%, rgba(228, 76, 101, 0.14), transparent 34%),
+					radial-gradient(circle at 82% 70%, rgba(46, 196, 182, 0.12), transparent 34%),
+					#151621;
+			}
+
+			.cyber-pulse-canvas {
+				position: absolute;
+				inset: 0;
+				width: 100%;
+				height: 100%;
+				opacity: 0.72;
+				pointer-events: none;
+			}
+
+			.cyber-pulse::after {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(180deg, rgba(21, 22, 33, 0.28), rgba(21, 22, 33, 0.7));
+				pointer-events: none;
+			}
+
+			.cyber-pulse .container {
+				position: relative;
+				z-index: 1;
+			}
+
+			.cyber-resource {
+				height: 100%;
+				padding: 1.75rem 1.4rem;
+				border: 1px solid rgba(255, 255, 255, 0.14);
+				border-radius: 0.6rem;
+				background: rgba(20, 21, 31, 0.76);
+				box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.18);
+				backdrop-filter: blur(8px);
+				-webkit-backdrop-filter: blur(8px);
+				transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+			}
+
+			.cyber-resource:hover {
+				transform: translateY(-0.3rem);
+				border-color: rgba(46, 196, 182, 0.55);
+				box-shadow: 0 1rem 3rem rgba(46, 196, 182, 0.12);
+			}
+
+			.cyber-resource p {
+				min-height: 8rem;
+			}
+
+			.cyber-resource .icon.major {
+				color: #2ec4b6;
+			}
+
+			.cyber-pulse .button.primary {
+				background-color: #e44c65;
+			}
+
+			.cyber-pulse .eyebrow {
+				margin-bottom: 0.55rem;
+				color: #2ec4b6;
+				font-size: 0.75rem;
+				font-weight: 300;
+				letter-spacing: 0.18rem;
+				text-transform: uppercase;
+			}
+
 			@media screen and (max-width: 736px) {
 				.resource-grid,
 				.video-grid {
@@ -141,6 +211,20 @@
 					height: auto;
 					min-height: 0;
 					padding-bottom: 56.25%;
+				}
+
+				.cyber-resource p {
+					min-height: 0;
+				}
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				.cyber-resource {
+					transition: none;
+				}
+
+				.cyber-resource:hover {
+					transform: none;
 				}
 			}
 		</style>
@@ -415,134 +499,59 @@
 					</div>
 				</section>
 
-			<!-- Five -->
-			 <!-- Stay Current in Cybersecurity -->
-<section id="five" class="wrapper style2 special fade">
-	<div class="container">
-		<header class="major">
-			<h2>Stay Current in Cybersecurity</h2>
-			<p>
-				Cybersecurity changes every day. New vulnerabilities, attacks,
-				technologies, and defensive strategies are constantly emerging.
-				These are some helpful resources for staying informed.
-			</p>
-		</header>
+			<!-- Stay Current in Cybersecurity -->
+				<section id="five" class="wrapper special fade-up cyber-pulse">
+					<canvas id="cyber-pulse-canvas" class="cyber-pulse-canvas" aria-hidden="true"></canvas>
+					<div class="container">
+						<header class="major">
+							<p class="eyebrow">Trusted sources · Current awareness</p>
+							<h2>Stay Current in Cybersecurity</h2>
+							<p>Threats evolve. Knowledge should too. Use these trusted resources to follow emerging vulnerabilities, active attacks, data breaches, defensive guidance, and changes across the cybersecurity industry.</p>
+						</header>
 
-		<div class="box alt">
-			<div class="row gtr-uniform">
-
-				<!-- Dark Reading -->
-				<section class="col-4 col-12-medium">
-					<span class="icon solid alt major fa-newspaper"></span>
-					<h3>Dark Reading</h3>
-					<p>
-						Cybersecurity news, threat analysis, data breach coverage,
-						AI security information, webinars, and industry research.
-					</p>
-					<ul class="actions special">
-						<li>
-							<a
-								href="https://www.darkreading.com/"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="button"
-							>
-								Visit Dark Reading
-							</a>
-						</li>
-					</ul>
-				</section>
-
-				<!-- CISA -->
-				<section class="col-4 col-12-medium">
-					<span class="icon solid alt major fa-shield-alt"></span>
-					<h3>CISA Advisories</h3>
-					<p>
-						Official alerts about active cyber threats, known
-						vulnerabilities, security incidents, and recommended actions.
-					</p>
-					<ul class="actions special">
-						<li>
-							<a
-								href="https://www.cisa.gov/news-events/cybersecurity-advisories"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="button"
-							>
-								View CISA Alerts
-							</a>
-						</li>
-					</ul>
-				</section>
-
-				<!-- KrebsOnSecurity -->
-				<section class="col-4 col-12-medium">
-					<span class="icon solid alt major fa-search"></span>
-					<h3>KrebsOnSecurity</h3>
-					<p>
-						In-depth reporting and investigations covering cybercrime,
-						data breaches, online fraud, and emerging security threats.
-					</p>
-					<ul class="actions special">
-						<li>
-							<a
-								href="https://krebsonsecurity.com/"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="button"
-							>
-								Visit KrebsOnSecurity
-							</a>
-						</li>
-					</ul>
-				</section>
-
-			</div>
-		</div>
-
-		<footer class="major">
-			<p>
-				Want cybersecurity updates sent directly to you?
-			</p>
-			<ul class="actions special">
-				<li>
-					<a
-						href="https://dr-resources.darkreading.com/free/w_defa3135/prgm.cgi?a=1"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="button primary"
-					>
-						Subscribe to Dark Reading
-					</a>
-				</li>
-			</ul>
-		</footer>
-	</div>
-</section>
-									
-								<!-- Instagram content -->
-								
-								
-								<div class="instagram-feed">
-									<blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/utahtechexperts/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#ffffff8c; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
-										<div style="padding:16px;">
-											<a href="https://www.instagram.com/utahtechexperts/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#7c5353; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank">
-												<!-- Instagram content -->
-											</a>
-										</div>
-									</blockquote>
-									<script async src="//www.instagram.com/embed.js"></script>
-								</div>
-								
-								<!-- <h3>Email</h3>
-								<p><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#50;&#100;&#101;&#122;&#64;&#100;&#117;&#99;&#107;&#46;&#99;&#111;&#109;">email me</a></p>
-							  </section> This is to hide emails--> 
-								
-									
+						<div class="box alt">
+							<div class="row gtr-uniform">
+								<section class="col-4 col-12-medium">
+									<div class="cyber-resource">
+										<span class="icon solid alt major fa-newspaper"></span>
+										<h3>Dark Reading</h3>
+										<p>Cybersecurity news, threat analysis, breach coverage, AI security information, webinars, and industry research.</p>
+										<ul class="actions special">
+											<li><a href="https://www.darkreading.com/" target="_blank" rel="noopener noreferrer" class="button">Visit Dark Reading</a></li>
+										</ul>
+									</div>
 								</section>
-								
+
+								<section class="col-4 col-12-medium">
+									<div class="cyber-resource">
+										<span class="icon solid alt major fa-shield-alt"></span>
+										<h3>CISA Advisories</h3>
+										<p>Official alerts about active cyber threats, known vulnerabilities, security incidents, and recommended defensive actions.</p>
+										<ul class="actions special">
+											<li><a href="https://www.cisa.gov/news-events/cybersecurity-advisories" target="_blank" rel="noopener noreferrer" class="button">View CISA Alerts</a></li>
+										</ul>
+									</div>
+								</section>
+
+								<section class="col-4 col-12-medium">
+									<div class="cyber-resource">
+										<span class="icon solid alt major fa-search"></span>
+										<h3>KrebsOnSecurity</h3>
+										<p>In-depth reporting and investigations covering cybercrime, data breaches, online fraud, and emerging security threats.</p>
+										<ul class="actions special">
+											<li><a href="https://krebsonsecurity.com/" target="_blank" rel="noopener noreferrer" class="button">Visit KrebsOnSecurity</a></li>
+										</ul>
+									</div>
+								</section>
 							</div>
-						</form>
+						</div>
+
+						<footer class="major">
+							<p>Prefer updates delivered directly to you?</p>
+							<ul class="actions special">
+								<li><a href="https://dr-resources.darkreading.com/free/w_defa3135/prgm.cgi?a=1" target="_blank" rel="noopener noreferrer" class="button primary">Subscribe to Dark Reading</a></li>
+							</ul>
+						</footer>
 					</div>
 				</section>
 
@@ -577,6 +586,102 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script>
+				(function () {
+					const section = document.getElementById("five");
+					const canvas = document.getElementById("cyber-pulse-canvas");
+
+					if (!section || !canvas || !canvas.getContext) return;
+
+					const context = canvas.getContext("2d");
+					const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+					let width = 0;
+					let height = 0;
+					let points = [];
+					let animationFrame;
+					let isVisible = true;
+
+					function resizeCanvas() {
+						const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+						width = section.clientWidth;
+						height = section.clientHeight;
+						canvas.width = Math.floor(width * pixelRatio);
+						canvas.height = Math.floor(height * pixelRatio);
+						canvas.style.width = width + "px";
+						canvas.style.height = height + "px";
+						context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+
+						const pointCount = Math.min(58, Math.max(24, Math.floor(width / 24)));
+						points = Array.from({ length: pointCount }, function () {
+							return {
+								x: Math.random() * width,
+								y: Math.random() * height,
+								vx: (Math.random() - 0.5) * 0.24,
+								vy: (Math.random() - 0.5) * 0.24,
+								radius: Math.random() * 1.4 + 0.6
+							};
+						});
+					}
+
+					function draw() {
+						context.clearRect(0, 0, width, height);
+
+						for (let i = 0; i < points.length; i += 1) {
+							const point = points[i];
+
+							if (!reduceMotion) {
+								point.x += point.vx;
+								point.y += point.vy;
+
+								if (point.x < 0 || point.x > width) point.vx *= -1;
+								if (point.y < 0 || point.y > height) point.vy *= -1;
+							}
+
+							context.beginPath();
+							context.arc(point.x, point.y, point.radius, 0, Math.PI * 2);
+							context.fillStyle = i % 4 === 0 ? "rgba(228, 76, 101, 0.72)" : "rgba(46, 196, 182, 0.68)";
+							context.fill();
+
+							for (let j = i + 1; j < points.length; j += 1) {
+								const other = points[j];
+								const dx = point.x - other.x;
+								const dy = point.y - other.y;
+								const distance = Math.sqrt(dx * dx + dy * dy);
+
+								if (distance < 125) {
+									context.beginPath();
+									context.moveTo(point.x, point.y);
+									context.lineTo(other.x, other.y);
+									context.strokeStyle = "rgba(90, 212, 202, " + ((1 - distance / 125) * 0.2) + ")";
+									context.lineWidth = 0.7;
+									context.stroke();
+								}
+							}
+						}
+
+						if (!reduceMotion && isVisible) animationFrame = window.requestAnimationFrame(draw);
+					}
+
+					const observer = "IntersectionObserver" in window
+						? new IntersectionObserver(function (entries) {
+							isVisible = entries[0].isIntersecting;
+							if (isVisible && !reduceMotion) {
+								window.cancelAnimationFrame(animationFrame);
+								draw();
+							}
+						}, { threshold: 0.05 })
+						: null;
+
+					resizeCanvas();
+					draw();
+					if (observer) observer.observe(section);
+					window.addEventListener("resize", function () {
+						window.cancelAnimationFrame(animationFrame);
+						resizeCanvas();
+						draw();
+					});
+				}());
+			</script>
 
 	</body>
 </html>
