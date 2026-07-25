@@ -10,8 +10,140 @@
 		<link rel="icon" href="images/logo.png" type="images/">
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="A technology portfolio featuring IT support, website development, cybersecurity knowledge, and helpful security resources." />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+			.resource-intro {
+				max-width: 50rem;
+				margin: 0 auto 2.5rem;
+			}
+
+			.resource-grid {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 1.25rem;
+				margin: 0 auto;
+				max-width: 70rem;
+				text-align: left;
+			}
+
+			.resource-card {
+				display: flex;
+				flex-direction: column;
+				min-height: 100%;
+				padding: 1.75rem;
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				border-radius: 0.5rem;
+				background: rgba(255, 255, 255, 0.06);
+			}
+
+			.resource-card h3 {
+				margin-bottom: 0.65rem;
+			}
+
+			.resource-card p {
+				flex-grow: 1;
+				margin-bottom: 1.35rem;
+			}
+
+			.resource-card .button {
+				align-self: flex-start;
+				margin-bottom: 0;
+			}
+
+			.offline-note {
+				margin: 2.25rem auto 0;
+				padding: 1rem 1.25rem;
+				max-width: 55rem;
+				border-left: 4px solid #e44c65;
+				background: rgba(255, 255, 255, 0.08);
+				text-align: left;
+			}
+
+			.video-grid {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 1.5rem;
+				margin: 0 auto;
+				max-width: 75rem;
+				text-align: left;
+			}
+
+			.video-card {
+				overflow: hidden;
+				border: 1px solid rgba(255, 255, 255, 0.18);
+				border-radius: 0.5rem;
+				background: rgba(255, 255, 255, 0.06);
+			}
+
+			.video-frame {
+				position: relative;
+				width: 100%;
+				padding-bottom: 56.25%;
+				background: #11121a;
+			}
+
+			.video-frame iframe {
+				position: absolute;
+				inset: 0;
+				width: 100%;
+				height: 100%;
+				border: 0;
+			}
+
+			.video-details {
+				padding: 1.4rem 1.5rem 1.5rem;
+			}
+
+			.video-details h3 {
+				margin-bottom: 0.65rem;
+			}
+
+			.video-details p {
+				margin-bottom: 0;
+			}
+
+			.video-card.featured {
+				grid-column: 1 / -1;
+				display: grid;
+				grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 0.65fr);
+				align-items: center;
+			}
+
+			.video-card.featured .video-frame {
+				height: 100%;
+				min-height: 22rem;
+				padding-bottom: 0;
+			}
+
+			@media screen and (max-width: 736px) {
+				.resource-grid,
+				.video-grid {
+					grid-template-columns: 1fr;
+				}
+
+				.resource-card {
+					padding: 1.35rem;
+				}
+
+				.resource-card .button {
+					width: 100%;
+					text-align: center;
+				}
+
+				.video-card.featured {
+					grid-column: auto;
+					display: block;
+				}
+
+				.video-card.featured .video-frame {
+					height: auto;
+					min-height: 0;
+					padding-bottom: 56.25%;
+				}
+			}
+		</style>
 	</head>
 	<body class="is-preload landing">
 		<div id="page-wrapper">
@@ -52,9 +184,9 @@
 				<section id="banner">
 					<div class="content">
 						<header>
-							<h2>The Future is Here</h2>
-							<p>Utah Tech Experts: Your Ultimate Solution for All Technology Needs.<br />
-							Experience unwavering support with our dedicated team empowering your business.</p>
+							<h2>Technology Solutions Built for the Real World</h2>
+							<p>A showcase of IT support, website development, cybersecurity knowledge, and practical technology solutions.<br />
+							Need help with a website or another technology project? Let’s talk about what you need.</p>
 						</header>
 						<span class="image square"><img src="images/logo.png" alt="Utah Tech Experts Logo" /></span>
 					</div>
@@ -69,15 +201,15 @@
 							<div class="row">
 								<div class="col-4 col-12-medium">
 									<header>
-										<h2>Comprehensive IT Solutions</h2>
-										<p>At Utah Tech Experts, we provide exceptional IT support, hardware maintenance, and security services tailored to your business. </p>
+										<h2>Practical IT Solutions</h2>
+										<p>Utah Tech Experts demonstrates how technology, security, and thoughtful design can support real business needs.</p>
 									</header>
 								</div>
 								<div class="col-4 col-12-medium">
-									<p>Our expertise includes technologies like React, Angular, AngularJS, Golang, SQL, MongoDB, AWS, Fortigate, Cisco, and Jira. In today’s digital world, a strong online presence is crucial. We specialize in website creation and management,  </p>
+									<p>Experience includes technologies such as React, Angular, AngularJS, Golang, SQL, MongoDB, AWS, Fortinet, Cisco, and Jira. In today’s digital world, a strong online presence is important. This site also showcases website creation and management.</p>
 								</div>
 								<div class="col-4 col-12-medium">
-									<p>ensuring your site is visually appealing and optimized for performance and security. Unlike other MSPs, we add value by supporting your business with marketing and social media management. Our expertise helps you effectively engage your audience and expand your reach.</p>
+									<p>The goal is to create websites that are visually appealing, useful, and built with performance and security in mind. Support may also include technology guidance, marketing, and social media help based on the needs of the project.</p>
 								</div>
 							</div>
 							
@@ -93,9 +225,9 @@
 					<div class="content">
 						<header>
 							<h2>Website Development and Management</h2>
-							<p>In today’s digital world, a strong online presence is crucial.</p>
+							<p>This website is one example of what can be created for a business or organization.</p>
 						</header>
-						<p>We specialize in website creation and management, ensuring your site is not only visually appealing but also optimized for performance and security. Let us help you make a lasting impression and attract more customers.</p>
+						<p>If you need help creating, improving, or managing a website, I can help build something that is visually appealing, easy to use, and designed with performance and security in mind.</p>
 						
 						<!--<ul class="actions">
 							<li><a href="#" class="button">Learn More</a></li>
@@ -114,9 +246,9 @@
 					<div class="content">
 						<header>
 							<h2>Unique Marketing and Social Media Support</h2>
-							<p>Unlike other MSPs, we offer added value by supporting your business with marketing and social media management.</p>
+							<p>Technology works best when it supports the full needs of the organization.</p>
 						</header>
-						<p>Our expertise helps you engage with your audience and expand your reach. We’re committed to fighting for your business and enhancing your brand, making us your all-in-one solution for IT and marketing needs.</p>
+						<p>Support can extend beyond the technical work to include marketing, social media, and clear communication. The purpose is to help people use technology effectively and present their organization professionally.</p>
 						</header>
 						<!-- <p>Feugiat accumsan lorem eu ac lorem amet ac aeger mi sed nascetur cep aliquet augue va consequat adipiscing lorem.</p>
 						
@@ -163,7 +295,7 @@
 								<section class="col-4 col-6-medium col-12-xsmall">
 									<span class="icon solid alt major fa-money-bill-wave"></span>
 									<h3>Cost-Effective Marketing</h3>
-									<p>Engage your audience and save money with targeted campaigns and strategic social media management, putting more money in your pocket..</p>
+									<p>Engage your audience and save money with targeted campaigns and strategic social media management, putting more money in your pocket.</p>
 								</section>
 								<section class="col-4 col-6-medium col-12-xsmall">
 									<span class="icon solid alt major fa-lock"></span>
@@ -178,6 +310,112 @@
 								<li><a href="#" class="button">Top</a></li>
 							</ul>
 						</footer>
+					</div>
+				</section>
+
+			<!-- Downloadable Cybersecurity Resources -->
+				<section id="resources" class="wrapper style1 special fade-up">
+					<div class="container">
+						<header class="major">
+							<h2>Helpful Cybersecurity Information &amp; Reports</h2>
+							<p class="resource-intro">Explore reports covering data breaches, cybersecurity careers, security controls, and current threats. These resources are useful for students, technology professionals, business leaders, and anyone interested in better understanding cybersecurity.</p>
+						</header>
+
+						<div class="resource-grid">
+							<article class="resource-card">
+								<h3>2026 Data Breach Investigations Report</h3>
+								<p>Review current breach patterns, threat actors, attack methods, and lessons organizations can use to strengthen security.</p>
+								<!-- Replace YOUR-PDF-PATH-HERE with the GitHub folder path for this PDF. -->
+								<a href="YOUR-PDF-PATH-HERE/2026-dbir-data-breach-investigations-report.pdf" class="button primary icon solid fa-download" download>Download PDF</a>
+							</article>
+
+							<article class="resource-card">
+								<h3>2026 Breach Impact Study</h3>
+								<p>Explore how data breaches affect organizations and connect real-world incidents to the security concepts discussed in class.</p>
+								<!-- Replace YOUR-PDF-PATH-HERE with the GitHub folder path for this PDF. -->
+								<a href="YOUR-PDF-PATH-HERE/2026-breach-impact-study-dbir.pdf" class="button primary icon solid fa-download" download>Download PDF</a>
+							</article>
+
+							<article class="resource-card">
+								<h3>SANS: The Evolving Cyber Workforce</h3>
+								<p>Learn how cybersecurity roles, skills, hiring needs, and workforce expectations are changing.</p>
+								<!-- Replace YOUR-PDF-PATH-HERE with the GitHub folder path for this PDF. -->
+								<a href="YOUR-PDF-PATH-HERE/SANS_WFS-2026_Digital_v3.pdf" class="button primary icon solid fa-download" download>Download PDF</a>
+							</article>
+
+							<article class="resource-card">
+								<h3>CIS Critical Security Controls v8.1</h3>
+								<p>Use the CIS Controls as a practical guide for prioritizing safeguards that reduce common cybersecurity risks.</p>
+								<!-- Replace YOUR-PDF-PATH-HERE with the GitHub folder path for this PDF. -->
+								<a href="YOUR-PDF-PATH-HERE/CIS_Controls_Guide_v8.1.2_0325_v2.pdf" class="button primary icon solid fa-download" download>Download PDF</a>
+							</article>
+						</div>
+
+						<div class="offline-note">
+							<strong>Helpful tip:</strong> Download any reports you want to keep for later. Saving a local copy makes the information available even when you do not have internet access.
+						</div>
+					</div>
+				</section>
+
+			<!-- AI and Emerging Technology Videos -->
+				<section id="ai-learning" class="wrapper style2 special fade-up">
+					<div class="container">
+						<header class="major">
+							<h2>AI &amp; Emerging Technology</h2>
+							<p class="resource-intro">A curated collection of videos exploring artificial intelligence, AI security, agentic systems, and the opportunities and risks shaping the future of technology.</p>
+						</header>
+
+						<div class="video-grid">
+							<article class="video-card">
+								<div class="video-frame">
+									<iframe src="https://www.youtube-nocookie.com/embed/pR7FfNWjEe8" title="How to Secure AI Business Models" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+								</div>
+								<div class="video-details">
+									<h3>How to Secure AI Business Models</h3>
+									<p>Learn how security should be considered when organizations build and use AI-powered products and business models.</p>
+								</div>
+							</article>
+
+							<article class="video-card">
+								<div class="video-frame">
+									<iframe src="https://www.youtube-nocookie.com/embed/KrRD7r7y7NY" title="Andrew Ng Explores the Rise of AI Agents and Agentic Reasoning" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+								</div>
+								<div class="video-details">
+									<h3>The Rise of AI Agents &amp; Agentic Reasoning</h3>
+									<p>Andrew Ng explains the development of AI agents and why agentic workflows represent an important change in how AI systems operate.</p>
+								</div>
+							</article>
+
+							<article class="video-card">
+								<div class="video-frame">
+									<iframe src="https://www.youtube-nocookie.com/embed/hcOmt9pHvao" title="Deep Backdoors in Deep Reinforcement Learning Agents" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+								</div>
+								<div class="video-details">
+									<h3>Deep Backdoors in Reinforcement Learning Agents</h3>
+									<p>Explore how hidden backdoors can affect reinforcement-learning agents and what this means for trustworthy and secure AI.</p>
+								</div>
+							</article>
+
+							<article class="video-card">
+								<div class="video-frame">
+									<iframe src="https://www.youtube-nocookie.com/embed/SP76PvgMzVU" title="The Next 10 Years of Artificial Intelligence" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+								</div>
+								<div class="video-details">
+									<h3>The Next 10 Years of Artificial Intelligence</h3>
+									<p>A discussion about how advances in AI may change work, technology, organizations, and society during the next decade.</p>
+								</div>
+							</article>
+
+							<article class="video-card featured">
+								<div class="video-frame">
+									<iframe src="https://embed.ted.com/talks/yejin_choi_why_ai_is_incredibly_smart_and_shockingly_stupid" title="Yejin Choi: Why AI Is Incredibly Smart and Shockingly Stupid" loading="lazy" allow="autoplay; fullscreen" allowfullscreen></iframe>
+								</div>
+								<div class="video-details">
+									<h3>Why AI Is Incredibly Smart and Shockingly Stupid</h3>
+									<p>Computer scientist Yejin Choi examines the impressive abilities of modern AI while explaining its limitations in commonsense reasoning, human values, and understanding.</p>
+								</div>
+							</article>
+						</div>
 					</div>
 				</section>
 
