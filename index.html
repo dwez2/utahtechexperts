@@ -131,7 +131,7 @@
 				inset: 0;
 				width: 100%;
 				height: 100%;
-				opacity: 0.72;
+				opacity: 0.9;
 				pointer-events: none;
 			}
 
@@ -139,7 +139,7 @@
 				content: "";
 				position: absolute;
 				inset: 0;
-				background: linear-gradient(180deg, rgba(21, 22, 33, 0.28), rgba(21, 22, 33, 0.7));
+				background: linear-gradient(180deg, rgba(5, 8, 9, 0.1), rgba(10, 13, 16, 0.48));
 				pointer-events: none;
 			}
 
@@ -595,11 +595,15 @@
 
 					const context = canvas.getContext("2d");
 					const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+					const characters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&@*+-<>[]{}";
+					const fontSize = 17;
 					let width = 0;
 					let height = 0;
-					let points = [];
+					let columns = 0;
+					let drops = [];
 					let animationFrame;
 					let isVisible = true;
+					let lastFrame = 0;
 
 					function resizeCanvas() {
 						const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
@@ -611,74 +615,84 @@
 						canvas.style.height = height + "px";
 						context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
 
-						const pointCount = Math.min(58, Math.max(24, Math.floor(width / 24)));
-						points = Array.from({ length: pointCount }, function () {
-							return {
-								x: Math.random() * width,
-								y: Math.random() * height,
-								vx: (Math.random() - 0.5) * 0.24,
-								vy: (Math.random() - 0.5) * 0.24,
-								radius: Math.random() * 1.4 + 0.6
-							};
+						columns = Math.ceil(width / fontSize);
+						drops = Array.from({ length: columns }, function () {
+							return Math.random() * -(height / fontSize);
 						});
+
+						context.fillStyle = "#050809";
+						context.fillRect(0, 0, width, height);
 					}
 
-					function draw() {
-						context.clearRect(0, 0, width, height);
+					function drawMatrix() {
+						context.fillStyle = "rgba(5, 8, 9, 0.13)";
+						context.fillRect(0, 0, width, height);
+						context.font = "600 " + fontSize + "px monospace";
+						context.textAlign = "center";
 
-						for (let i = 0; i < points.length; i += 1) {
-							const point = points[i];
+						for (let column = 0; column < columns; column += 1) {
+							const character = characters.charAt(Math.floor(Math.random() * characters.length));
+							const x = column * fontSize + fontSize / 2;
+							const y = drops[column] * fontSize;
 
-							if (!reduceMotion) {
-								point.x += point.vx;
-								point.y += point.vy;
+							context.shadowBlur = column % 9 === 0 ? 9 : 0;
+							context.shadowColor = "#20ff68";
+							context.fillStyle = column % 11 === 0 ? "#8dffae" : "#19e65f";
+							context.globalAlpha = 0.38 + Math.random() * 0.5;
+							context.fillText(character, x, y);
 
-								if (point.x < 0 || point.x > width) point.vx *= -1;
-								if (point.y < 0 || point.y > height) point.vy *= -1;
-							}
-
-							context.beginPath();
-							context.arc(point.x, point.y, point.radius, 0, Math.PI * 2);
-							context.fillStyle = i % 4 === 0 ? "rgba(228, 76, 101, 0.72)" : "rgba(46, 196, 182, 0.68)";
-							context.fill();
-
-							for (let j = i + 1; j < points.length; j += 1) {
-								const other = points[j];
-								const dx = point.x - other.x;
-								const dy = point.y - other.y;
-								const distance = Math.sqrt(dx * dx + dy * dy);
-
-								if (distance < 125) {
-									context.beginPath();
-									context.moveTo(point.x, point.y);
-									context.lineTo(other.x, other.y);
-									context.strokeStyle = "rgba(90, 212, 202, " + ((1 - distance / 125) * 0.2) + ")";
-									context.lineWidth = 0.7;
-									context.stroke();
-								}
+							if (y > height && Math.random() > 0.965) {
+								drops[column] = Math.random() * -18;
+							} else {
+								drops[column] += column % 7 === 0 ? 0.72 : 0.5;
 							}
 						}
 
-						if (!reduceMotion && isVisible) animationFrame = window.requestAnimationFrame(draw);
+						context.globalAlpha = 1;
+						context.shadowBlur = 0;
+					}
+
+					function animate(timestamp) {
+						if (!isVisible || reduceMotion) return;
+
+						if (timestamp - lastFrame > 42) {
+							drawMatrix();
+							lastFrame = timestamp;
+						}
+
+						animationFrame = window.requestAnimationFrame(animate);
+					}
+
+					function startAnimation() {
+						window.cancelAnimationFrame(animationFrame);
+
+						if (reduceMotion) {
+							for (let frame = 0; frame < 34; frame += 1) drawMatrix();
+							return;
+						}
+
+						lastFrame = 0;
+						animationFrame = window.requestAnimationFrame(animate);
 					}
 
 					const observer = "IntersectionObserver" in window
 						? new IntersectionObserver(function (entries) {
 							isVisible = entries[0].isIntersecting;
-							if (isVisible && !reduceMotion) {
-								window.cancelAnimationFrame(animationFrame);
-								draw();
-							}
+							if (isVisible) startAnimation();
+							else window.cancelAnimationFrame(animationFrame);
 						}, { threshold: 0.05 })
 						: null;
 
 					resizeCanvas();
-					draw();
-					if (observer) observer.observe(section);
+					startAnimation();
+					if (observer) {
+						isVisible = false;
+						observer.observe(section);
+					}
 					window.addEventListener("resize", function () {
 						window.cancelAnimationFrame(animationFrame);
 						resizeCanvas();
-						draw();
+						if (isVisible || !observer) startAnimation();
 					});
 				}());
 			</script>
