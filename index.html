@@ -406,7 +406,7 @@
 						<span class="system-status-dot" aria-hidden="true"></span>
 						<span class="system-status-copy">
 							<span class="system-status-label">SYSTEM ONLINE</span>
-							<time id="system-local-clock" class="system-local-clock" aria-live="off">LOCAL TIME LOADING</time>
+							<time class="system-local-clock" aria-live="off">LOCAL TIME LOADING</time>
 						</span>
 					</div>
 
@@ -764,9 +764,7 @@
 			<script src="assets/js/main.js"></script>
 			<script>
 				(function () {
-					const clock = document.getElementById("system-local-clock");
-
-					if (!clock || !window.Intl) return;
+					if (!window.Intl) return;
 
 					const formatter = new Intl.DateTimeFormat(undefined, {
 						month: "short",
@@ -778,15 +776,21 @@
 						timeZoneName: "short"
 					});
 
-					function updateLocalClock() {
+					function updateLocalClocks() {
 						const now = new Date();
-						clock.textContent = formatter.format(now).toUpperCase();
-						clock.dateTime = now.toISOString();
-						clock.title = "Displayed in your device timezone: " + Intl.DateTimeFormat().resolvedOptions().timeZone;
+						const displayTime = formatter.format(now).toUpperCase();
+						const deviceTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+						const clocks = document.querySelectorAll(".system-local-clock");
+
+						clocks.forEach(function (clock) {
+							clock.textContent = displayTime;
+							clock.dateTime = now.toISOString();
+							clock.title = "Displayed in your device timezone: " + deviceTimezone;
+						});
 					}
 
-					updateLocalClock();
-					window.setInterval(updateLocalClock, 1000);
+					updateLocalClocks();
+					window.setInterval(updateLocalClocks, 1000);
 				}());
 			</script>
 			<script>
