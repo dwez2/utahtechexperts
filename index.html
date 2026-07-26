@@ -11,7 +11,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<meta name="description" content="A technology portfolio featuring IT support, website development, cybersecurity knowledge, and helpful security resources." />
-		<link rel="stylesheet" href="assets/css/main.css?v=guardian-3" />
+		<link rel="stylesheet" href="assets/css/main.css?v=guardian-4" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		<style>
 			.resource-intro {
@@ -449,15 +449,29 @@
 							Need help with a website or another technology project? Let’s talk about what you need.</p>
 						</header>
 						<div class="cyber-guardian" id="cyber-guardian" aria-label="Interactive Utah Tech Experts cyber guardian">
-							<div class="guardian-field" aria-hidden="true"></div>
+							<div class="guardian-field" aria-hidden="true">
+								<canvas class="guardian-matrix" id="guardian-matrix"></canvas>
+							</div>
 							<div class="guardian-shadow" aria-hidden="true"></div>
 							<div class="guardian-figure guardian-render" aria-hidden="true">
 								<img class="guardian-body-render" src="images/cyber-guardian-body.png" alt="" />
 								<div class="guardian-head">
 									<img src="images/cyber-guardian-head.png" alt="" />
+									<span class="guardian-eye-shutter guardian-eye-shutter-left"></span>
+									<span class="guardian-eye-shutter guardian-eye-shutter-right"></span>
 								</div>
 								<div class="guardian-logo-badge">
 									<img src="images/logo.png" alt="" />
+								</div>
+							</div>
+							<div class="guardian-console">
+								<span class="guardian-console-status">GUARDIAN ONLINE</span>
+								<strong>Welcome, visitor.</strong>
+								<span>What would you like to explore?</span>
+								<div class="guardian-console-actions">
+									<a href="#resources" class="scrolly">Security Library</a>
+									<a href="#ai-learning" class="scrolly">AI Learning</a>
+									<a href="mailto:utahtechexperts@gmail.com?subject=Technology%20Project%20or%20Collaboration">Contact</a>
 								</div>
 							</div>
 							<button class="guardian-motion-toggle" type="button" aria-label="Pause Cyber Guardian animation" aria-pressed="false">
@@ -860,6 +874,80 @@
 					setPaused(paused);
 					frame = window.requestAnimationFrame(render);
 
+					window.addEventListener("pagehide", function () {
+						window.cancelAnimationFrame(frame);
+					});
+				}());
+			</script>
+			<script>
+				(function () {
+					var guardian = document.getElementById("cyber-guardian");
+					var canvas = document.getElementById("guardian-matrix");
+
+					if (!guardian || !canvas || !canvas.getContext) return;
+
+					var context = canvas.getContext("2d");
+					var characters = "01<>/{}[]CYBERAI";
+					var fontSize = 11;
+					var width = 0;
+					var height = 0;
+					var columns = 0;
+					var drops = [];
+					var lastFrame = 0;
+					var frame;
+					var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+					function resize() {
+						var ratio = Math.min(window.devicePixelRatio || 1, 2);
+						width = canvas.clientWidth;
+						height = canvas.clientHeight;
+						canvas.width = Math.floor(width * ratio);
+						canvas.height = Math.floor(height * ratio);
+						context.setTransform(ratio, 0, 0, ratio, 0, 0);
+						columns = Math.ceil(width / fontSize);
+						drops = Array.from({ length: columns }, function () {
+							return Math.random() * -(height / fontSize);
+						});
+						context.clearRect(0, 0, width, height);
+					}
+
+					function draw() {
+						context.fillStyle = "rgba(2, 10, 7, 0.18)";
+						context.fillRect(0, 0, width, height);
+						context.font = "700 " + fontSize + "px Courier New, monospace";
+						context.textAlign = "center";
+
+						drops.forEach(function (drop, column) {
+							var character = characters.charAt(Math.floor(Math.random() * characters.length));
+							var x = column * fontSize + fontSize / 2;
+							var y = drop * fontSize;
+							context.fillStyle = column % 7 === 0 ? "#8dffae" : "#20df64";
+							context.globalAlpha = 0.24 + Math.random() * 0.42;
+							context.fillText(character, x, y);
+							drops[column] = y > height && Math.random() > 0.96
+								? Math.random() * -12
+								: drop + 0.42;
+						});
+
+						context.globalAlpha = 1;
+					}
+
+					function animate(timestamp) {
+						if (!guardian.classList.contains("guardian-paused") && timestamp - lastFrame > 55) {
+							draw();
+							lastFrame = timestamp;
+						}
+						frame = window.requestAnimationFrame(animate);
+					}
+
+					resize();
+					if (reduceMotion) {
+						for (var index = 0; index < 22; index += 1) draw();
+					} else {
+						frame = window.requestAnimationFrame(animate);
+					}
+
+					window.addEventListener("resize", resize);
 					window.addEventListener("pagehide", function () {
 						window.cancelAnimationFrame(frame);
 					});
