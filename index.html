@@ -11,7 +11,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<meta name="description" content="A technology portfolio featuring IT support, website development, cybersecurity knowledge, and helpful security resources." />
-		<link rel="stylesheet" href="assets/css/main.css?v=guardian-4" />
+		<link rel="stylesheet" href="assets/css/main.css?v=guardian-5" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		<style>
 			.resource-intro {
@@ -450,7 +450,7 @@
 						</header>
 						<div class="cyber-guardian" id="cyber-guardian" aria-label="Interactive Utah Tech Experts cyber guardian">
 							<div class="guardian-field" aria-hidden="true">
-								<canvas class="guardian-matrix" id="guardian-matrix"></canvas>
+								<canvas class="guardian-hyperspace" id="guardian-hyperspace"></canvas>
 							</div>
 							<div class="guardian-shadow" aria-hidden="true"></div>
 							<div class="guardian-figure guardian-render" aria-hidden="true">
@@ -465,7 +465,7 @@
 								</div>
 							</div>
 							<div class="guardian-console">
-								<span class="guardian-console-status">GUARDIAN ONLINE</span>
+								<span class="guardian-console-status">UTE DIGITAL GUIDE</span>
 								<strong>Welcome, visitor.</strong>
 								<span>What would you like to explore?</span>
 								<div class="guardian-console-actions">
@@ -882,20 +882,28 @@
 			<script>
 				(function () {
 					var guardian = document.getElementById("cyber-guardian");
-					var canvas = document.getElementById("guardian-matrix");
+					var canvas = document.getElementById("guardian-hyperspace");
 
 					if (!guardian || !canvas || !canvas.getContext) return;
 
 					var context = canvas.getContext("2d");
-					var characters = "01<>/{}[]CYBERAI";
-					var fontSize = 11;
 					var width = 0;
 					var height = 0;
-					var columns = 0;
-					var drops = [];
+					var particles = [];
 					var lastFrame = 0;
 					var frame;
 					var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+					function createParticle(startNearCenter) {
+						var maxRadius = Math.max(width, height) * 0.56;
+						return {
+							angle: Math.random() * Math.PI * 2,
+							radius: startNearCenter ? Math.random() * maxRadius : Math.random() * 18,
+							speed: 0.65 + Math.random() * 1.55,
+							length: 4 + Math.random() * 13,
+							brightness: 0.25 + Math.random() * 0.65
+						};
+					}
 
 					function resize() {
 						var ratio = Math.min(window.devicePixelRatio || 1, 2);
@@ -904,36 +912,51 @@
 						canvas.width = Math.floor(width * ratio);
 						canvas.height = Math.floor(height * ratio);
 						context.setTransform(ratio, 0, 0, ratio, 0, 0);
-						columns = Math.ceil(width / fontSize);
-						drops = Array.from({ length: columns }, function () {
-							return Math.random() * -(height / fontSize);
+						particles = Array.from({ length: 74 }, function () {
+							return createParticle(true);
 						});
 						context.clearRect(0, 0, width, height);
 					}
 
 					function draw() {
-						context.fillStyle = "rgba(2, 10, 7, 0.18)";
+						var centerX = width / 2;
+						var centerY = height / 2;
+						var maxRadius = Math.max(width, height) * 0.58;
+
+						context.fillStyle = "rgba(2, 7, 10, 0.2)";
 						context.fillRect(0, 0, width, height);
-						context.font = "700 " + fontSize + "px Courier New, monospace";
-						context.textAlign = "center";
 
-						drops.forEach(function (drop, column) {
-							var character = characters.charAt(Math.floor(Math.random() * characters.length));
-							var x = column * fontSize + fontSize / 2;
-							var y = drop * fontSize;
-							context.fillStyle = column % 7 === 0 ? "#8dffae" : "#20df64";
-							context.globalAlpha = 0.24 + Math.random() * 0.42;
-							context.fillText(character, x, y);
-							drops[column] = y > height && Math.random() > 0.96
-								? Math.random() * -12
-								: drop + 0.42;
+						particles.forEach(function (particle, index) {
+							var startRadius = Math.max(0, particle.radius - particle.length);
+							var startX = centerX + Math.cos(particle.angle) * startRadius;
+							var startY = centerY + Math.sin(particle.angle) * startRadius;
+							var endX = centerX + Math.cos(particle.angle) * particle.radius;
+							var endY = centerY + Math.sin(particle.angle) * particle.radius;
+							var gradient = context.createLinearGradient(startX, startY, endX, endY);
+
+							gradient.addColorStop(0, "rgba(46, 196, 182, 0)");
+							gradient.addColorStop(1, index % 7 === 0
+								? "rgba(150, 255, 218, " + particle.brightness + ")"
+								: "rgba(44, 255, 114, " + particle.brightness + ")");
+
+							context.strokeStyle = gradient;
+							context.lineWidth = index % 9 === 0 ? 1.7 : 0.85;
+							context.beginPath();
+							context.moveTo(startX, startY);
+							context.lineTo(endX, endY);
+							context.stroke();
+
+							particle.radius += particle.speed + particle.radius * 0.012;
+							particle.length = Math.min(28, particle.length + 0.06);
+
+							if (particle.radius > maxRadius) {
+								particles[index] = createParticle(false);
+							}
 						});
-
-						context.globalAlpha = 1;
 					}
 
 					function animate(timestamp) {
-						if (!guardian.classList.contains("guardian-paused") && timestamp - lastFrame > 55) {
+						if (!guardian.classList.contains("guardian-paused") && timestamp - lastFrame > 32) {
 							draw();
 							lastFrame = timestamp;
 						}
