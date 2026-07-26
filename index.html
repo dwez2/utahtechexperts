@@ -1174,7 +1174,8 @@
 					if (!window.Intl) return;
 
 					const formatter = new Intl.DateTimeFormat(undefined, {
-						month: "short",
+						weekday: "long",
+						month: "long",
 						day: "numeric",
 						year: "numeric",
 						hour: "numeric",
