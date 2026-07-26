@@ -137,10 +137,10 @@ blockquote, q {
 			top: 1.2em;
 			transform:
 				perspective(24em)
-				rotateY(calc(var(--guardian-look-x) * 18deg))
-				rotateX(calc(var(--guardian-look-y) * -12deg))
-				translateX(calc(var(--guardian-look-x) * 0.35em))
-				translateY(calc(var(--guardian-look-y) * 0.18em));
+				rotateY(calc(var(--guardian-look-x) * 36deg))
+				rotateX(calc(var(--guardian-look-y) * -25deg))
+				translateX(calc(var(--guardian-look-x) * 0.85em))
+				translateY(calc(var(--guardian-look-y) * 0.42em));
 			transition: box-shadow 0.3s ease;
 			width: 6.7em;
 			z-index: 5;
@@ -449,6 +449,89 @@ blockquote, q {
 			animation: none !important;
 			transition: none !important;
 		}
+	}
+
+/* Cyber Guardian high-resolution render */
+
+	.cyber-guardian .guardian-render {
+		height: 22em;
+		left: 1em;
+		top: 0;
+		width: 20em;
+	}
+
+	.cyber-guardian .guardian-body-render {
+		bottom: 0;
+		display: block;
+		filter: drop-shadow(0 1em 1.2em rgba(0, 0, 0, 0.6));
+		height: 20em;
+		left: 50%;
+		max-width: none;
+		position: absolute;
+		transform: translateX(-50%);
+		width: auto;
+	}
+
+	.cyber-guardian .guardian-render .guardian-head {
+		background: none;
+		border: 0;
+		border-radius: 0;
+		box-shadow: none;
+		height: auto;
+		left: 50%;
+		position: absolute;
+		top: -0.42em;
+		transform:
+			translateX(-50%)
+			perspective(18em)
+			rotateY(calc(var(--guardian-look-x) * 38deg))
+			rotateX(calc(var(--guardian-look-y) * -27deg))
+			translate(
+				calc(var(--guardian-look-x) * 0.46em),
+				calc(var(--guardian-look-y) * 0.26em)
+			);
+		transform-origin: 50% 72%;
+		width: 4.55em;
+		z-index: 6;
+	}
+
+		.cyber-guardian .guardian-render .guardian-head img {
+			display: block;
+			filter:
+				drop-shadow(0 0 0.35em rgba(46, 196, 182, 0.3))
+				drop-shadow(0 0 0.8em rgba(44, 255, 114, 0.12));
+			height: auto;
+			max-width: none;
+			width: 100%;
+		}
+
+	.cyber-guardian .guardian-logo-badge {
+		background: rgba(3, 9, 10, 0.9);
+		border: 1px solid rgba(44, 255, 114, 0.46);
+		border-radius: 50%;
+		box-shadow:
+			0 0 0.75em rgba(44, 255, 114, 0.26),
+			inset 0 0 0.65em rgba(44, 255, 114, 0.12);
+		height: 3.1em;
+		left: 50%;
+		padding: 0.18em;
+		position: absolute;
+		top: 6.3em;
+		transform: translateX(-50%);
+		width: 3.1em;
+		z-index: 7;
+	}
+
+		.cyber-guardian .guardian-logo-badge img {
+			border-radius: 50%;
+			display: block;
+			height: 100%;
+			object-fit: cover;
+			width: 100%;
+		}
+
+	.cyber-guardian.guardian-engaged .guardian-render .guardian-head {
+		filter: brightness(1.08);
 	}
 
 table {
