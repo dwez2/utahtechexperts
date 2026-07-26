@@ -32,15 +32,15 @@
 			#header .system-status {
 				display: flex;
 				align-items: center;
-				gap: 0.65rem;
+				gap: 0.78rem;
 				height: inherit;
 				font-family: "Courier New", Courier, monospace;
 				line-height: 1.15;
 			}
 
 			.system-status-dot {
-				width: 0.62rem;
-				height: 0.62rem;
+				width: 0.78rem;
+				height: 0.78rem;
 				flex: 0 0 auto;
 				border-radius: 50%;
 				background: #2cff72;
@@ -56,24 +56,53 @@
 
 			.system-status-label {
 				color: #70ff9d;
-				font-size: 0.64rem;
+				font-size: 0.78rem;
 				font-weight: 700;
-				letter-spacing: 0.12rem;
+				letter-spacing: 0.135rem;
 			}
 
 			.system-local-clock {
-				margin-top: 0.15rem;
+				margin-top: 0.2rem;
 				color: rgba(255, 255, 255, 0.68);
-				font-size: 0.58rem;
+				font-size: 0.68rem;
 				font-weight: 400;
-				letter-spacing: 0.035rem;
+				letter-spacing: 0.045rem;
 				white-space: nowrap;
 			}
 
-			#header #nav .header-contact {
-				color: #ffffff;
+			#header #nav .header-contact.button.primary {
+				border: 1px solid rgba(44, 255, 114, 0.52) !important;
+				background: rgba(4, 20, 12, 0.88) !important;
+				box-shadow:
+					inset 0 0 1rem rgba(44, 255, 114, 0.04),
+					0 0 0.7rem rgba(44, 255, 114, 0.08);
+				color: #70ff9d !important;
 				font-family: "Courier New", Courier, monospace;
+				font-size: 0.82rem;
+				font-weight: 700;
 				letter-spacing: 0.06rem;
+				transition:
+					background-color 0.25s ease,
+					border-color 0.25s ease,
+					box-shadow 0.25s ease,
+					color 0.25s ease,
+					transform 0.25s ease;
+			}
+
+			#header #nav .header-contact.button.primary:hover {
+				border-color: #2cff72 !important;
+				background: rgba(7, 38, 21, 0.96) !important;
+				box-shadow:
+					inset 0 0 1.2rem rgba(44, 255, 114, 0.1),
+					0 0 0.65rem rgba(44, 255, 114, 0.62),
+					0 0 1.6rem rgba(44, 255, 114, 0.25);
+				color: #c8ffd8 !important;
+				transform: translateY(-1px);
+			}
+
+			#header #nav .header-contact.button.primary:focus-visible {
+				outline: 2px solid #70ff9d;
+				outline-offset: 3px;
 			}
 
 			@keyframes system-pulse {
