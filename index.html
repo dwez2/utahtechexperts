@@ -451,29 +451,13 @@
 						<div class="cyber-guardian" id="cyber-guardian" aria-label="Interactive Utah Tech Experts cyber guardian">
 							<div class="guardian-field" aria-hidden="true"></div>
 							<div class="guardian-shadow" aria-hidden="true"></div>
-							<div class="guardian-figure" aria-hidden="true">
+							<div class="guardian-figure guardian-render" aria-hidden="true">
+								<img class="guardian-body-render" src="images/cyber-guardian-body.png" alt="" />
 								<div class="guardian-head">
-									<div class="guardian-antenna"></div>
-									<div class="guardian-face">
-										<span class="guardian-eye guardian-eye-left"></span>
-										<span class="guardian-eye guardian-eye-right"></span>
-										<span class="guardian-face-line"></span>
-									</div>
+									<img src="images/cyber-guardian-head.png" alt="" />
 								</div>
-								<div class="guardian-body">
-									<div class="guardian-shoulder guardian-shoulder-left"></div>
-									<div class="guardian-shoulder guardian-shoulder-right"></div>
-									<div class="guardian-chest">
-										<img src="images/logo.png" alt="" />
-									</div>
-									<div class="guardian-arm guardian-arm-left">
-										<span class="guardian-forearm"></span>
-										<span class="guardian-hand"></span>
-									</div>
-									<div class="guardian-arm guardian-arm-right">
-										<span class="guardian-forearm"></span>
-										<span class="guardian-hand"></span>
-									</div>
+								<div class="guardian-logo-badge">
+									<img src="images/logo.png" alt="" />
 								</div>
 							</div>
 							<button class="guardian-motion-toggle" type="button" aria-label="Pause Cyber Guardian animation" aria-pressed="false">
@@ -793,6 +777,94 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script>
+				/*
+					Cyber Guardian interaction is also initialized here so it works
+					even when a browser has an older cached copy of main.js.
+				*/
+				(function () {
+					var guardian = document.getElementById("cyber-guardian");
+
+					if (!guardian || guardian.dataset.guardianReady === "true") return;
+					guardian.dataset.guardianReady = "true";
+
+					var figure = guardian.querySelector(".guardian-figure");
+					var toggle = guardian.querySelector(".guardian-motion-toggle");
+					var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+					var paused = reduceMotion.matches;
+					var targetX = 0;
+					var targetY = 0;
+					var currentX = 0;
+					var currentY = 0;
+					var frame;
+
+					function setPaused(nextPaused) {
+						paused = nextPaused;
+						guardian.classList.toggle("guardian-paused", paused);
+						toggle.setAttribute("aria-pressed", paused ? "true" : "false");
+						toggle.setAttribute(
+							"aria-label",
+							paused
+								? "Play Cyber Guardian animation"
+								: "Pause Cyber Guardian animation"
+						);
+
+						if (paused) {
+							targetX = 0;
+							targetY = 0;
+							currentX = 0;
+							currentY = 0;
+						}
+					}
+
+					function trackPointer(event) {
+						if (paused || event.pointerType === "touch") return;
+
+						targetX = Math.max(-1, Math.min(1,
+							(event.clientX - window.innerWidth / 2) / (window.innerWidth * 0.38)
+						));
+						targetY = Math.max(-1, Math.min(1,
+							(event.clientY - window.innerHeight / 2) / (window.innerHeight * 0.38)
+						));
+						guardian.classList.add("guardian-engaged");
+					}
+
+					function releasePointer() {
+						targetX = 0;
+						targetY = 0;
+						guardian.classList.remove("guardian-engaged");
+					}
+
+					function render() {
+						currentX += (targetX - currentX) * 0.14;
+						currentY += (targetY - currentY) * 0.14;
+						figure.style.setProperty("--guardian-look-x", currentX.toFixed(3));
+						figure.style.setProperty("--guardian-look-y", currentY.toFixed(3));
+						frame = window.requestAnimationFrame(render);
+					}
+
+					toggle.addEventListener("click", function () {
+						setPaused(!paused);
+					});
+
+					document.addEventListener("pointermove", trackPointer, { passive: true });
+					document.documentElement.addEventListener("mouseleave", releasePointer);
+					window.addEventListener("blur", releasePointer);
+
+					if (typeof reduceMotion.addEventListener === "function") {
+						reduceMotion.addEventListener("change", function (event) {
+							setPaused(event.matches);
+						});
+					}
+
+					setPaused(paused);
+					frame = window.requestAnimationFrame(render);
+
+					window.addEventListener("pagehide", function () {
+						window.cancelAnimationFrame(frame);
+					});
+				}());
+			</script>
 			<script>
 				(function () {
 					if (!window.Intl) return;
