@@ -411,6 +411,69 @@
 				}
 			}
 
+			@media screen and (min-width: 737px) {
+				body.landing #header {
+					background:
+						linear-gradient(110deg, rgba(5, 12, 16, 0.98), rgba(4, 29, 22, 0.98) 52%, rgba(5, 15, 21, 0.98));
+					border-bottom: 1px solid rgba(44, 255, 114, 0.34);
+					box-shadow:
+						0 0.2rem 0.7rem rgba(0, 0, 0, 0.38),
+						0 0.15rem 0.8rem rgba(44, 255, 114, 0.08);
+					height: 72px;
+					line-height: 72px;
+					overflow: hidden;
+					position: absolute;
+				}
+
+				body.landing #header::after {
+					background: linear-gradient(
+						90deg,
+						transparent,
+						rgba(46, 196, 182, 0.35) 18%,
+						#70ff9d 50%,
+						rgba(46, 196, 182, 0.35) 82%,
+						transparent
+					);
+					bottom: 0;
+					box-shadow: 0 0 0.7rem rgba(44, 255, 114, 0.55);
+					content: "";
+					height: 2px;
+					left: -35%;
+					position: absolute;
+					width: 35%;
+					animation: desktop-status-scan 4.5s ease-in-out infinite;
+				}
+
+				#header .system-status {
+					gap: 0.72rem;
+					height: 72px;
+					left: 50%;
+					position: absolute;
+					top: 0;
+					transform: translateX(-50%);
+					width: max-content;
+				}
+
+				#header .system-status-dot {
+					height: 0.68rem;
+					width: 0.68rem;
+				}
+
+				#header .system-status-label {
+					font-size: 0.76rem;
+				}
+
+				#header .system-local-clock {
+					font-size: 0.64rem;
+				}
+			}
+
+			@keyframes desktop-status-scan {
+				0% { left: -35%; opacity: 0; }
+				15%, 85% { opacity: 1; }
+				100% { left: 100%; opacity: 0; }
+			}
+
 			@media (prefers-reduced-motion: reduce) {
 				.system-status-dot {
 					animation: none;
@@ -630,11 +693,6 @@
 								
 							</div>
 						</div>
-						<footer class="major">
-							<ul class="actions special">
-								<li><a href="#" class="button">Top</a></li>
-							</ul>
-						</footer>
 					</div>
 				</section>
 
@@ -787,6 +845,11 @@
 							</div>
 						</div>
 
+						<footer class="major">
+							<ul class="actions special">
+								<li><a href="#banner" class="button scrolly">Top</a></li>
+							</ul>
+						</footer>
 					</div>
 				</section>
 
