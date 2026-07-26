@@ -11,7 +11,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<meta name="description" content="A technology portfolio featuring IT support, website development, cybersecurity knowledge, and helpful security resources." />
-		<link rel="stylesheet" href="assets/css/main.css?v=guardian-8" />
+		<link rel="stylesheet" href="assets/css/main.css?v=guardian-9" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		<style>
 			.resource-intro {
@@ -228,9 +228,45 @@
 
 			.video-card {
 				overflow: hidden;
-				border: 1px solid rgba(255, 255, 255, 0.18);
+				position: relative;
+				border: 1px solid rgba(77, 163, 255, 0.3);
 				border-radius: 0.5rem;
-				background: rgba(255, 255, 255, 0.06);
+				background: rgba(7, 19, 34, 0.9);
+				box-shadow:
+					0 0.8rem 2rem rgba(0, 0, 0, 0.2),
+					inset 0 0 0 1px rgba(255, 255, 255, 0.015);
+				transition:
+					transform 0.28s ease,
+					border-color 0.28s ease,
+					background-color 0.28s ease,
+					box-shadow 0.28s ease;
+			}
+
+			@media screen and (min-width: 737px) {
+				.video-card:hover,
+				.video-card:focus-within {
+					border-color: #4da3ff;
+					background: rgba(13, 42, 65, 0.96);
+					box-shadow:
+						0 1.25rem 3rem rgba(0, 0, 0, 0.34),
+						0 0 0.75rem rgba(77, 163, 255, 0.62),
+						0 0 2rem rgba(38, 132, 255, 0.28),
+						0 0 3.2rem rgba(46, 196, 182, 0.12);
+					transform: translateY(-0.45rem) scale(1.012);
+					z-index: 3;
+				}
+
+				.video-card:hover .video-frame iframe,
+				.video-card:focus-within .video-frame iframe {
+					filter: brightness(1.08) saturate(1.08);
+					transform: scale(1.025);
+				}
+
+				.video-card:hover .video-details h3,
+				.video-card:focus-within .video-details h3 {
+					color: #8fc7ff;
+					text-shadow: 0 0 0.85rem rgba(77, 163, 255, 0.3);
+				}
 			}
 
 			.video-frame {
