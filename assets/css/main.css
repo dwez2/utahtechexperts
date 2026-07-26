@@ -5110,3 +5110,45 @@ input, select, textarea {
 	}
 
 /* AI video card hover treatment */
+/* New dark technology footer */
+
+#footer {
+	background:
+		radial-gradient(circle at 50% 0, rgba(38, 132, 255, 0.1), transparent 42%),
+		linear-gradient(180deg, #050a11 0%, #020407 100%);
+	border-top: 1px solid rgba(77, 163, 255, 0.34);
+	box-shadow: inset 0 2px 0 rgba(46, 196, 182, 0.08);
+	position: relative;
+}
+
+#footer:before {
+	background: linear-gradient(
+		90deg,
+		transparent,
+		#2684ff 35%,
+		#2ec4b6 65%,
+		transparent
+	);
+	box-shadow: 0 0 1rem rgba(46, 196, 182, 0.4);
+	content: "";
+	height: 2px;
+	left: 0;
+	position: absolute;
+	top: -1px;
+	width: 100%;
+}
+
+#footer .icons a {
+	color: rgba(143, 199, 255, 0.78);
+	transition: color 0.2s ease, filter 0.2s ease;
+}
+
+#footer .icons a:hover,
+#footer .icons a:focus-visible {
+	color: #70ffcf;
+	filter: drop-shadow(0 0 0.45rem rgba(46, 196, 182, 0.65));
+}
+
+#footer .copyright {
+	color: rgba(255, 255, 255, 0.48);
+}
