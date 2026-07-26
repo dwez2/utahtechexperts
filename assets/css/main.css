@@ -4919,4 +4919,85 @@ input, select, textarea {
 		}
 	}
 
+/* Mobile system-status banner */
+
+	@media screen and (max-width: 736px) {
+		#page-wrapper {
+			padding-top: 72px !important;
+		}
+
+		#titleBar {
+			background:
+				linear-gradient(110deg, rgba(5, 12, 16, 0.98), rgba(4, 29, 22, 0.98) 52%, rgba(5, 15, 21, 0.98));
+			border-bottom: 1px solid rgba(44, 255, 114, 0.34);
+			box-shadow:
+				0 0.2em 0.7em rgba(0, 0, 0, 0.38),
+				0 0.15em 0.8em rgba(44, 255, 114, 0.08);
+			height: 72px;
+			overflow: hidden;
+		}
+
+			#titleBar:after {
+				background: linear-gradient(
+					90deg,
+					transparent,
+					rgba(46, 196, 182, 0.35) 18%,
+					#70ff9d 50%,
+					rgba(46, 196, 182, 0.35) 82%,
+					transparent
+				);
+				bottom: 0;
+				box-shadow: 0 0 0.7em rgba(44, 255, 114, 0.55);
+				content: '';
+				height: 2px;
+				left: -45%;
+				position: absolute;
+				width: 45%;
+				animation: mobile-status-scan 3.8s ease-in-out infinite;
+			}
+
+			#titleBar .title {
+				align-items: center;
+				color: #70ff9d;
+				display: flex;
+				font-family: "Courier New", Courier, monospace;
+				gap: 0.72rem;
+				height: 72px;
+				justify-content: center;
+				line-height: 1.1;
+				padding: 0 1rem;
+			}
+
+			#titleBar .system-status-dot {
+				display: block;
+				height: 0.68rem;
+				width: 0.68rem;
+			}
+
+			#titleBar .system-status-copy {
+				align-items: flex-start;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+
+			#titleBar .system-status-label {
+				font-size: 0.76rem;
+				letter-spacing: 0.12rem;
+			}
+
+			#titleBar .system-local-clock {
+				color: rgba(226, 240, 235, 0.68);
+				font-size: 0.64rem;
+				letter-spacing: 0.035rem;
+				margin-top: 0.35rem;
+			}
+	}
+
+	@keyframes mobile-status-scan {
+		0% { left: -45%; opacity: 0; }
+		15%, 85% { opacity: 1; }
+		100% { left: 100%; opacity: 0; }
+	}
+
 	
