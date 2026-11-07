@@ -97,9 +97,9 @@
     .hero-visual {
       position: absolute;
       z-index: 1;
-      width: min(78vw, 1060px);
+      width: min(68vw, 920px);
       aspect-ratio: 1;
-      right: clamp(-430px, -20vw, -170px);
+      right: clamp(-170px, -7vw, -90px);
       top: 48%;
       transform: translateY(-50%);
       border-radius: 50%;
@@ -359,7 +359,7 @@
     .toggle-nav { display: grid; gap: 10px; }
     .toggle-btn, .menu-btn, .nav-btn, .close-menu {
       border: 1px solid var(--line);
-      background: rgba(4, 24, 39, .72);
+      : rgba(4, 24, 39, .72);
       cursor: pointer;
       transition: .25s ease;
     }
@@ -371,7 +371,7 @@
     .toggle-btn:hover, .toggle-btn.active {
       color: var(--white);
       border-color: var(--cyan);
-      background: rgba(24, 200, 242, .12);
+      : rgba(24, 200, 242, .12);
     }
     .toggle-panel { display: none; }
     .toggle-panel.active { display: block; animation: panelIn .45s var(--ease) both; }
@@ -387,7 +387,7 @@
       position: relative;
       padding: 18px 18px 18px 48px;
       color: #d9e8ef;
-      background: rgba(7, 36, 55, .66);
+      : rgba(7, 36, 55, .66);
       border: 1px solid var(--line);
       line-height: 1.42;
     }
@@ -415,12 +415,12 @@
       left: 0;
       right: 0;
       height: 2px;
-      background: linear-gradient(90deg, var(--cyan), rgba(24, 200, 242, .18), var(--amber));
+      : linear-gradient(90deg, var(--cyan), rgba(24, 200, 242, .18), var(--amber));
     }
     .event {
       position: relative;
       padding: 26px;
-      background: rgba(7, 36, 55, .66);
+      : rgba(7, 36, 55, .66);
       border: 1px solid var(--line);
     }
     .event::before {
@@ -431,10 +431,10 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: var(--cyan);
+      : var(--cyan);
       box-shadow: 0 0 20px var(--cyan);
     }
-    .event:last-child::before { background: var(--amber); box-shadow: 0 0 20px rgba(255, 186, 98, .7); }
+    .event:last-child::before { : var(--amber); box-shadow: 0 0 20px rgba(255, 186, 98, .7); }
     .event time {
       display: block;
       margin-bottom: 14px;
@@ -457,7 +457,7 @@
     }
 
     .balance-slide {
-      background-position: center;
+      -position: center;
     }
     .balance-content { width: 100%; }
     .balance-slide h2 {
@@ -865,7 +865,7 @@
 </head>
 <body>
   <header class="topbar" aria-label="Presentation controls">
-    <div class="brand"><span>Final</span> Research Project</div>
+    <div class="brand"><span>Final</span> Project</div>
     <button class="menu-btn" id="menuButton" type="button" aria-label="Open slide menu" aria-expanded="false">☰</button>
   </header>
 
@@ -874,7 +874,7 @@
       <div class="hero-visual" aria-hidden="true"></div>
       <div class="hero-scan" aria-hidden="true"></div>
       <div class="hero-copy">
-        <div class="kicker reveal">Semester Project / Fall 2026</div>
+        <div class="kicker reveal">Final Semester Project / Fall 2026</div>
         <h1 class="hero-title reveal">Apple’s CSAM Detection Technology</h1>
         <p class="hero-subtitle reveal">Protecting children while protecting privacy</p>
         <div class="byline reveal">
