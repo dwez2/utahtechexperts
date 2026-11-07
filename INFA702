@@ -1,0 +1,1350 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An interactive presentation examining Apple's proposed CSAM detection technology, privacy harms, applicable laws, and recommendations.">
+  <meta name="author" content="Erika Hernandez">
+  <title>Apple's CSAM Detection Technology | Erika Hernandez</title>
+  <style>
+    :root {
+      --navy-950: #020b14;
+      --navy-900: #041827;
+      --navy-800: #07304a;
+      --cyan: #18c8f2;
+      --cyan-soft: #8cecff;
+      --amber: #ffba62;
+      --white: #f5fbff;
+      --muted: #a8bfcc;
+      --line: rgba(140, 236, 255, .22);
+      --panel: rgba(7, 36, 55, .72);
+      --footer-h: 66px;
+      --ease: cubic-bezier(.22, 1, .36, 1);
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--navy-950); scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--white);
+      background: var(--navy-950);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow: hidden;
+    }
+
+    button, input { font: inherit; }
+    button { color: inherit; }
+    a { color: var(--cyan-soft); }
+
+    .presentation {
+      height: 100svh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-snap-type: y mandatory;
+      scrollbar-width: none;
+      overscroll-behavior: contain;
+    }
+    .presentation::-webkit-scrollbar { display: none; }
+
+    .slide {
+      position: relative;
+      min-height: 100svh;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      display: grid;
+      align-items: center;
+      padding: clamp(76px, 8vh, 110px) clamp(28px, 7vw, 118px) calc(var(--footer-h) + 34px);
+      isolation: isolate;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 82% 18%, rgba(24, 200, 242, .12), transparent 30%),
+        linear-gradient(135deg, var(--navy-950), var(--navy-900) 52%, #05243a);
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background-image:
+        linear-gradient(rgba(140, 236, 255, .045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(140, 236, 255, .045) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom right, transparent 8%, black 62%, transparent 100%);
+    }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      width: min(46vw, 660px);
+      aspect-ratio: 1;
+      right: -18vw;
+      bottom: -42%;
+      z-index: -1;
+      border: 1px solid rgba(140, 236, 255, .13);
+      border-radius: 50%;
+      box-shadow: 0 0 100px rgba(24, 200, 242, .07) inset;
+    }
+
+    .hero {
+      background:
+        radial-gradient(circle at 76% 44%, rgba(24, 200, 242, .15), transparent 34%),
+        linear-gradient(110deg, #020b14 0%, #031522 52%, #041b2b 100%);
+    }
+    .hero::before { opacity: .35; }
+
+    .hero-copy { position: relative; z-index: 3; }
+    .hero-visual {
+      position: absolute;
+      z-index: 1;
+      width: min(78vw, 1060px);
+      aspect-ratio: 1;
+      right: clamp(-430px, -20vw, -170px);
+      top: 48%;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      background: url("assets/csam-privacy-hero.png") center / cover no-repeat;
+      box-shadow:
+        0 0 0 1px rgba(140, 236, 255, .2),
+        0 0 90px rgba(24, 200, 242, .2),
+        inset 0 0 110px rgba(2, 11, 20, .45);
+      animation: heroFloat 9s ease-in-out infinite;
+    }
+    .hero-visual::before,
+    .hero-visual::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-visual::before {
+      inset: -5%;
+      background: conic-gradient(from 40deg, transparent 0 22%, rgba(24, 200, 242, .9) 27%, transparent 31% 58%, rgba(255, 186, 98, .7) 62%, transparent 67%);
+      mask: radial-gradient(circle, transparent 67%, #000 68% 70%, transparent 71%);
+      animation: orbitSpin 15s linear infinite;
+      filter: drop-shadow(0 0 12px rgba(24, 200, 242, .7));
+    }
+    .hero-visual::after {
+      inset: 10%;
+      border: 1px solid rgba(140, 236, 255, .28);
+      border-left-color: var(--cyan);
+      border-right-color: var(--amber);
+      animation: orbitSpinReverse 21s linear infinite;
+      box-shadow: 0 0 35px rgba(24, 200, 242, .12) inset;
+    }
+    .hero-scan {
+      position: absolute;
+      z-index: 2;
+      width: min(64vw, 880px);
+      height: 2px;
+      right: -8vw;
+      top: 50%;
+      background: linear-gradient(90deg, transparent, rgba(140, 236, 255, .9), transparent);
+      box-shadow: 0 0 20px var(--cyan);
+      opacity: .55;
+      animation: scanSweep 5.5s ease-in-out infinite;
+    }
+
+    .balance-slide {
+      background-image:
+        linear-gradient(90deg, rgba(2, 11, 20, .97) 0%, rgba(2, 11, 20, .88) 36%, rgba(2, 11, 20, .22) 74%),
+        url("assets/privacy-balance.png");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      color: var(--cyan-soft);
+      font-size: clamp(.72rem, 1vw, .9rem);
+      font-weight: 750;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .kicker::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), transparent);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      max-width: 900px;
+      margin-bottom: 22px;
+      font-size: clamp(3rem, 6.8vw, 7.7rem);
+      line-height: .92;
+      letter-spacing: -.065em;
+      text-wrap: balance;
+    }
+    h2 {
+      max-width: 1000px;
+      margin-bottom: 30px;
+      font-size: clamp(2.45rem, 5.2vw, 5.6rem);
+      line-height: .98;
+      letter-spacing: -.055em;
+      text-wrap: balance;
+    }
+    h3 {
+      margin-bottom: 10px;
+      font-size: clamp(1.08rem, 1.6vw, 1.38rem);
+      line-height: 1.25;
+    }
+    p {
+      color: #d8e8f0;
+      font-size: clamp(1rem, 1.45vw, 1.32rem);
+      line-height: 1.55;
+    }
+    .lede {
+      max-width: 760px;
+      color: #dcecf4;
+      font-size: clamp(1.15rem, 1.9vw, 1.65rem);
+    }
+    .accent { color: var(--cyan-soft); }
+    .amber { color: var(--amber); }
+    .small { font-size: .92rem; color: var(--muted); }
+
+    .hero-copy { max-width: 920px; }
+    .hero-title {
+      max-width: 930px;
+      text-shadow: 0 10px 45px rgba(0, 0, 0, .5), 0 0 30px rgba(24, 200, 242, .08);
+    }
+    .hero-subtitle {
+      max-width: 740px;
+      font-size: clamp(1.15rem, 2vw, 1.75rem);
+      color: #cce2ec;
+    }
+    .byline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+      margin-top: 38px;
+      color: var(--muted);
+      font-size: .95rem;
+      letter-spacing: .04em;
+    }
+    .byline strong { color: var(--white); }
+
+    .grid-2, .grid-3, .grid-4 {
+      display: grid;
+      gap: clamp(14px, 2vw, 26px);
+    }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      position: relative;
+      min-height: 150px;
+      padding: clamp(18px, 2.2vw, 30px);
+      background: linear-gradient(145deg, rgba(9, 45, 68, .84), rgba(5, 24, 39, .74));
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      box-shadow: 0 26px 70px rgba(0, 0, 0, .18);
+      backdrop-filter: blur(16px);
+      transition: transform .35s var(--ease), border-color .35s ease, background .35s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(140, 236, 255, .58);
+      background: linear-gradient(145deg, rgba(10, 56, 83, .9), rgba(5, 29, 47, .84));
+    }
+    .card p:last-child { margin-bottom: 0; }
+    .card-number {
+      display: block;
+      margin-bottom: 20px;
+      color: var(--cyan);
+      font: 700 .78rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      letter-spacing: .14em;
+    }
+
+    .agenda-grid .card {
+      cursor: pointer;
+      min-height: 122px;
+    }
+    .agenda-grid h3 { margin-bottom: 5px; }
+    .agenda-grid p { margin: 0; font-size: .95rem; color: var(--muted); }
+
+    .definition {
+      max-width: 980px;
+      padding: clamp(24px, 4vw, 48px);
+      border-left: 3px solid var(--cyan);
+      background: linear-gradient(90deg, rgba(24, 200, 242, .11), transparent);
+    }
+    .definition strong { color: var(--white); }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+    .stat {
+      padding: 22px 0;
+      border-top: 1px solid var(--line);
+    }
+    .stat b {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--cyan-soft);
+      font-size: clamp(1.35rem, 2.4vw, 2.3rem);
+    }
+    .stat span { color: var(--muted); }
+
+    .process {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      counter-reset: process;
+    }
+    .process-step {
+      position: relative;
+      min-height: 250px;
+      padding: 26px 20px;
+      border-top: 2px solid rgba(140, 236, 255, .28);
+      background: linear-gradient(180deg, rgba(24, 200, 242, .08), rgba(7, 36, 55, .48));
+      counter-increment: process;
+      cursor: pointer;
+      transition: .35s var(--ease);
+    }
+    .process-step::before {
+      content: "0" counter(process);
+      display: block;
+      margin-bottom: 44px;
+      color: var(--cyan);
+      font: 700 .82rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: .12em;
+    }
+    .process-step::after {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: 0;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 18px var(--cyan);
+    }
+    .process-step:hover, .process-step.active {
+      transform: translateY(-8px);
+      background: linear-gradient(180deg, rgba(24, 200, 242, .18), rgba(7, 36, 55, .74));
+      border-color: var(--cyan);
+    }
+    .process-step p { font-size: .96rem; color: var(--muted); }
+
+    .harm-list, .principle-list, .law-list, .recommendation-list {
+      display: grid;
+      gap: 12px;
+    }
+    .harm-item, .principle-item, .law-item, .recommendation-item {
+      display: grid;
+      grid-template-columns: minmax(150px, 230px) 1fr;
+      gap: 24px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(140, 236, 255, .14);
+    }
+    .harm-item b, .principle-item b, .law-item b, .recommendation-item b { color: var(--cyan-soft); }
+    .harm-item span, .principle-item span, .law-item span, .recommendation-item span { color: #d5e5ed; line-height: 1.45; }
+
+    .toggle-wrap {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 30px;
+      align-items: start;
+    }
+    .toggle-nav { display: grid; gap: 10px; }
+    .toggle-btn, .menu-btn, .nav-btn, .close-menu {
+      border: 1px solid var(--line);
+      background: rgba(4, 24, 39, .72);
+      cursor: pointer;
+      transition: .25s ease;
+    }
+    .toggle-btn {
+      padding: 15px 18px;
+      text-align: left;
+      color: var(--muted);
+    }
+    .toggle-btn:hover, .toggle-btn.active {
+      color: var(--white);
+      border-color: var(--cyan);
+      background: rgba(24, 200, 242, .12);
+    }
+    .toggle-panel { display: none; }
+    .toggle-panel.active { display: block; animation: panelIn .45s var(--ease) both; }
+    .argument-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .argument-list li {
+      position: relative;
+      padding: 18px 18px 18px 48px;
+      color: #d9e8ef;
+      background: rgba(7, 36, 55, .66);
+      border: 1px solid var(--line);
+      line-height: 1.42;
+    }
+    .argument-list li::before {
+      content: "+";
+      position: absolute;
+      left: 18px;
+      top: 16px;
+      color: var(--cyan);
+      font: 700 1.2rem/1 ui-monospace, monospace;
+    }
+    .argument-list.against li::before { content: "–"; color: var(--amber); }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 36px;
+      padding-top: 40px;
+    }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 15px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), rgba(24, 200, 242, .18), var(--amber));
+    }
+    .event {
+      position: relative;
+      padding: 26px;
+      background: rgba(7, 36, 55, .66);
+      border: 1px solid var(--line);
+    }
+    .event::before {
+      content: "";
+      position: absolute;
+      top: -31px;
+      left: 24px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 20px var(--cyan);
+    }
+    .event:last-child::before { background: var(--amber); box-shadow: 0 0 20px rgba(255, 186, 98, .7); }
+    .event time {
+      display: block;
+      margin-bottom: 14px;
+      color: var(--cyan-soft);
+      font: 700 .82rem/1 ui-monospace, monospace;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .question-box {
+      max-width: 780px;
+      padding: 30px 0 0;
+      border-top: 1px solid var(--line);
+    }
+    .question-box p {
+      color: var(--white);
+      font-size: clamp(1.5rem, 2.8vw, 2.8rem);
+      line-height: 1.2;
+      letter-spacing: -.025em;
+    }
+
+    .balance-slide {
+      background-position: center;
+    }
+    .balance-content { width: 100%; }
+    .balance-slide h2 {
+      margin-bottom: 20px;
+      font-size: clamp(2.4rem, 4.3vw, 4.8rem);
+    }
+    .balance-comparison {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(80px, 16vw, 250px);
+      align-items: stretch;
+      margin-top: 18px;
+    }
+    .balance-card {
+      padding: clamp(20px, 2.4vw, 30px);
+      background: linear-gradient(145deg, rgba(4, 25, 41, .93), rgba(7, 48, 74, .78));
+      border: 1px solid rgba(140, 236, 255, .34);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .34), 0 0 28px rgba(24, 200, 242, .08);
+      backdrop-filter: blur(18px);
+    }
+    .balance-card h3 {
+      color: var(--cyan-soft);
+      font-size: clamp(1.2rem, 1.7vw, 1.5rem);
+    }
+    .balance-card ul {
+      margin: 14px 0 0;
+      padding-left: 1.15rem;
+      color: #e0eef4;
+      font-size: clamp(.92rem, 1.12vw, 1.08rem);
+      line-height: 1.48;
+    }
+    .balance-card li + li { margin-top: 8px; }
+    .central-question {
+      max-width: 1000px;
+      margin: 24px auto 0;
+      padding: 15px 24px;
+      color: var(--white);
+      background: rgba(2, 11, 20, .8);
+      border: 1px solid rgba(140, 236, 255, .28);
+      box-shadow: 0 0 35px rgba(24, 200, 242, .1);
+      font-size: clamp(1.08rem, 1.6vw, 1.45rem);
+      font-weight: 720;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(16px, 2vw, 28px);
+    }
+    .video-card {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      color: var(--white);
+      text-decoration: none;
+      background: rgba(7, 36, 55, .72);
+      border: 1px solid var(--line);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .24);
+      transition: transform .35s var(--ease), border-color .35s ease, box-shadow .35s ease;
+    }
+    .video-card:hover,
+    .video-card:focus-visible {
+      transform: translateY(-7px);
+      border-color: var(--cyan);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, .35), 0 0 35px rgba(24, 200, 242, .14);
+      outline: none;
+    }
+    .video-thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #03131f;
+    }
+    .video-thumb img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      opacity: .72;
+      transition: transform .5s var(--ease), opacity .35s ease;
+    }
+    .video-card:hover img { transform: scale(1.05); opacity: .9; }
+    .play-button {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      color: #02111d;
+      background: var(--cyan-soft);
+      box-shadow: 0 0 30px rgba(24, 200, 242, .58);
+      font-size: 1.2rem;
+      padding-left: 3px;
+    }
+    .video-info { padding: 20px 22px 24px; }
+    .video-info span {
+      color: var(--cyan);
+      font: 700 .76rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: .12em;
+    }
+    .video-info h3 { margin: 10px 0 6px; }
+    .video-info p { margin: 0; color: var(--muted); font-size: .94rem; }
+
+    .finding {
+      padding: 22px 0;
+      border-top: 1px solid var(--line);
+    }
+    .finding b {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--cyan-soft);
+      font-size: 1.1rem;
+    }
+    .finding p { margin: 0; font-size: 1rem; color: var(--muted); }
+
+    .final-thought {
+      max-width: 1050px;
+      font-size: clamp(1.65rem, 3.2vw, 3.3rem);
+      line-height: 1.22;
+      letter-spacing: -.035em;
+      color: var(--white);
+    }
+
+    .references {
+      columns: 2;
+      column-gap: 46px;
+      padding: 0;
+      list-style: none;
+    }
+    .references li {
+      break-inside: avoid;
+      margin: 0 0 13px;
+      padding: 0 0 13px;
+      border-bottom: 1px solid rgba(140, 236, 255, .1);
+      color: #c8dbe5;
+      font-size: clamp(.78rem, 1vw, .92rem);
+      line-height: 1.42;
+    }
+    .references .pending { color: var(--amber); }
+
+    .source-line {
+      position: absolute;
+      right: clamp(28px, 7vw, 118px);
+      bottom: calc(var(--footer-h) + 16px);
+      max-width: 48%;
+      color: rgba(213, 229, 237, .62);
+      font-size: .72rem;
+      text-align: right;
+    }
+
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 30;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(20px, 3vw, 46px);
+      background: linear-gradient(180deg, rgba(2, 11, 20, .9), transparent);
+      pointer-events: none;
+    }
+    .brand {
+      color: rgba(245, 251, 255, .9);
+      font-size: .82rem;
+      font-weight: 750;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .brand span { color: var(--cyan); }
+    .menu-btn {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      pointer-events: auto;
+      font-size: 1.1rem;
+    }
+    .menu-btn:hover { border-color: var(--cyan); background: rgba(24, 200, 242, .12); }
+
+    .footer {
+      position: fixed;
+      inset: auto 0 0;
+      z-index: 30;
+      min-height: var(--footer-h);
+      display: grid;
+      grid-template-columns: minmax(170px, 1fr) auto minmax(180px, 1fr);
+      align-items: center;
+      gap: 18px;
+      padding: 13px clamp(20px, 3vw, 46px) 12px;
+      background: rgba(2, 11, 20, .88);
+      border-top: 1px solid rgba(140, 236, 255, .14);
+      backdrop-filter: blur(18px);
+    }
+    .footer::before {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: 0;
+      width: var(--progress, 0%);
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--amber));
+      box-shadow: 0 0 18px rgba(24, 200, 242, .55);
+      transition: width .5s var(--ease);
+    }
+    .footer-name {
+      color: var(--white);
+      font-size: .8rem;
+      font-weight: 750;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .footer-course {
+      color: var(--muted);
+      font-size: .78rem;
+      text-align: center;
+    }
+    .footer-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 14px;
+    }
+    .counter {
+      min-width: 70px;
+      color: var(--cyan-soft);
+      font: 700 .78rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: .09em;
+      text-align: center;
+    }
+    .nav-controls { display: flex; gap: 8px; }
+    .nav-btn {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+    }
+    .nav-btn:hover:not(:disabled) { border-color: var(--cyan); background: rgba(24, 200, 242, .12); }
+    .nav-btn:disabled { opacity: .28; cursor: not-allowed; }
+
+    .slide-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: grid;
+      grid-template-columns: minmax(260px, 420px) 1fr;
+      background: rgba(2, 11, 20, .96);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .35s ease, visibility .35s ease;
+    }
+    .slide-menu.open { opacity: 1; visibility: visible; }
+    .menu-intro {
+      padding: clamp(32px, 6vw, 82px);
+      background: linear-gradient(160deg, rgba(24, 200, 242, .15), transparent 55%);
+      border-right: 1px solid var(--line);
+    }
+    .menu-intro h2 { font-size: clamp(2.5rem, 4vw, 4.6rem); }
+    .close-menu {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      margin-bottom: 50px;
+    }
+    .menu-list {
+      overflow-y: auto;
+      padding: clamp(32px, 6vw, 82px);
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-content: start;
+      gap: 2px 36px;
+    }
+    .menu-link {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 12px;
+      padding: 15px 0;
+      color: #d4e5ed;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(140, 236, 255, .1);
+    }
+    .menu-link:hover { color: var(--cyan-soft); }
+    .menu-link span:first-child { color: var(--cyan); font: 700 .75rem/1.8 ui-monospace, monospace; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
+    }
+    .slide.active .reveal { opacity: 1; transform: none; }
+    .slide.active .reveal:nth-child(2) { transition-delay: .08s; }
+    .slide.active .reveal:nth-child(3) { transition-delay: .16s; }
+    .slide.active .reveal:nth-child(4) { transition-delay: .24s; }
+
+    .hint {
+      position: absolute;
+      left: clamp(28px, 7vw, 118px);
+      bottom: calc(var(--footer-h) + 20px);
+      color: rgba(213, 229, 237, .55);
+      font-size: .74rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      animation: hintPulse 2.2s ease-in-out infinite;
+    }
+    .hint::before {
+      content: "";
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      margin-right: 10px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 14px var(--cyan);
+      vertical-align: 1px;
+    }
+
+    @keyframes panelIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes heroFloat {
+      0%, 100% { transform: translateY(-50%) scale(1); }
+      50% { transform: translateY(-52%) scale(1.025); }
+    }
+    @keyframes orbitSpin { to { transform: rotate(360deg); } }
+    @keyframes orbitSpinReverse { to { transform: rotate(-360deg); } }
+    @keyframes scanSweep {
+      0%, 100% { transform: translateY(-210px); opacity: 0; }
+      18%, 78% { opacity: .55; }
+      50% { transform: translateY(210px); opacity: .75; }
+    }
+    @keyframes hintPulse {
+      0%, 100% { opacity: .45; transform: translateY(0); }
+      50% { opacity: 1; transform: translateY(-3px); }
+    }
+
+    @media (max-width: 980px) {
+      body { overflow: auto; }
+      .slide { padding-inline: 30px; }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-3 { grid-template-columns: repeat(2, 1fr); }
+      .process { grid-template-columns: repeat(2, 1fr); }
+      .process-step { min-height: 190px; }
+      .toggle-wrap { grid-template-columns: 1fr; }
+      .toggle-nav { grid-template-columns: 1fr 1fr; }
+      .timeline { grid-template-columns: 1fr; gap: 14px; padding-top: 0; }
+      .timeline::before, .event::before { display: none; }
+      .source-line { display: none; }
+      .balance-comparison { gap: 24px; }
+      .video-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 700px) {
+      :root { --footer-h: 76px; }
+      .presentation { scroll-snap-type: none; }
+      .slide { min-height: auto; padding: 92px 22px calc(var(--footer-h) + 30px); overflow: visible; }
+      .hero, .balance-slide { min-height: 100svh; background-position: 64% center; }
+      .grid-2, .grid-3, .grid-4, .stat-row, .argument-list { grid-template-columns: 1fr; }
+      .process { grid-template-columns: 1fr; }
+      .harm-item, .principle-item, .law-item, .recommendation-item { grid-template-columns: 1fr; gap: 6px; }
+      .references { columns: 1; }
+      .balance-comparison, .video-grid { grid-template-columns: 1fr; }
+      .balance-comparison { gap: 14px; }
+      .hero-visual { width: 118vw; right: -72vw; opacity: .72; }
+      .hero-scan { display: none; }
+      .footer { grid-template-columns: 1fr auto; }
+      .footer-course { display: none; }
+      .slide-menu { grid-template-columns: 1fr; }
+      .menu-intro { display: none; }
+      .menu-list { grid-template-columns: 1fr; padding: 72px 28px 28px; }
+      .close-menu { position: absolute; top: 16px; right: 18px; }
+      .hint { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    @media print {
+      body { overflow: visible; background: white; color: black; }
+      .presentation { height: auto; overflow: visible; }
+      .slide {
+        min-height: 7.5in;
+        page-break-after: always;
+        color: white;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+      .topbar, .footer, .slide-menu, .hint { display: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar" aria-label="Presentation controls">
+    <div class="brand"><span>Final</span> Research Project</div>
+    <button class="menu-btn" id="menuButton" type="button" aria-label="Open slide menu" aria-expanded="false">☰</button>
+  </header>
+
+  <main class="presentation" id="presentation">
+    <section class="slide hero active" id="title" data-title="Title">
+      <div class="hero-visual" aria-hidden="true"></div>
+      <div class="hero-scan" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <div class="kicker reveal">Semester Project / Fall 2026</div>
+        <h1 class="hero-title reveal">Apple’s CSAM Detection Technology</h1>
+        <p class="hero-subtitle reveal">Protecting children while protecting privacy</p>
+        <div class="byline reveal">
+          <span><strong>Erika Hernandez</strong></span>
+          <span>INFA 702 · Data Privacy</span>
+          <span>Professor Quentin Covert</span>
+        </div>
+      </div>
+      <div class="hint">Use arrow keys, space, or scroll</div>
+    </section>
+
+    <section class="slide" id="agenda" data-title="Agenda">
+      <div>
+        <div class="kicker reveal">Presentation Map</div>
+        <h2 class="reveal">The investigation</h2>
+        <div class="grid-4 agenda-grid reveal">
+          <article class="card" data-jump="context"><span class="card-number">01</span><h3>Context</h3><p>CSAM and Apple’s proposal</p></article>
+          <article class="card" data-jump="technology"><span class="card-number">02</span><h3>Technology</h3><p>NeuralHash and safety vouchers</p></article>
+          <article class="card" data-jump="harms-1"><span class="card-number">03</span><h3>Privacy analysis</h3><p>Harms and principles</p></article>
+          <article class="card" data-jump="laws"><span class="card-number">04</span><h3>Legal context</h3><p>Federal, state, and international law</p></article>
+          <article class="card" data-jump="arguments"><span class="card-number">05</span><h3>The debate</h3><p>Arguments for and against</p></article>
+          <article class="card" data-jump="timeline"><span class="card-number">06</span><h3>Outcome</h3><p>Delay, abandonment, and replacement</p></article>
+          <article class="card" data-jump="findings"><span class="card-number">07</span><h3>Findings</h3><p>Recommendations and lessons</p></article>
+          <article class="card" data-jump="conclusion"><span class="card-number">08</span><h3>Conclusion</h3><p>The lasting privacy question</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="context" data-title="What is CSAM?">
+      <div>
+        <div class="kicker reveal">Introduction</div>
+        <h2 class="reveal">What is CSAM?</h2>
+        <div class="definition reveal">
+          <p><strong>Child Sexual Abuse Material</strong> includes photos, videos, livestreams, and AI-generated images that show or represent the sexual abuse or exploitation of a child.</p>
+          <p>The term CSAM is used instead of “child pornography” because children cannot legally consent. This material is evidence of abuse, not ordinary adult content.</p>
+        </div>
+      </div>
+      <div class="source-line">Source: RAINN, 2026</div>
+    </section>
+
+    <section class="slide" id="proposal" data-title="Apple’s proposal">
+      <div>
+        <div class="kicker reveal">August 2021</div>
+        <h2 class="reveal">What did Apple propose?</h2>
+        <p class="lede reveal">Apple announced a system designed to detect collections of known CSAM connected to iCloud Photos while limiting access to other users’ photos.</p>
+        <div class="stat-row reveal">
+          <div class="stat"><b>Known material</b><span>The system compared images against hashes supplied by child-safety organizations.</span></div>
+          <div class="stat"><b>Account threshold</b><span>Apple could review matched images only after an account exceeded a match threshold.</span></div>
+          <div class="stat"><b>Confirmed reports</b><span>Apple could disable confirmed accounts and report them to NCMEC.</span></div>
+        </div>
+      </div>
+      <div class="source-line">Sources: Apple, 2021; Clayton, 2021</div>
+    </section>
+
+    <section class="slide" id="technology" data-title="How the technology worked">
+      <div>
+        <div class="kicker reveal">System Design</div>
+        <h2 class="reveal">How would the technology work?</h2>
+        <div class="process reveal" aria-label="Five-step NeuralHash process">
+          <article class="process-step active"><h3>Fingerprint</h3><p>NeuralHash creates a digital fingerprint before a photo uploads to iCloud Photos.</p></article>
+          <article class="process-step"><h3>Compare</h3><p>The fingerprint is compared with an unreadable database of known CSAM hashes.</p></article>
+          <article class="process-step"><h3>Voucher</h3><p>An encrypted safety voucher uploads with the image.</p></article>
+          <article class="process-step"><h3>Threshold</h3><p>Apple cannot review matches until the account passes a match threshold.</p></article>
+          <article class="process-step"><h3>Review</h3><p>Apple manually reviews results and reports confirmed matches to NCMEC.</p></article>
+        </div>
+      </div>
+      <div class="source-line">Sources: Apple, 2021; Clayton, 2021</div>
+    </section>
+
+    <section class="slide" id="benefits" data-title="Potential benefits">
+      <div>
+        <div class="kicker reveal">Potential Benefits</div>
+        <h2 class="reveal">Why Apple believed the system could help</h2>
+        <div class="grid-3 reveal">
+          <article class="card"><span class="card-number">DETECTION</span><h3>Known collections</h3><p>Identify accounts storing collections of previously identified CSAM in iCloud Photos.</p></article>
+          <article class="card"><span class="card-number">VICTIM IMPACT</span><h3>Reduce repeated harm</h3><p>Limit the continued storage and distribution of material that repeatedly harms victims.</p></article>
+          <article class="card"><span class="card-number">REPORTING</span><h3>Confirmed cases</h3><p>Report confirmed accounts to the National Center for Missing and Exploited Children.</p></article>
+          <article class="card"><span class="card-number">PRIVACY</span><h3>Limit access</h3><p>Protect nonmatching photos by limiting what Apple could learn about them.</p></article>
+          <article class="card"><span class="card-number">ACCURACY</span><h3>Multiple matches</h3><p>Require an account threshold instead of reporting a single match.</p></article>
+          <article class="card"><span class="card-number">OVERSIGHT</span><h3>Human review</h3><p>Require manual confirmation before reporting an account.</p></article>
+        </div>
+      </div>
+      <div class="source-line">Sources: Apple, 2021; Clayton, 2021; RAINN, 2026</div>
+    </section>
+
+    <section class="slide" id="harms-1" data-title="Privacy harms: collection and processing">
+      <div>
+        <div class="kicker reveal">Solove’s Taxonomy</div>
+        <h2 class="reveal">Privacy harms: collection and processing</h2>
+        <div class="harm-list reveal">
+          <div class="harm-item"><b>Surveillance</b><span>The system would scan images on a person’s device before uploading them to iCloud Photos.</span></div>
+          <div class="harm-item"><b>Identification</b><span>A matched image could eventually connect to a specific Apple account and individual.</span></div>
+          <div class="harm-item"><b>Secondary use</b><span>Technology created for known CSAM could potentially expand to other prohibited content.</span></div>
+          <div class="harm-item"><b>Insecurity</b><span>Attackers or other parties could attempt to manipulate or misuse the scanning system or hash database.</span></div>
+        </div>
+      </div>
+      <div class="source-line">Sources: Apple, 2021; Electronic Frontier Foundation, 2021; Solove, 2006</div>
+    </section>
+
+    <section class="slide" id="harms-2" data-title="Privacy harms: dissemination and invasion">
+      <div>
+        <div class="kicker reveal">Solove’s Taxonomy</div>
+        <h2 class="reveal">Privacy harms: dissemination and invasion</h2>
+        <div class="harm-list reveal">
+          <div class="harm-item"><b>Disclosure</b><span>Apple could share information connected to confirmed matches with NCMEC.</span></div>
+          <div class="harm-item"><b>Exclusion</b><span>Users would have limited knowledge of or control over how the system made its decisions.</span></div>
+          <div class="harm-item"><b>Intrusion</b><span>Scanning private photos on a personal device could feel like an invasion of private space.</span></div>
+          <div class="harm-item"><b>Distortion</b><span>A false match could incorrectly make an innocent user appear to possess illegal material.</span></div>
+        </div>
+      </div>
+      <div class="source-line">Sources: Apple, 2021; Electronic Frontier Foundation, 2021; Solove, 2006</div>
+    </section>
+
+    <section class="slide" id="principles" data-title="Privacy principles">
+      <div>
+        <div class="kicker reveal">OECD Privacy Principles</div>
+        <h2 class="reveal">Principles that could reduce the risks</h2>
+        <div class="principle-list reveal">
+          <div class="principle-item"><b>Collection limitation</b><span>Process only the minimum information needed to detect known CSAM.</span></div>
+          <div class="principle-item"><b>Data quality</b><span>Maintain an accurate, regularly updated hash database to reduce false matches.</span></div>
+          <div class="principle-item"><b>Purpose and use limitation</b><span>Limit the system to known CSAM and prevent expansion to political speech or other content.</span></div>
+          <div class="principle-item"><b>Security safeguards</b><span>Protect hashes, safety vouchers, and review information from access or manipulation.</span></div>
+          <div class="principle-item"><b>Openness and participation</b><span>Explain the process and provide a clear way to challenge an incorrect match.</span></div>
+          <div class="principle-item"><b>Accountability</b><span>Document decisions, conduct audits, and allow independent oversight.</span></div>
+        </div>
+      </div>
+      <div class="source-line">Sources: Apple, 2021; OECD, 2013</div>
+    </section>
+
+    <section class="slide" id="laws" data-title="Applicable laws">
+      <div>
+        <div class="kicker reveal">Legal Context</div>
+        <h2 class="reveal">Applicable laws</h2>
+        <div class="law-list reveal">
+          <div class="law-item"><b>18 U.S.C. § 2258A</b><span>Requires online providers to report apparent CSAM after obtaining actual knowledge, but does not require proactive scanning.</span></div>
+          <div class="law-item"><b>Stored Communications Act</b><span>Regulates government access to stored communications and account records held by providers.</span></div>
+          <div class="law-item"><b>CCPA / CPRA</b><span>Provides California residents rights involving the collection, use, retention, and disclosure of personal information.</span></div>
+          <div class="law-item"><b>GDPR</b><span>Would require a lawful basis, transparency, data minimization, security, and privacy-risk assessment in Europe.</span></div>
+          <div class="law-item"><b>Fourth Amendment</b><span>Its application would depend on whether Apple acted independently or at the government’s direction.</span></div>
+        </div>
+      </div>
+      <div class="source-line">Sources: 18 U.S.C. §§ 2258A and 2703; CCPA/CPRA; GDPR, 2016</div>
+    </section>
+
+    <section class="slide" id="arguments" data-title="Arguments for and against">
+      <div>
+        <div class="kicker reveal">The Debate</div>
+        <h2 class="reveal">Arguments for and against Apple’s proposal</h2>
+        <div class="toggle-wrap reveal">
+          <div class="toggle-nav" role="tablist" aria-label="Arguments">
+            <button class="toggle-btn active" type="button" role="tab" aria-selected="true" data-panel="for-panel">Arguments for</button>
+            <button class="toggle-btn" type="button" role="tab" aria-selected="false" data-panel="against-panel">Arguments against</button>
+          </div>
+          <div>
+            <div class="toggle-panel active" id="for-panel" role="tabpanel">
+              <ul class="argument-list">
+                <li>Could identify accounts containing collections of known CSAM.</li>
+                <li>Could reduce continued storage and distribution.</li>
+                <li>Used digital hashes instead of routine employee review.</li>
+                <li>Required multiple matches before review.</li>
+                <li>Included human confirmation before reporting.</li>
+                <li>Could help prevent victims from being repeatedly harmed.</li>
+              </ul>
+            </div>
+            <div class="toggle-panel" id="against-panel" role="tabpanel">
+              <ul class="argument-list against">
+                <li>Created a scanning system on personal devices.</li>
+                <li>Could expand to search for other content.</li>
+                <li>Could face pressure for surveillance or censorship.</li>
+                <li>False matches could trigger investigations.</li>
+                <li>Gave users limited control or knowledge.</li>
+                <li>Could weaken trust in Apple’s privacy promises.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="source-line">Sources: Apple, 2021; Clayton, 2021; Electronic Frontier Foundation, 2021</div>
+    </section>
+
+    <section class="slide" id="timeline" data-title="What happened">
+      <div>
+        <div class="kicker reveal">Proposal Timeline</div>
+        <h2 class="reveal">What happened to Apple’s proposal?</h2>
+        <div class="timeline reveal">
+          <article class="event"><time>August 2021</time><h3>Announced</h3><p>Apple introduced its plan to detect known CSAM connected to iCloud Photos.</p></article>
+          <article class="event"><time>September 2021</time><h3>Delayed</h3><p>Apple delayed the release after criticism from privacy advocates, security researchers, and civil-rights organizations.</p></article>
+          <article class="event"><time>December 2022</time><h3>Abandoned</h3><p>Apple confirmed that it had abandoned the proposed iCloud Photos detection system and focused on Communication Safety instead.</p></article>
+        </div>
+      </div>
+      <div class="source-line">Sources: Apple, 2026; Newman, 2022</div>
+    </section>
+
+    <section class="slide balance-slide" id="question" data-title="The central privacy question">
+      <div class="balance-content">
+        <div class="kicker reveal">The Central Privacy Question</div>
+        <h2 class="reveal">Safety and privacy must coexist</h2>
+        <div class="balance-comparison reveal">
+          <article class="balance-card">
+            <h3>Protecting Children</h3>
+            <ul>
+              <li>Detect collections of known CSAM.</li>
+              <li>Reduce the continued distribution of abuse material.</li>
+              <li>Report confirmed cases to NCMEC.</li>
+              <li>Limit repeated harm to victims.</li>
+            </ul>
+          </article>
+          <article class="balance-card">
+            <h3>Protecting Privacy</h3>
+            <ul>
+              <li>Avoid scanning people’s personal devices.</li>
+              <li>Prevent false matches and investigations.</li>
+              <li>Prevent government surveillance or censorship.</li>
+              <li>Keep the technology from expanding to other content.</li>
+            </ul>
+          </article>
+        </div>
+        <div class="central-question reveal">Can companies protect children without creating technology that could weaken everyone’s privacy?</div>
+      </div>
+      <div class="source-line">Sources: Apple, 2021; Electronic Frontier Foundation, 2021</div>
+    </section>
+
+    <section class="slide" id="findings" data-title="Recommendations and findings">
+      <div>
+        <div class="kicker reveal">Research Findings</div>
+        <h2 class="reveal">Recommendations and findings</h2>
+        <div class="grid-2 reveal">
+          <div>
+            <div class="finding"><b>The goal mattered</b><p>Apple sought to protect children and limit the spread of known CSAM.</p></div>
+            <div class="finding"><b>The design created new risks</b><p>Scanning personal devices raised privacy, security, and trust concerns.</p></div>
+            <div class="finding"><b>Expansion remained possible</b><p>A system created for one purpose could later search for other content.</p></div>
+            <div class="finding"><b>Public criticism shaped development</b><p>Apple’s decision shows that privacy concerns can influence technology design.</p></div>
+          </div>
+          <div class="recommendation-list">
+            <div class="recommendation-item"><b>Continue Communication Safety</b><span>Use warnings that support users without automatically reporting them.</span></div>
+            <div class="recommendation-item"><b>Require safeguards</b><span>Include transparency, independent testing, data minimization, and appeals.</span></div>
+            <div class="recommendation-item"><b>Include outside expertise</b><span>Involve child-safety experts, privacy professionals, security researchers, and users before release.</span></div>
+            <div class="recommendation-item"><b>Protect both goals</b><span>Child protection should not require technology that weakens everyone’s privacy.</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="source-line">Sources: Apple, 2026; Newman, 2022</div>
+    </section>
+
+    <section class="slide" id="conclusion" data-title="Conclusion">
+      <div>
+        <div class="kicker reveal">Conclusion</div>
+        <h2 class="reveal">Good intentions do not remove future risks</h2>
+        <p class="lede reveal">Apple’s proposal attempted to protect children and identify known illegal material, but it also raised concerns about device scanning, false matches, government pressure, and expansion to other content.</p>
+        <p class="final-thought reveal">Technology can be designed with good intentions, but companies must also consider how that technology could be used in the future.</p>
+      </div>
+      <div class="source-line">Sources: Apple, 2026; Newman, 2022</div>
+    </section>
+
+    <section class="slide" id="video-resources" data-title="Video resources">
+      <div>
+        <div class="kicker reveal">Continue Exploring</div>
+        <h2 class="reveal">Learn more about the topic</h2>
+        <p class="lede reveal">These optional videos provide additional background and perspectives on Apple’s proposal, child safety, and the privacy debate.</p>
+        <div class="video-grid reveal">
+          <a class="video-card" href="https://youtu.be/OQUO1DSwYN0" target="_blank" rel="noopener noreferrer">
+            <div class="video-thumb">
+              <img src="https://i.ytimg.com/vi/OQUO1DSwYN0/hqdefault.jpg" alt="Preview image for video resource one" loading="lazy">
+              <span class="play-button" aria-hidden="true">▶</span>
+            </div>
+            <div class="video-info"><span>VIDEO 01</span><h3>Additional topic resource</h3><p>Open this video on YouTube.</p></div>
+          </a>
+          <a class="video-card" href="https://youtu.be/B5qpKhBrtU8" target="_blank" rel="noopener noreferrer">
+            <div class="video-thumb">
+              <img src="https://i.ytimg.com/vi/B5qpKhBrtU8/hqdefault.jpg" alt="Preview image for video resource two" loading="lazy">
+              <span class="play-button" aria-hidden="true">▶</span>
+            </div>
+            <div class="video-info"><span>VIDEO 02</span><h3>Additional topic resource</h3><p>Open this video on YouTube.</p></div>
+          </a>
+          <a class="video-card" href="https://youtube.com/shorts/WR2AYO6llTE?si=ft-YEZUcptJc7LRO" target="_blank" rel="noopener noreferrer">
+            <div class="video-thumb">
+              <img src="https://i.ytimg.com/vi/WR2AYO6llTE/hqdefault.jpg" alt="Preview image for short video resource" loading="lazy">
+              <span class="play-button" aria-hidden="true">▶</span>
+            </div>
+            <div class="video-info"><span>SHORT VIDEO</span><h3>Quick topic resource</h3><p>Open this short video on YouTube.</p></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="references" data-title="References">
+      <div>
+        <div class="kicker reveal">Research Record</div>
+        <h2 class="reveal">References</h2>
+        <ul class="references reveal">
+          <li>RAINN. (2026, May 31). <em>What is CSAM?</em> https://rainn.org/get-the-facts-about-csam-child-sexual-abuse-material/what-is-csam/</li>
+          <li>Apple. (2021). <em>Expanded protections for children.</em> Full APA entry to be finalized.</li>
+          <li>Apple. (2026). <em>Communication Safety.</em> Full APA entry to be finalized.</li>
+          <li>Clayton, J. (2021). <em>Apple to scan iPhones for child sex abuse images.</em> BBC News.</li>
+          <li>Electronic Frontier Foundation. (2021). Full APA entry to be finalized.</li>
+          <li>Solove, D. J. (2006). <em>A taxonomy of privacy.</em> University of Pennsylvania Law Review, 154(3).</li>
+          <li>Organisation for Economic Co-operation and Development. (2013). <em>The OECD Privacy Framework.</em></li>
+          <li>Newman, L. H. (2022). Full APA entry to be finalized.</li>
+          <li>18 U.S.C. § 2258A.</li>
+          <li>18 U.S.C. § 2703.</li>
+          <li>California Consumer Privacy Act / California Privacy Rights Act.</li>
+          <li>Regulation (EU) 2016/679, General Data Protection Regulation.</li>
+          <li class="pending">Draft note: Replace incomplete entries with the final verified APA references before publication.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="footer">
+    <div class="footer-name">Erika Hernandez</div>
+    <div class="footer-course">INFA 702 · Data Privacy · Fall 2026</div>
+    <div class="footer-right">
+      <div class="counter" id="counter" aria-live="polite">01 / 17</div>
+      <div class="nav-controls">
+        <button class="nav-btn" id="previousButton" type="button" aria-label="Previous slide">↑</button>
+        <button class="nav-btn" id="nextButton" type="button" aria-label="Next slide">↓</button>
+      </div>
+    </div>
+  </footer>
+
+  <aside class="slide-menu" id="slideMenu" aria-hidden="true">
+    <div class="menu-intro">
+      <button class="close-menu" id="closeMenu" type="button" aria-label="Close slide menu">×</button>
+      <div class="kicker">Navigation</div>
+      <h2>Jump to a section</h2>
+      <p>Use this menu, the arrow keys, spacebar, or the controls in the footer.</p>
+    </div>
+    <nav class="menu-list" id="menuList" aria-label="Slides"></nav>
+  </aside>
+
+  <script>
+    (() => {
+      const presentation = document.getElementById('presentation');
+      const slides = [...document.querySelectorAll('.slide')];
+      const footer = document.getElementById('footer');
+      const counter = document.getElementById('counter');
+      const previousButton = document.getElementById('previousButton');
+      const nextButton = document.getElementById('nextButton');
+      const menuButton = document.getElementById('menuButton');
+      const slideMenu = document.getElementById('slideMenu');
+      const closeMenu = document.getElementById('closeMenu');
+      const menuList = document.getElementById('menuList');
+      let currentIndex = 0;
+      let wheelLocked = false;
+
+      const pad = number => String(number).padStart(2, '0');
+
+      function goToSlide(index, behavior = 'smooth') {
+        const safeIndex = Math.max(0, Math.min(slides.length - 1, index));
+        slides[safeIndex].scrollIntoView({ behavior, block: 'start' });
+        updateUI(safeIndex);
+      }
+
+      function updateUI(index) {
+        currentIndex = index;
+        slides.forEach((slide, slideIndex) => slide.classList.toggle('active', slideIndex === index));
+        counter.textContent = `${pad(index + 1)} / ${pad(slides.length)}`;
+        footer.style.setProperty('--progress', `${((index + 1) / slides.length) * 100}%`);
+        previousButton.disabled = index === 0;
+        nextButton.disabled = index === slides.length - 1;
+        document.title = `${slides[index].dataset.title} | Erika Hernandez`;
+        history.replaceState(null, '', `#${slides[index].id}`);
+      }
+
+      const observer = new IntersectionObserver(entries => {
+        const visible = entries
+          .filter(entry => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) updateUI(slides.indexOf(visible.target));
+      }, { root: presentation, threshold: [.52, .7] });
+      slides.forEach(slide => observer.observe(slide));
+
+      previousButton.addEventListener('click', () => goToSlide(currentIndex - 1));
+      nextButton.addEventListener('click', () => goToSlide(currentIndex + 1));
+
+      document.addEventListener('keydown', event => {
+        if (slideMenu.classList.contains('open')) {
+          if (event.key === 'Escape') setMenu(false);
+          return;
+        }
+        const nextKeys = ['ArrowDown', 'ArrowRight', 'PageDown', ' '];
+        const previousKeys = ['ArrowUp', 'ArrowLeft', 'PageUp'];
+        if (nextKeys.includes(event.key)) {
+          event.preventDefault();
+          goToSlide(currentIndex + 1);
+        } else if (previousKeys.includes(event.key)) {
+          event.preventDefault();
+          goToSlide(currentIndex - 1);
+        } else if (event.key === 'Home') {
+          event.preventDefault();
+          goToSlide(0);
+        } else if (event.key === 'End') {
+          event.preventDefault();
+          goToSlide(slides.length - 1);
+        } else if (event.key.toLowerCase() === 'm') {
+          setMenu(true);
+        }
+      });
+
+      presentation.addEventListener('wheel', event => {
+        if (window.innerWidth < 701 || wheelLocked || Math.abs(event.deltaY) < 24) return;
+        event.preventDefault();
+        wheelLocked = true;
+        goToSlide(currentIndex + (event.deltaY > 0 ? 1 : -1));
+        window.setTimeout(() => { wheelLocked = false; }, 720);
+      }, { passive: false });
+
+      function setMenu(open) {
+        slideMenu.classList.toggle('open', open);
+        slideMenu.setAttribute('aria-hidden', String(!open));
+        menuButton.setAttribute('aria-expanded', String(open));
+        if (open) closeMenu.focus(); else menuButton.focus();
+      }
+
+      slides.forEach((slide, index) => {
+        const link = document.createElement('a');
+        link.className = 'menu-link';
+        link.href = `#${slide.id}`;
+        link.innerHTML = `<span>${pad(index + 1)}</span><span>${slide.dataset.title}</span>`;
+        link.addEventListener('click', event => {
+          event.preventDefault();
+          setMenu(false);
+          window.setTimeout(() => goToSlide(index), 80);
+        });
+        menuList.appendChild(link);
+      });
+
+      menuButton.addEventListener('click', () => setMenu(true));
+      closeMenu.addEventListener('click', () => setMenu(false));
+      slideMenu.addEventListener('click', event => {
+        if (event.target === slideMenu) setMenu(false);
+      });
+
+      document.querySelectorAll('[data-jump]').forEach(card => {
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        const jump = () => {
+          const target = document.getElementById(card.dataset.jump);
+          goToSlide(slides.indexOf(target));
+        };
+        card.addEventListener('click', jump);
+        card.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            jump();
+          }
+        });
+      });
+
+      document.querySelectorAll('.process-step').forEach(step => {
+        step.addEventListener('click', () => {
+          step.parentElement.querySelectorAll('.process-step').forEach(item => item.classList.remove('active'));
+          step.classList.add('active');
+        });
+      });
+
+      document.querySelectorAll('.toggle-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          document.querySelectorAll('.toggle-btn').forEach(item => {
+            item.classList.toggle('active', item === button);
+            item.setAttribute('aria-selected', String(item === button));
+          });
+          document.querySelectorAll('.toggle-panel').forEach(panel => panel.classList.toggle('active', panel.id === button.dataset.panel));
+        });
+      });
+
+      const initialId = location.hash.slice(1);
+      const initialIndex = slides.findIndex(slide => slide.id === initialId);
+      goToSlide(initialIndex >= 0 ? initialIndex : 0, 'auto');
+    })();
+  </script>
+</body>
+</html>
