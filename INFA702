@@ -103,7 +103,7 @@
       top: 48%;
       transform: translateY(-50%);
       border-radius: 50%;
-      background: url("assets/csam-privacy-hero.png") center / cover no-repeat;
+      background: url("images/csam-privacy-hero.png") center / cover no-repeat;
       box-shadow:
         0 0 0 1px rgba(140, 236, 255, .2),
         0 0 90px rgba(24, 200, 242, .2),
@@ -148,7 +148,7 @@
     .balance-slide {
       background-image:
         linear-gradient(90deg, rgba(2, 11, 20, .97) 0%, rgba(2, 11, 20, .88) 36%, rgba(2, 11, 20, .22) 74%),
-        url("assets/privacy-balance.png");
+        url("images/privacy-balance.png");
       background-size: cover;
       background-position: center;
     }
