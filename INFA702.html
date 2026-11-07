@@ -374,7 +374,7 @@
     .toggle-btn:hover, .toggle-btn.active {
       color: var(--white);
       border-color: var(--cyan);
-      : rgba(24, 200, 242, .12);
+      background: rgba(24, 200, 242, .12);
     }
     .toggle-panel { display: none; }
     .toggle-panel.active { display: block; animation: panelIn .45s var(--ease) both; }
@@ -390,7 +390,7 @@
       position: relative;
       padding: 18px 18px 18px 48px;
       color: #d9e8ef;
-      : rgba(7, 36, 55, .66);
+      background: rgba(7, 36, 55, .66);
       border: 1px solid var(--line);
       line-height: 1.42;
     }
@@ -415,16 +415,40 @@
       content: "";
       position: absolute;
       top: 15px;
-      left: 0;
-      right: 0;
-      height: 2px;
-      : linear-gradient(90deg, var(--cyan), rgba(24, 200, 242, .18), var(--amber));
+      left: 24px;
+      right: calc(33.333% - 48px);
+      height: 3px;
+      z-index: 1;
+      background: linear-gradient(90deg, var(--cyan), rgba(24, 200, 242, .55), var(--amber));
+      box-shadow: 0 0 16px rgba(24, 200, 242, .5);
+    }
+    .timeline::after {
+      content: "";
+      position: absolute;
+      top: 9px;
+      left: 24px;
+      width: 14px;
+      height: 14px;
+      z-index: 4;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 0 8px #ffffff, 0 0 24px var(--cyan);
+      pointer-events: none;
+      animation: timelineJourney 5s ease-in-out infinite;
     }
     .event {
       position: relative;
+      z-index: 2;
       padding: 26px;
-      : rgba(7, 36, 55, .66);
+      background: rgba(7, 36, 55, .66);
       border: 1px solid var(--line);
+      transition: transform .35s var(--ease), background .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease);
+    }
+    .event:hover {
+      transform: translateY(-8px);
+      background: linear-gradient(180deg, rgba(24, 200, 242, .18), rgba(7, 36, 55, .78));
+      border-color: var(--cyan);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, .24), 0 0 24px rgba(24, 200, 242, .12);
     }
     .event::before {
       content: "";
@@ -433,11 +457,12 @@
       left: 24px;
       width: 12px;
       height: 12px;
+      z-index: 3;
       border-radius: 50%;
-      : var(--cyan);
+      background: var(--cyan);
       box-shadow: 0 0 20px var(--cyan);
     }
-    .event:last-child::before { : var(--amber); box-shadow: 0 0 20px rgba(255, 186, 98, .7); }
+    .event:last-child::before { background: var(--amber); box-shadow: 0 0 20px rgba(255, 186, 98, .7); }
     .event time {
       display: block;
       margin-bottom: 14px;
@@ -460,7 +485,7 @@
     }
 
     .balance-slide {
-      -position: center;
+      background-position: center;
     }
     .balance-content { width: 100%; }
     .balance-slide h2 {
@@ -480,6 +505,13 @@
       border: 1px solid rgba(140, 236, 255, .34);
       box-shadow: 0 24px 70px rgba(0, 0, 0, .34), 0 0 28px rgba(24, 200, 242, .08);
       backdrop-filter: blur(18px);
+      transition: transform .35s var(--ease), background .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease);
+    }
+    .balance-card:hover {
+      transform: translateY(-8px);
+      background: linear-gradient(180deg, rgba(24, 200, 242, .2), rgba(2, 11, 20, .9));
+      border-color: var(--cyan);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .38), 0 0 32px rgba(24, 200, 242, .18);
     }
     .balance-card h3 {
       color: var(--cyan-soft);
@@ -673,6 +705,19 @@
       box-shadow: 0 0 18px rgba(24, 200, 242, .55);
       transition: width .5s var(--ease);
     }
+    .footer::after {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: 0;
+      width: 70px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .95), var(--cyan), transparent);
+      filter: drop-shadow(0 0 7px var(--cyan));
+      pointer-events: none;
+      animation: footerSweep 3s ease-in-out infinite;
+    }
     .footer-name {
       color: var(--white);
       font-size: .8rem;
@@ -807,17 +852,29 @@
       50% { opacity: 1; transform: translateY(-3px); }
     }
 
-    @keyframes footerPulse {
-  0%, 100% {
-    opacity: .45;
-    box-shadow: 0 0 10px rgba(24, 200, 242, .35);
-  }
-
-  50% {
-    opacity: 1;
-    box-shadow: 0 0 28px rgba(24, 200, 242, .95);
-  }
-}
+    @keyframes footerSweep {
+      0% { left: 0; opacity: 0; }
+      12% { opacity: 1; }
+      88% { opacity: 1; }
+      100% { left: calc(var(--progress, 0%) - 70px); opacity: 0; }
+    }
+    @keyframes timelineJourney {
+      0%, 12% {
+        left: 24px;
+        background: var(--cyan);
+        box-shadow: 0 0 8px #ffffff, 0 0 24px var(--cyan);
+      }
+      44%, 56% {
+        left: calc(33.333% + 36px);
+        background: var(--cyan-soft);
+        box-shadow: 0 0 8px #ffffff, 0 0 24px var(--cyan);
+      }
+      88%, 100% {
+        left: calc(66.666% + 48px);
+        background: var(--amber);
+        box-shadow: 0 0 8px #ffffff, 0 0 24px var(--amber);
+      }
+    }
     @media (max-width: 980px) {
       body { overflow: auto; }
       .slide { padding-inline: 30px; }
@@ -828,7 +885,7 @@
       .toggle-wrap { grid-template-columns: 1fr; }
       .toggle-nav { grid-template-columns: 1fr 1fr; }
       .timeline { grid-template-columns: 1fr; gap: 14px; padding-top: 0; }
-      .timeline::before, .event::before { display: none; }
+      .timeline::before, .timeline::after, .event::before { display: none; }
       .source-line { display: none; }
       .balance-comparison { gap: 24px; }
       .video-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
