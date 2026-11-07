@@ -359,9 +359,12 @@
     .toggle-nav { display: grid; gap: 10px; }
     .toggle-btn, .menu-btn, .nav-btn, .close-menu {
       border: 1px solid var(--line);
-      : rgba(4, 24, 39, .72);
-      cursor: pointer;
-      transition: .25s ease;
+  background: rgba(4, 24, 39, .72);
+  color: var(--cyan-soft);
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: .25s ease;
     }
     .toggle-btn {
       padding: 15px 18px;
@@ -804,6 +807,17 @@
       50% { opacity: 1; transform: translateY(-3px); }
     }
 
+    @keyframes footerPulse {
+  0%, 100% {
+    opacity: .45;
+    box-shadow: 0 0 10px rgba(24, 200, 242, .35);
+  }
+
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 28px rgba(24, 200, 242, .95);
+  }
+}
     @media (max-width: 980px) {
       body { overflow: auto; }
       .slide { padding-inline: 30px; }
