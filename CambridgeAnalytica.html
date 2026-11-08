@@ -269,6 +269,74 @@
     .agenda-grid h3 { margin-bottom: 5px; }
     .agenda-grid p { margin: 0; font-size: .95rem; color: var(--muted); }
 
+    .chapter-index {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 54px;
+      max-width: 1120px;
+      margin-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+    .chapter-row {
+      display: grid;
+      grid-template-columns: 56px minmax(0, 1fr) auto;
+      gap: 16px;
+      align-items: center;
+      padding: 16px 0;
+      color: var(--white);
+      border-bottom: 1px solid var(--line);
+      cursor: pointer;
+      transition: color .25s ease, transform .25s ease;
+    }
+    .chapter-row:hover { color: var(--cyan-soft); transform: translateX(6px); }
+    .chapter-row .chapter-number {
+      color: var(--cyan);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: .78rem;
+      letter-spacing: .14em;
+    }
+    .chapter-row b { font-size: 1rem; }
+    .chapter-row span:last-child { color: var(--muted); font-size: .8rem; }
+
+    .continuance-chain {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 34px;
+    }
+    .continuance-step {
+      position: relative;
+      min-height: 190px;
+      padding: 24px;
+      border-top: 2px solid var(--cyan);
+      background: linear-gradient(180deg, rgba(124, 92, 255, .14), rgba(11, 16, 39, .5));
+    }
+    .continuance-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -18px;
+      top: 45%;
+      z-index: 2;
+      color: var(--amber);
+      font-size: 1.35rem;
+    }
+    .continuance-step small { color: var(--cyan-soft); letter-spacing: .14em; text-transform: uppercase; }
+    .continuance-step h3 { margin: 14px 0 10px; }
+    .continuance-step p { margin: 0; color: var(--muted); }
+
+    .conclusion-layout {
+      display: grid;
+      grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+      gap: clamp(30px, 6vw, 90px);
+      align-items: start;
+    }
+    .reflection-note {
+      padding: 26px;
+      border-left: 2px solid var(--amber);
+      background: rgba(255, 107, 122, .06);
+    }
+    .reflection-note p:last-child { margin-bottom: 0; }
+
     .definition {
       max-width: 980px;
       padding: clamp(24px, 4vw, 48px);
@@ -914,6 +982,10 @@
       .slide { padding-inline: 30px; }
       .grid-4 { grid-template-columns: repeat(2, 1fr); }
       .grid-3 { grid-template-columns: repeat(2, 1fr); }
+      .chapter-index { grid-template-columns: 1fr; }
+      .continuance-chain { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .continuance-step::after { display: none; }
+      .conclusion-layout { grid-template-columns: 1fr; }
       .process { grid-template-columns: repeat(2, 1fr); }
       .process-step { min-height: 190px; }
       .toggle-wrap { grid-template-columns: 1fr; }
@@ -930,7 +1002,7 @@
       .presentation { scroll-snap-type: none; }
       .slide { min-height: auto; padding: 92px 22px calc(var(--footer-h) + 30px); overflow: visible; }
       .hero, .balance-slide { min-height: 100svh; background-position: 64% center; }
-      .grid-2, .grid-3, .grid-4, .stat-row, .argument-list { grid-template-columns: 1fr; }
+      .grid-2, .grid-3, .grid-4, .stat-row, .argument-list, .continuance-chain { grid-template-columns: 1fr; }
       .process { grid-template-columns: 1fr; }
       .harm-item, .principle-item, .law-item, .recommendation-item { grid-template-columns: 1fr; gap: 6px; }
       .references { columns: 1; }
@@ -970,7 +1042,7 @@
 </head>
 <body>
   <header class="topbar" aria-label="Presentation controls">
-    <div class="brand"><span>Privacy</span> Research Project</div>
+    <div class="brand"><span>Midterm</span> Research Paper</div>
     <button class="menu-btn" id="menuButton" type="button" aria-label="Open slide menu" aria-expanded="false">☰</button>
   </header>
 
@@ -979,9 +1051,9 @@
       <div class="hero-visual" aria-hidden="true"></div>
       <div class="hero-scan" aria-hidden="true"></div>
       <div class="hero-copy">
-        <div class="kicker reveal">INFA 702 Research / Fall 2026</div>
+        <div class="kicker reveal">INFA 702 Midterm Paper / Fall 2026</div>
         <h1 class="hero-title reveal">Cambridge Analytica</h1>
-        <p class="hero-subtitle reveal">When personal data became political power</p>
+        <p class="hero-subtitle reveal">A case study in data privacy and political influence</p>
         <div class="byline reveal">
           <span><strong>Erika Hernandez</strong></span>
           <span>INFA 702 · Data Privacy</span>
@@ -991,19 +1063,21 @@
       <div class="hint">Use arrow keys, space, or scroll</div>
     </section>
 
-    <section class="slide" id="agenda" data-title="Agenda">
+    <section class="slide" id="contents" data-title="Paper contents">
       <div>
-        <div class="kicker reveal">Paper Roadmap</div>
-        <h2 class="reveal">How the paper follows the scandal</h2>
-        <div class="grid-4 agenda-grid reveal">
-          <article class="card" data-jump="context"><span class="card-number">01</span><h3>Introduction</h3><p>The five-dollar privacy question</p></article>
-          <article class="card" data-jump="proposal"><span class="card-number">02</span><h3>Incident Summary</h3><p>How the quiz became political profiling</p></article>
-          <article class="card" data-jump="harms-1"><span class="card-number">03</span><h3>Ramifications</h3><p>Legal and ethical consequences</p></article>
-          <article class="card" data-jump="principles"><span class="card-number">04</span><h3>Policies and Notices</h3><p>What Facebook told its users</p></article>
-          <article class="card" data-jump="readability"><span class="card-number">05</span><h3>Privacy Issues</h3><p>Readability, targeting, and user control</p></article>
-          <article class="card" data-jump="other-incidents"><span class="card-number">06</span><h3>Other Incidents</h3><p>Why the controversy continued</p></article>
-          <article class="card" data-jump="continuance"><span class="card-number">07</span><h3>Continuance Question</h3><p>Why this can happen again</p></article>
-          <article class="card" data-jump="reflection"><span class="card-number">08</span><h3>Conclusion</h3><p>Personal reflection and final lesson</p></article>
+        <div class="kicker reveal">Table of Contents</div>
+        <h2 class="reveal">The paper, section by section</h2>
+        <div class="chapter-index reveal">
+          <div class="chapter-row" data-jump="context"><span class="chapter-number">01</span><b>Introduction</b><span>Five dollars</span></div>
+          <div class="chapter-row" data-jump="proposal"><span class="chapter-number">02</span><b>Incident Summary</b><span>What happened</span></div>
+          <div class="chapter-row" data-jump="harms-1"><span class="chapter-number">03</span><b>Legal Ramifications</b><span>Penalties</span></div>
+          <div class="chapter-row" data-jump="harms-2"><span class="chapter-number">04</span><b>Ethical Ramifications</b><span>Responsibility</span></div>
+          <div class="chapter-row" data-jump="principles"><span class="chapter-number">05</span><b>Privacy Policies and Notices</b><span>Disclosure</span></div>
+          <div class="chapter-row" data-jump="readability"><span class="chapter-number">06</span><b>Readability</b><span>User control</span></div>
+          <div class="chapter-row" data-jump="privacy-issues"><span class="chapter-number">07</span><b>Significant Privacy Issues</b><span>Targeting</span></div>
+          <div class="chapter-row" data-jump="other-incidents"><span class="chapter-number">08</span><b>Other Incidents</b><span>Continuing cases</span></div>
+          <div class="chapter-row" data-jump="continuance"><span class="chapter-number">09</span><b>Incident Continuance Question</b><span>What comes next</span></div>
+          <div class="chapter-row" data-jump="conclusion"><span class="chapter-number">10</span><b>Conclusion</b><span>Final reflection</span></div>
         </div>
       </div>
     </section>
@@ -1047,22 +1121,6 @@
         </div>
       </div>
       <div class="source-line">Sources: Amer &amp; Noujaim, 2019; PBS, n.d.</div>
-    </section>
-
-    <section class="slide" id="profiling" data-title="Incident summary: political profiling">
-      <div>
-        <div class="kicker reveal">Incident Summary · Political Profiling</div>
-        <h2 class="reveal">A person became thousands of data points</h2>
-        <div class="grid-3 reveal">
-          <article class="card"><span class="card-number">IDENTITY</span><h3>Personal details</h3><p>Likes, interests, relationships, location, and activity could help describe a person.</p></article>
-          <article class="card"><span class="card-number">PERSONALITY</span><h3>Psychographic profile</h3><p>Data was used to estimate personality traits and predict likely behavior.</p></article>
-          <article class="card"><span class="card-number">NETWORK</span><h3>Friends were included</h3><p>The reach extended beyond survey participants to people who never took the quiz.</p></article>
-          <article class="card"><span class="card-number">MESSAGE</span><h3>Different realities</h3><p>Different groups could receive different political messages based on their profiles.</p></article>
-          <article class="card"><span class="card-number">SCALE</span><h3>Millions affected</h3><p>The scandal showed how one application could create consequences at enormous scale.</p></article>
-          <article class="card"><span class="card-number">POWER</span><h3>Prediction became influence</h3><p>The value was not only knowing people. It was trying to move what they did next.</p></article>
-        </div>
-      </div>
-      <div class="source-line">Sources: Amer &amp; Noujaim, 2019; NBC News, 2018</div>
     </section>
 
     <section class="slide" id="harms-1" data-title="Legal ramifications">
@@ -1172,64 +1230,36 @@
       <div class="source-line">Sources: CBS News, 2018; Vijayan, 2024; Hays, 2026</div>
     </section>
 
-    <section class="slide balance-slide" id="continuance" data-title="Incident continuance question">
-      <div class="balance-content">
+    <section class="slide" id="continuance" data-title="Incident continuance question">
+      <div>
         <div class="kicker reveal">Incident Continuance Question</div>
         <h2 class="reveal">Why could this happen again?</h2>
-        <div class="balance-comparison reveal">
-          <article class="balance-card">
-            <h3>Why it continues</h3>
-            <ul>
-              <li>Personal data remains extremely valuable.</li>
-              <li>Advertising rewards detailed profiles and precise targeting.</li>
-              <li>Political campaigns spend heavily to influence voters.</li>
-              <li>Platforms can predict which message may persuade each group.</li>
-            </ul>
-          </article>
-          <article class="balance-card">
-            <h3>What users still need</h3>
-            <ul>
-              <li>Who collects and receives personal information.</li>
-              <li>Whether information can be reused for another purpose.</li>
-              <li>How profiles, predictions, and targeted messages are created.</li>
-              <li>How to withdraw consent and verify deletion.</li>
-            </ul>
-          </article>
+        <div class="continuance-chain reveal">
+          <article class="continuance-step"><small>01</small><h3>Data</h3><p>Platforms continue collecting activity, interests, relationships, and behavior.</p></article>
+          <article class="continuance-step"><small>02</small><h3>Profiles</h3><p>Separate details are combined into predictions about personality and likely actions.</p></article>
+          <article class="continuance-step"><small>03</small><h3>Targeting</h3><p>Advertisers and campaigns pay to reach carefully selected groups.</p></article>
+          <article class="continuance-step"><small>04</small><h3>Influence</h3><p>Messages can be designed to affect what people buy, believe, or vote for.</p></article>
         </div>
         <div class="central-question reveal">If data can predict behavior, how much power should companies have to use it to influence what people buy, believe, or vote for?</div>
       </div>
       <div class="source-line">Sources: Amer &amp; Noujaim, 2019; Cadwalladr, 2019</div>
     </section>
 
-    <section class="slide" id="reflection" data-title="Conclusion: personal reflection">
-      <div>
-        <div class="kicker reveal">Conclusion · Personal Reflection</div>
-        <h2 class="reveal">What this case changed for me</h2>
-        <div class="grid-2 reveal">
-          <div>
-            <div class="finding"><b>A seven-year break</b><p>The Cambridge Analytica scandal happened during a long break from social media, which changed how the platforms looked after returning.</p></div>
-            <div class="finding"><b>Deleting takes work</b><p>Removing years of posts and pictures showed how easy it is to create a history and how difficult it is to take it back.</p></div>
-            <div class="finding"><b>Limited sharing</b><p>Social media is now used carefully, with fewer posts, fewer reactions, and connections limited to people known in real life.</p></div>
-            <div class="finding"><b>Deletion is uncertain</b><p>There is still no complete confidence that deleting a profile means every copy and every derived profile is gone.</p></div>
-          </div>
-          <div class="recommendation-list">
-            <div class="recommendation-item"><b>Digital avatar</b><span>Likes, dislikes, and activity can become a detailed version of a person built by the platform.</span></div>
-            <div class="recommendation-item"><b>Thousands of data points</b><span>The documentary describes profiles containing thousands of details about individual users.</span></div>
-            <div class="recommendation-item"><b>Profiles begin early</b><span>Children can accumulate large data histories before they are old enough to understand the consequences.</span></div>
-            <div class="recommendation-item"><b>The issue continues</b><span>As long as data creates influence and money, organizations will continue trying to collect more of it.</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="source-line">Source: Personal reflection and Amer &amp; Noujaim, 2019</div>
-    </section>
-
     <section class="slide" id="conclusion" data-title="Conclusion">
       <div>
         <div class="kicker reveal">Conclusion</div>
         <h2 class="reveal">The scandal was about more than one quiz</h2>
-        <p class="lede reveal">Cambridge Analytica showed how information collected through an ordinary platform could be combined, transformed into psychological profiles, and used for a purpose that many people never expected.</p>
-        <p class="final-thought reveal">“Privacy is power” and “data rights are human rights.” Those ideas matter because data does not only describe people—it can shape the choices placed in front of them.</p>
-        <a class="paper-link reveal" href="assets/Erika-Hernandez-Cambridge-Analytica-Midterm.pdf" target="_blank" rel="noopener noreferrer">Read the original academic paper <span aria-hidden="true">↗</span></a>
+        <div class="conclusion-layout reveal">
+          <div class="reflection-note">
+            <p><strong>This case changed how social media looks after returning from a seven-year break.</strong></p>
+            <p>Deleting years of posts showed how easy it is to create a digital history and how difficult it is to take it back. There is still no complete confidence that deleting a profile means every copy and every derived profile is gone.</p>
+            <a class="paper-link" href="assets/Erika-Hernandez-Cambridge-Analytica-Midterm.pdf" target="_blank" rel="noopener noreferrer">Read the original midterm paper <span aria-hidden="true">↗</span></a>
+          </div>
+          <div>
+            <p class="lede">Cambridge Analytica showed how information collected through an ordinary platform could be combined, transformed into psychological profiles, and used for a purpose that many people never expected.</p>
+            <p class="final-thought">“Privacy is power” and “data rights are human rights.”</p>
+          </div>
+        </div>
       </div>
       <div class="source-line">Sources: Cadwalladr, 2019; Amer &amp; Noujaim, 2019</div>
     </section>
