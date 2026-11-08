@@ -696,6 +696,116 @@
 					display: none;
 				}
 			}
+
+			/* Cinematic hero image version */
+			#banner {
+				height: 82vh;
+				min-height: 48rem;
+				background-color: #020908;
+				background-image:
+					linear-gradient(90deg, rgba(2, 8, 11, 0.98) 0%, rgba(2, 8, 11, 0.9) 31%, rgba(2, 8, 11, 0.57) 54%, rgba(2, 8, 11, 0.1) 78%),
+					url("images/ute-cyber-hero.png");
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+
+			#banner::before {
+				background:
+					radial-gradient(circle at 72% 47%, rgba(44, 255, 114, 0.08), transparent 30%),
+					linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(1, 8, 7, 0.42));
+			}
+
+			#header #nav .header-research {
+				border-bottom: 0;
+				color: rgba(112, 255, 157, 0.68);
+				font-family: "Courier New", Courier, monospace;
+				font-size: 0.76rem;
+				font-weight: 700;
+				letter-spacing: 0.075rem;
+				text-transform: uppercase;
+				transition: color 0.2s ease, text-shadow 0.2s ease;
+			}
+
+			#header #nav .header-research::before {
+				content: "// ";
+				color: rgba(44, 255, 114, 0.42);
+			}
+
+			#header #nav .header-research:hover,
+			#header #nav .header-research:focus-visible {
+				color: #70ff9d !important;
+				text-shadow: 0 0 0.8rem rgba(44, 255, 114, 0.42);
+			}
+
+			@media screen and (min-width: 981px) {
+				#banner .content {
+					display: block;
+					width: min(92vw, 82rem);
+					max-width: none;
+					margin: 0 auto;
+					padding: 7.5rem 1.5rem 6rem;
+					text-align: left;
+				}
+
+				#banner .content > header {
+					display: block;
+					width: min(47rem, 54%);
+					max-width: 47rem;
+					text-align: left;
+				}
+
+				#banner .content header h2 {
+					font-size: clamp(3rem, 5vw, 5.6rem);
+					line-height: 0.98;
+					letter-spacing: -0.055em;
+					text-wrap: balance;
+				}
+
+				#banner .content header p {
+					max-width: 39rem;
+					margin-top: 1.45rem;
+					color: rgba(239, 255, 246, 0.72);
+					font-size: 1.05rem;
+					line-height: 1.8;
+				}
+			}
+
+			@media screen and (max-width: 980px) {
+				#banner {
+					height: auto;
+					min-height: 46rem;
+					background-image:
+						linear-gradient(180deg, rgba(2, 8, 11, 0.74) 0%, rgba(2, 8, 11, 0.95) 72%, #02080b 100%),
+						url("images/ute-cyber-hero.png");
+					background-position: 68% center;
+				}
+
+				#banner .content {
+					max-width: 44rem;
+					padding-top: 10rem;
+					padding-bottom: 8rem;
+				}
+
+				#banner .content header {
+					padding: 1.5rem;
+					border-radius: 0.75rem;
+					background: rgba(2, 8, 11, 0.52);
+					backdrop-filter: blur(8px);
+					-webkit-backdrop-filter: blur(8px);
+				}
+			}
+
+			@media screen and (max-width: 736px) {
+				#banner {
+					min-height: calc(100vh - 44px);
+					background-position: 72% center;
+				}
+
+				#banner .content {
+					padding: 5.5rem 1.25rem 6.5rem;
+				}
+			}
 		</style>
 	</head>
 	<body class="is-preload landing">
@@ -713,6 +823,7 @@
 
 					<nav id="nav">
 						<ul>
+							<li><a href="#research-archive" class="header-research scrolly">PhD Research</a></li>
 							<li><a href="mailto:utahtechexperts@gmail.com?subject=Technology%20Project%20or%20Collaboration" class="header-contact button primary">Contact Me</a></li>
 						</ul>
 						<!--<ul>  This is for the menu options for the top right corner of the site -I took this off since we are going to just put a splash page up 
@@ -749,36 +860,6 @@
 							<p>A showcase of IT support, website development, cybersecurity knowledge, and practical technology solutions.<br />
 							Need help with a website or another technology project? Let’s talk about what you need.</p>
 						</header>
-						<div class="cyber-guardian" id="cyber-guardian" aria-label="Interactive Utah Tech Experts cyber guardian">
-							<div class="guardian-field" aria-hidden="true">
-								<canvas class="guardian-hyperspace" id="guardian-hyperspace"></canvas>
-							</div>
-							<div class="guardian-shadow" aria-hidden="true"></div>
-							<div class="guardian-figure guardian-render" aria-hidden="true">
-								<img class="guardian-body-render" src="images/cyber-guardian-body.png" alt="" />
-								<div class="guardian-head">
-									<img src="images/cyber-guardian-head.png" alt="" />
-									<span class="guardian-eye-shutter guardian-eye-shutter-left"></span>
-									<span class="guardian-eye-shutter guardian-eye-shutter-right"></span>
-								</div>
-								<div class="guardian-logo-badge">
-									<img src="images/logo.png" alt="" />
-								</div>
-							</div>
-							<div class="guardian-console">
-								<span class="guardian-console-status">UTE DIGITAL GUIDE</span>
-								<strong>Welcome, visitor.</strong>
-								<span>What would you like to explore?</span>
-								<div class="guardian-console-actions">
-									<a href="#resources" class="scrolly">Security Library</a>
-									<a href="#ai-learning" class="scrolly">AI Learning</a>
-									<a href="#ai-security-hub" class="scrolly">AI Security Hub</a>
-								</div>
-							</div>
-							<button class="guardian-motion-toggle" type="button" aria-label="Pause Cyber Guardian animation" aria-pressed="false">
-								<span class="guardian-pause-icon" aria-hidden="true"></span>
-							</button>
-						</div>
 					</div>
 					<a href="#one" class="goto-next scrolly">Next</a>
 				</section>
@@ -1155,7 +1236,7 @@
 				</section>
 
 			<!-- Quiet Research Archive -->
-				<aside class="research-archive" aria-label="Selected academic research">
+				<aside id="research-archive" class="research-archive" aria-label="Selected academic research">
 					<div class="research-archive-inner">
 						<span class="research-archive-label">Research archive</span>
 						<a href="/INFA702/">Apple CSAM Privacy Research</a>
