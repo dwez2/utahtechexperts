@@ -710,18 +710,23 @@
 				background-size: cover;
 			}
 
+			/* Override the original theme's very dark banner overlay. */
+			#banner::after {
+				background: rgba(2, 8, 11, 0.14) !important;
+			}
+
 			.hero-orbit {
 				position: absolute;
-				top: 50%;
-				right: 2.5%;
+				top: 52%;
+				right: 0.5%;
 				z-index: 1;
-				width: min(38vw, 35rem);
-				aspect-ratio: 1;
+				width: min(46vw, 50rem);
+				height: min(12vw, 13rem);
 				border: 1px solid rgba(112, 255, 157, 0.15);
 				border-radius: 50%;
-				opacity: 0.58;
+				opacity: 0.72;
 				pointer-events: none;
-				transform: translateY(-50%) rotate(-8deg);
+				transform: translateY(-50%) rotate(-5deg);
 			}
 
 			.hero-orbit::before {
@@ -919,9 +924,11 @@
 				}
 
 				.hero-orbit {
-					right: -18vw;
-					width: 72vw;
-					opacity: 0.38;
+					top: 44%;
+					right: -24vw;
+					width: 98vw;
+					height: 32vw;
+					opacity: 0.42;
 				}
 			}
 
