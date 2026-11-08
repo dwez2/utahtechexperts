@@ -2,1479 +2,217 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="An interactive research presentation examining the Cambridge Analytica scandal, privacy harms, legal consequences, and the continuing power of personal data.">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="An interactive midterm paper about Cambridge Analytica, privacy notices, and political profiling.">
   <meta name="author" content="Erika Hernandez">
-  <title>Cambridge Analytica: When Personal Data Became Political Power | Erika Hernandez</title>
+  <title>Cambridge Analytica Midterm | Erika Hernandez</title>
   <style>
-    :root {
-      --navy-950: #050714;
-      --navy-900: #0b1027;
-      --navy-800: #18285a;
-      --cyan: #7c5cff;
-      --cyan-soft: #a8c7ff;
-      --amber: #ff6b7a;
-      --white: #f5fbff;
-      --muted: #a8bfcc;
-      --line: rgba(168, 199, 255, .22);
-      --panel: rgba(7, 36, 55, .72);
-      --footer-h: 66px;
-      --ease: cubic-bezier(.22, 1, .36, 1);
-    }
-
-    * { box-sizing: border-box; }
-    html { background: var(--navy-950); scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      color: var(--white);
-      background: var(--navy-950);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      overflow: hidden;
-    }
-
-    button, input { font: inherit; }
-    button { color: inherit; }
-    a { color: var(--cyan-soft); }
-
-    .presentation {
-      height: 100svh;
-      overflow-y: auto;
-      overflow-x: hidden;
-      scroll-snap-type: y mandatory;
-      scrollbar-width: none;
-      overscroll-behavior: contain;
-    }
-    .presentation::-webkit-scrollbar { display: none; }
-
-    .slide {
-      position: relative;
-      min-height: 100svh;
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
-      display: grid;
-      align-items: center;
-      padding: clamp(76px, 8vh, 110px) clamp(28px, 7vw, 118px) calc(var(--footer-h) + 34px);
-      isolation: isolate;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 82% 18%, rgba(124, 92, 255, .12), transparent 30%),
-        linear-gradient(135deg, var(--navy-950), var(--navy-900) 52%, #05243a);
-    }
-
-    .slide::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -2;
-      background-image:
-        linear-gradient(rgba(168, 199, 255, .045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(168, 199, 255, .045) 1px, transparent 1px);
-      background-size: 72px 72px;
-      mask-image: linear-gradient(to bottom right, transparent 8%, black 62%, transparent 100%);
-    }
-
-    .slide::after {
-      content: "";
-      position: absolute;
-      width: min(46vw, 660px);
-      aspect-ratio: 1;
-      right: -18vw;
-      bottom: -42%;
-      z-index: -1;
-      border: 1px solid rgba(168, 199, 255, .13);
-      border-radius: 50%;
-      box-shadow: 0 0 100px rgba(124, 92, 255, .07) inset;
-    }
-
-    .hero {
-      background:
-        radial-gradient(circle at 76% 44%, rgba(124, 92, 255, .15), transparent 34%),
-        linear-gradient(110deg, #050714 0%, #031522 52%, #041b2b 100%);
-    }
-    .hero::before { opacity: .35; }
-
-    .hero-copy { position: relative; z-index: 3; }
-    .hero-visual {
-      position: absolute;
-      z-index: 1;
-      width: min(68vw, 920px);
-      aspect-ratio: 1;
-      right: clamp(-170px, -7vw, -90px);
-      top: 48%;
-      transform: translateY(-50%);
-      border-radius: 50%;
-      background: url("images/cambridge-hero.png") center / cover no-repeat;
-      box-shadow:
-        0 0 0 1px rgba(168, 199, 255, .2),
-        0 0 90px rgba(124, 92, 255, .2),
-        inset 0 0 110px rgba(2, 11, 20, .45);
-      animation: heroFloat 9s ease-in-out infinite;
-    }
-    .hero-visual::before,
-    .hero-visual::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-    }
-    .hero-visual::before {
-      inset: -5%;
-      background: conic-gradient(from 40deg, transparent 0 22%, rgba(124, 92, 255, .9) 27%, transparent 31% 58%, rgba(255, 186, 98, .7) 62%, transparent 67%);
-      mask: radial-gradient(circle, transparent 67%, #000 68% 70%, transparent 71%);
-      animation: orbitSpin 15s linear infinite;
-      filter: drop-shadow(0 0 12px rgba(124, 92, 255, .7));
-    }
-    .hero-visual::after {
-      inset: 10%;
-      border: 1px solid rgba(168, 199, 255, .28);
-      border-left-color: var(--cyan);
-      border-right-color: var(--amber);
-      animation: orbitSpinReverse 21s linear infinite;
-      box-shadow: 0 0 35px rgba(124, 92, 255, .12) inset;
-    }
-    .hero-scan {
-      position: absolute;
-      z-index: 2;
-      width: min(64vw, 880px);
-      height: 2px;
-      right: -8vw;
-      top: 50%;
-      background: linear-gradient(90deg, transparent, rgba(168, 199, 255, .9), transparent);
-      box-shadow: 0 0 20px var(--cyan);
-      opacity: .55;
-      animation: scanSweep 5.5s ease-in-out infinite;
-    }
-
-    .balance-slide {
-      background:
-        radial-gradient(circle at 20% 50%, rgba(124, 92, 255, .18), transparent 34%),
-        radial-gradient(circle at 82% 48%, rgba(255, 107, 122, .14), transparent 32%),
-        linear-gradient(120deg, #050714 0%, #0b1027 48%, #17102e 100%);
-      background-size: cover;
-      background-position: center;
-    }
-
-    .kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 18px;
-      color: var(--cyan-soft);
-      font-size: clamp(.72rem, 1vw, .9rem);
-      font-weight: 750;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-    }
-    .kicker::before {
-      content: "";
-      width: 34px;
-      height: 2px;
-      background: linear-gradient(90deg, var(--cyan), transparent);
-    }
-
-    h1, h2, h3, p { margin-top: 0; }
-    h1 {
-      max-width: 900px;
-      margin-bottom: 22px;
-      font-size: clamp(3rem, 6.8vw, 7.7rem);
-      line-height: .92;
-      letter-spacing: -.065em;
-      text-wrap: balance;
-    }
-    h2 {
-      max-width: 1000px;
-      margin-bottom: 30px;
-      font-size: clamp(2.45rem, 5.2vw, 5.6rem);
-      line-height: .98;
-      letter-spacing: -.055em;
-      text-wrap: balance;
-    }
-    h3 {
-      margin-bottom: 10px;
-      font-size: clamp(1.08rem, 1.6vw, 1.38rem);
-      line-height: 1.25;
-    }
-    p {
-      color: #d8e8f0;
-      font-size: clamp(1rem, 1.45vw, 1.32rem);
-      line-height: 1.55;
-    }
-    .lede {
-      max-width: 760px;
-      color: #dcecf4;
-      font-size: clamp(1.15rem, 1.9vw, 1.65rem);
-    }
-    .accent { color: var(--cyan-soft); }
-    .amber { color: var(--amber); }
-    .small { font-size: .92rem; color: var(--muted); }
-
-    .hero-copy { max-width: 920px; }
-    .hero-title {
-      max-width: 930px;
-      text-shadow: 0 10px 45px rgba(0, 0, 0, .5), 0 0 30px rgba(124, 92, 255, .08);
-    }
-    .hero-subtitle {
-      max-width: 740px;
-      font-size: clamp(1.15rem, 2vw, 1.75rem);
-      color: #cce2ec;
-    }
-    .byline {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px 24px;
-      margin-top: 38px;
-      color: var(--muted);
-      font-size: .95rem;
-      letter-spacing: .04em;
-    }
-    .byline strong { color: var(--white); }
-
-    .grid-2, .grid-3, .grid-4 {
-      display: grid;
-      gap: clamp(14px, 2vw, 26px);
-    }
-    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-
-    .card {
-      position: relative;
-      min-height: 150px;
-      padding: clamp(18px, 2.2vw, 30px);
-      background: linear-gradient(145deg, rgba(9, 45, 68, .84), rgba(5, 24, 39, .74));
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      box-shadow: 0 26px 70px rgba(0, 0, 0, .18);
-      backdrop-filter: blur(16px);
-      transition: transform .35s var(--ease), border-color .35s ease, background .35s ease;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(168, 199, 255, .58);
-      background: linear-gradient(145deg, rgba(10, 56, 83, .9), rgba(5, 29, 47, .84));
-    }
-    .card p:last-child { margin-bottom: 0; }
-    .card-number {
-      display: block;
-      margin-bottom: 20px;
-      color: var(--cyan);
-      font: 700 .78rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      letter-spacing: .14em;
-    }
-
-    .agenda-grid .card {
-      cursor: pointer;
-      min-height: 122px;
-    }
-    .agenda-grid h3 { margin-bottom: 5px; }
-    .agenda-grid p { margin: 0; font-size: .95rem; color: var(--muted); }
-
-    .chapter-index {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0 54px;
-      max-width: 1120px;
-      margin-top: 18px;
-      border-top: 1px solid var(--line);
-    }
-    .chapter-row {
-      display: grid;
-      grid-template-columns: 56px minmax(0, 1fr) auto;
-      gap: 16px;
-      align-items: center;
-      padding: 16px 0;
-      color: var(--white);
-      border-bottom: 1px solid var(--line);
-      cursor: pointer;
-      transition: color .25s ease, transform .25s ease;
-    }
-    .chapter-row:hover { color: var(--cyan-soft); transform: translateX(6px); }
-    .chapter-row .chapter-number {
-      color: var(--cyan);
-      font-family: "SFMono-Regular", Consolas, monospace;
-      font-size: .78rem;
-      letter-spacing: .14em;
-    }
-    .chapter-row b { font-size: 1rem; }
-    .chapter-row span:last-child { color: var(--muted); font-size: .8rem; }
-
-    .continuance-chain {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 34px;
-    }
-    .continuance-step {
-      position: relative;
-      min-height: 190px;
-      padding: 24px;
-      border-top: 2px solid var(--cyan);
-      background: linear-gradient(180deg, rgba(124, 92, 255, .14), rgba(11, 16, 39, .5));
-    }
-    .continuance-step:not(:last-child)::after {
-      content: "→";
-      position: absolute;
-      right: -18px;
-      top: 45%;
-      z-index: 2;
-      color: var(--amber);
-      font-size: 1.35rem;
-    }
-    .continuance-step small { color: var(--cyan-soft); letter-spacing: .14em; text-transform: uppercase; }
-    .continuance-step h3 { margin: 14px 0 10px; }
-    .continuance-step p { margin: 0; color: var(--muted); }
-
-    .conclusion-layout {
-      display: grid;
-      grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
-      gap: clamp(30px, 6vw, 90px);
-      align-items: start;
-    }
-    .reflection-note {
-      padding: 26px;
-      border-left: 2px solid var(--amber);
-      background: rgba(255, 107, 122, .06);
-    }
-    .reflection-note p:last-child { margin-bottom: 0; }
-
-    .definition {
-      max-width: 980px;
-      padding: clamp(24px, 4vw, 48px);
-      border-left: 3px solid var(--cyan);
-      background: linear-gradient(90deg, rgba(124, 92, 255, .11), transparent);
-    }
-    .definition strong { color: var(--white); }
-
-    .stat-row {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-      margin-top: 28px;
-    }
-    .stat {
-      padding: 22px 0;
-      border-top: 1px solid var(--line);
-    }
-    .stat b {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--cyan-soft);
-      font-size: clamp(1.35rem, 2.4vw, 2.3rem);
-    }
-    .stat span { color: var(--muted); }
-
-    .process {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 12px;
-      counter-reset: process;
-    }
-    .process-step {
-      position: relative;
-      min-height: 250px;
-      padding: 26px 20px;
-      border-top: 2px solid rgba(168, 199, 255, .28);
-      background: linear-gradient(180deg, rgba(124, 92, 255, .08), rgba(7, 36, 55, .48));
-      counter-increment: process;
-      cursor: pointer;
-      transition: .35s var(--ease);
-    }
-    .process-step::before {
-      content: "0" counter(process);
-      display: block;
-      margin-bottom: 44px;
-      color: var(--cyan);
-      font: 700 .82rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
-      letter-spacing: .12em;
-    }
-    .process-step::after {
-      content: "";
-      position: absolute;
-      top: -5px;
-      left: 0;
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 18px var(--cyan);
-    }
-    .process-step:hover, .process-step.active {
-      transform: translateY(-8px);
-      background: linear-gradient(180deg, rgba(124, 92, 255, .18), rgba(7, 36, 55, .74));
-      border-color: var(--cyan);
-    }
-    .process-step p { font-size: .96rem; color: var(--muted); }
-
-    .harm-list, .principle-list, .law-list, .recommendation-list {
-      display: grid;
-      gap: 12px;
-    }
-    .harm-item, .principle-item, .law-item, .recommendation-item {
-      display: grid;
-      grid-template-columns: minmax(150px, 230px) 1fr;
-      gap: 24px;
-      padding: 16px 0;
-      border-bottom: 1px solid rgba(168, 199, 255, .14);
-    }
-    .harm-item b, .principle-item b, .law-item b, .recommendation-item b { color: var(--cyan-soft); }
-    .harm-item span, .principle-item span, .law-item span, .recommendation-item span { color: #d5e5ed; line-height: 1.45; }
-
-    .toggle-wrap {
-      display: grid;
-      grid-template-columns: 180px 1fr;
-      gap: 30px;
-      align-items: start;
-    }
-    .toggle-nav { display: grid; gap: 10px; }
-    .toggle-btn, .menu-btn, .nav-btn, .close-menu {
-      border: 1px solid var(--line);
-  background: rgba(4, 24, 39, .72);
-  color: var(--cyan-soft);
-  appearance: none;
-  -webkit-appearance: none;
-  cursor: pointer;
-  transition: .25s ease;
-    }
-    .toggle-btn {
-      padding: 15px 18px;
-      text-align: left;
-      color: var(--muted);
-    }
-    .toggle-btn:hover, .toggle-btn.active {
-      color: var(--white);
-      border-color: var(--cyan);
-      background: rgba(124, 92, 255, .12);
-    }
-    .toggle-panel { display: none; }
-    .toggle-panel.active { display: block; animation: panelIn .45s var(--ease) both; }
-    .argument-list {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .argument-list li {
-      position: relative;
-      padding: 18px 18px 18px 48px;
-      color: #d9e8ef;
-      background: rgba(7, 36, 55, .66);
-      border: 1px solid var(--line);
-      line-height: 1.42;
-    }
-    .argument-list li::before {
-      content: "+";
-      position: absolute;
-      left: 18px;
-      top: 16px;
-      color: var(--cyan);
-      font: 700 1.2rem/1 ui-monospace, monospace;
-    }
-    .argument-list.against li::before { content: "–"; color: var(--amber); }
-
-    .timeline {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 36px;
-      padding-top: 40px;
-    }
-    .timeline::before {
-      content: "";
-      position: absolute;
-      top: 15px;
-      left: 24px;
-      right: calc(33.333% - 48px);
-      height: 3px;
-      z-index: 1;
-      background: linear-gradient(90deg, var(--cyan), rgba(124, 92, 255, .55), var(--amber));
-      box-shadow: 0 0 16px rgba(124, 92, 255, .5);
-    }
-    .timeline::after {
-      content: "";
-      position: absolute;
-      top: 9px;
-      left: 24px;
-      width: 14px;
-      height: 14px;
-      z-index: 4;
-      border-radius: 50%;
-      background: #ffffff;
-      box-shadow: 0 0 8px #ffffff, 0 0 24px var(--cyan);
-      pointer-events: none;
-      animation: timelineJourney 5s ease-in-out infinite;
-    }
-    .event {
-      position: relative;
-      z-index: 2;
-      padding: 26px;
-      background: rgba(7, 36, 55, .66);
-      border: 1px solid var(--line);
-      transition: transform .35s var(--ease), background .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease);
-    }
-    .event:hover {
-      transform: translateY(-8px);
-      background: linear-gradient(180deg, rgba(124, 92, 255, .18), rgba(7, 36, 55, .78));
-      border-color: var(--cyan);
-      box-shadow: 0 18px 42px rgba(0, 0, 0, .24), 0 0 24px rgba(124, 92, 255, .12);
-    }
-    .event::before {
-      content: "";
-      position: absolute;
-      top: -31px;
-      left: 24px;
-      width: 12px;
-      height: 12px;
-      z-index: 3;
-      border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 20px var(--cyan);
-    }
-    .event:last-child::before { background: var(--amber); box-shadow: 0 0 20px rgba(255, 186, 98, .7); }
-    .event time {
-      display: block;
-      margin-bottom: 14px;
-      color: var(--cyan-soft);
-      font: 700 .82rem/1 ui-monospace, monospace;
-      letter-spacing: .13em;
-      text-transform: uppercase;
-    }
-
-    .question-box {
-      max-width: 780px;
-      padding: 30px 0 0;
-      border-top: 1px solid var(--line);
-    }
-    .question-box p {
-      color: var(--white);
-      font-size: clamp(1.5rem, 2.8vw, 2.8rem);
-      line-height: 1.2;
-      letter-spacing: -.025em;
-    }
-
-    .balance-slide {
-      background-position: center;
-    }
-    .balance-content { width: 100%; }
-    .balance-slide h2 {
-      margin-bottom: 20px;
-      font-size: clamp(2.4rem, 4.3vw, 4.8rem);
-    }
-    .balance-comparison {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: clamp(80px, 16vw, 250px);
-      align-items: stretch;
-      margin-top: 18px;
-    }
-    .balance-card {
-      padding: clamp(20px, 2.4vw, 30px);
-      background: linear-gradient(145deg, rgba(4, 25, 41, .93), rgba(7, 48, 74, .78));
-      border: 1px solid rgba(168, 199, 255, .34);
-      box-shadow: 0 24px 70px rgba(0, 0, 0, .34), 0 0 28px rgba(124, 92, 255, .08);
-      backdrop-filter: blur(18px);
-      transition: transform .35s var(--ease), background .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease);
-    }
-    .balance-card:hover {
-      transform: translateY(-8px);
-      background: linear-gradient(180deg, rgba(124, 92, 255, .2), rgba(2, 11, 20, .9));
-      border-color: var(--cyan);
-      box-shadow: 0 24px 70px rgba(0, 0, 0, .38), 0 0 32px rgba(124, 92, 255, .18);
-    }
-    .balance-card h3 {
-      color: var(--cyan-soft);
-      font-size: clamp(1.2rem, 1.7vw, 1.5rem);
-    }
-    .balance-card ul {
-      margin: 14px 0 0;
-      padding-left: 1.15rem;
-      color: #e0eef4;
-      font-size: clamp(.92rem, 1.12vw, 1.08rem);
-      line-height: 1.48;
-    }
-    .balance-card li + li { margin-top: 8px; }
-    .central-question {
-      max-width: 1000px;
-      margin: 24px auto 0;
-      padding: 15px 24px;
-      color: var(--white);
-      background: rgba(2, 11, 20, .8);
-      border: 1px solid rgba(168, 199, 255, .28);
-      box-shadow: 0 0 35px rgba(124, 92, 255, .1);
-      font-size: clamp(1.08rem, 1.6vw, 1.45rem);
-      font-weight: 720;
-      line-height: 1.35;
-      text-align: center;
-    }
-
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: clamp(16px, 2vw, 28px);
-    }
-    .video-card {
-      position: relative;
-      display: block;
-      overflow: hidden;
-      color: var(--white);
-      text-decoration: none;
-      background: rgba(7, 36, 55, .72);
-      border: 1px solid var(--line);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, .24);
-      transition: transform .35s var(--ease), border-color .35s ease, box-shadow .35s ease;
-    }
-    .video-card:hover,
-    .video-card:focus-visible {
-      transform: translateY(-7px);
-      border-color: var(--cyan);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, .35), 0 0 35px rgba(124, 92, 255, .14);
-      outline: none;
-    }
-    .video-thumb {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-      background: #03131f;
-    }
-    .video-thumb.netflix { background: radial-gradient(circle at 50% 40%, rgba(255, 107, 122, .32), transparent 42%), linear-gradient(135deg, #070711, #2a0b20); }
-    .video-thumb.pbs { background: radial-gradient(circle at 50% 40%, rgba(168, 199, 255, .28), transparent 42%), linear-gradient(135deg, #071326, #162f5e); }
-    .video-thumb.ted { background: radial-gradient(circle at 50% 40%, rgba(255, 107, 122, .28), transparent 42%), linear-gradient(135deg, #13070b, #45121b); }
-    .resource-mark {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      color: rgba(255, 255, 255, .18);
-      font-size: clamp(2.2rem, 4vw, 4rem);
-      font-weight: 850;
-      letter-spacing: .14em;
-    }
-    .video-thumb img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      opacity: .72;
-      transition: transform .5s var(--ease), opacity .35s ease;
-    }
-    .video-card:hover img { transform: scale(1.05); opacity: .9; }
-    .play-button {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 58px;
-      height: 58px;
-      display: grid;
-      place-items: center;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      color: #02111d;
-      background: var(--cyan-soft);
-      box-shadow: 0 0 30px rgba(124, 92, 255, .58);
-      font-size: 1.2rem;
-      padding-left: 3px;
-    }
-    .video-info { padding: 20px 22px 24px; }
-    .video-info span {
-      color: var(--cyan);
-      font: 700 .76rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
-      letter-spacing: .12em;
-    }
-    .video-info h3 { margin: 10px 0 6px; }
-    .video-info p { margin: 0; color: var(--muted); font-size: .94rem; }
-
-    .finding {
-      padding: 22px 0;
-      border-top: 1px solid var(--line);
-    }
-    .finding b {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--cyan-soft);
-      font-size: 1.1rem;
-    }
-    .finding p { margin: 0; font-size: 1rem; color: var(--muted); }
-
-    .final-thought {
-      max-width: 1050px;
-      font-size: clamp(1.65rem, 3.2vw, 3.3rem);
-      line-height: 1.22;
-      letter-spacing: -.035em;
-      color: var(--white);
-    }
-    .paper-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      margin-top: 24px;
-      padding: 14px 20px;
-      color: var(--white);
-      background: linear-gradient(135deg, rgba(124, 92, 255, .28), rgba(255, 107, 122, .16));
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 750;
-      transition: transform .3s var(--ease), border-color .3s ease, box-shadow .3s ease;
-    }
-    .paper-link:hover, .paper-link:focus-visible {
-      transform: translateY(-4px);
-      border-color: var(--cyan-soft);
-      box-shadow: 0 0 30px rgba(124, 92, 255, .24);
-      outline: none;
-    }
-
-    .references {
-      columns: 2;
-      column-gap: 46px;
-      padding: 0;
-      list-style: none;
-    }
-    .references li {
-      break-inside: avoid;
-      margin: 0 0 13px;
-      padding: 0 0 13px;
-      border-bottom: 1px solid rgba(168, 199, 255, .1);
-      color: #c8dbe5;
-      font-size: clamp(.78rem, 1vw, .92rem);
-      line-height: 1.42;
-    }
-    .references .pending { color: var(--amber); }
-
-    .source-line {
-      position: absolute;
-      right: clamp(28px, 7vw, 118px);
-      bottom: calc(var(--footer-h) + 16px);
-      max-width: 48%;
-      color: rgba(213, 229, 237, .62);
-      font-size: .72rem;
-      text-align: right;
-    }
-
-    .topbar {
-      position: fixed;
-      inset: 0 0 auto;
-      z-index: 30;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 clamp(20px, 3vw, 46px);
-      background: linear-gradient(180deg, rgba(2, 11, 20, .9), transparent);
-      pointer-events: none;
-    }
-    .brand {
-      color: rgba(245, 251, 255, .9);
-      font-size: .82rem;
-      font-weight: 750;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-    }
-    .brand span { color: var(--cyan); }
-    .menu-btn {
-      width: 44px;
-      height: 44px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      pointer-events: auto;
-      font-size: 1.1rem;
-    }
-    .menu-btn:hover { border-color: var(--cyan); background: rgba(124, 92, 255, .12); }
-
-    .footer {
-      position: fixed;
-      inset: auto 0 0;
-      z-index: 30;
-      min-height: var(--footer-h);
-      display: grid;
-      grid-template-columns: minmax(170px, 1fr) auto minmax(180px, 1fr);
-      align-items: center;
-      gap: 18px;
-      padding: 13px clamp(20px, 3vw, 46px) 12px;
-      background: rgba(2, 11, 20, .88);
-      border-top: 1px solid rgba(168, 199, 255, .14);
-      backdrop-filter: blur(18px);
-    }
-    .footer::before {
-      content: "";
-      position: absolute;
-      top: -1px;
-      left: 0;
-      width: var(--progress, 0%);
-      height: 2px;
-      background: linear-gradient(90deg, var(--cyan), var(--amber));
-      box-shadow: 0 0 18px rgba(124, 92, 255, .55);
-      transition: width .5s var(--ease);
-    }
-    .footer::after {
-      content: "";
-      position: absolute;
-      top: -2px;
-      left: 0;
-      width: 70px;
-      height: 4px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .95), var(--cyan), transparent);
-      filter: drop-shadow(0 0 7px var(--cyan));
-      pointer-events: none;
-      animation: footerSweep 3s ease-in-out infinite;
-    }
-    .footer-name {
-      color: var(--white);
-      font-size: .8rem;
-      font-weight: 750;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-    .footer-course {
-      color: var(--muted);
-      font-size: .78rem;
-      text-align: center;
-    }
-    .footer-right {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 14px;
-    }
-    .counter {
-      min-width: 70px;
-      color: var(--cyan-soft);
-      font: 700 .78rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
-      letter-spacing: .09em;
-      text-align: center;
-    }
-    .nav-controls { display: flex; gap: 8px; }
-    .nav-btn {
-      width: 34px;
-      height: 34px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-    }
-    .nav-btn:hover:not(:disabled) { border-color: var(--cyan); background: rgba(124, 92, 255, .12); }
-    .nav-btn:disabled { opacity: .28; cursor: not-allowed; }
-
-    .slide-menu {
-      position: fixed;
-      inset: 0;
-      z-index: 60;
-      display: grid;
-      grid-template-columns: minmax(260px, 420px) 1fr;
-      background: rgba(2, 11, 20, .96);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity .35s ease, visibility .35s ease;
-    }
-    .slide-menu.open { opacity: 1; visibility: visible; }
-    .menu-intro {
-      padding: clamp(32px, 6vw, 82px);
-      background: linear-gradient(160deg, rgba(124, 92, 255, .15), transparent 55%);
-      border-right: 1px solid var(--line);
-    }
-    .menu-intro h2 { font-size: clamp(2.5rem, 4vw, 4.6rem); }
-    .close-menu {
-      width: 44px;
-      height: 44px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      margin-bottom: 50px;
-    }
-    .menu-list {
-      overflow-y: auto;
-      padding: clamp(32px, 6vw, 82px);
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      align-content: start;
-      gap: 2px 36px;
-    }
-    .menu-link {
-      display: grid;
-      grid-template-columns: 42px 1fr;
-      gap: 12px;
-      padding: 15px 0;
-      color: #d4e5ed;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(168, 199, 255, .1);
-    }
-    .menu-link:hover { color: var(--cyan-soft); }
-    .menu-link span:first-child { color: var(--cyan); font: 700 .75rem/1.8 ui-monospace, monospace; }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity .7s var(--ease), transform .7s var(--ease);
-    }
-    .slide.active .reveal { opacity: 1; transform: none; }
-    .slide.active .reveal:nth-child(2) { transition-delay: .08s; }
-    .slide.active .reveal:nth-child(3) { transition-delay: .16s; }
-    .slide.active .reveal:nth-child(4) { transition-delay: .24s; }
-
-    .hint {
-      position: absolute;
-      left: clamp(28px, 7vw, 118px);
-      bottom: calc(var(--footer-h) + 20px);
-      color: rgba(213, 229, 237, .55);
-      font-size: .74rem;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      animation: hintPulse 2.2s ease-in-out infinite;
-    }
-    .hint::before {
-      content: "";
-      display: inline-block;
-      width: 7px;
-      height: 7px;
-      margin-right: 10px;
-      border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 14px var(--cyan);
-      vertical-align: 1px;
-    }
-
-    @keyframes panelIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: none; }
-    }
-    @keyframes heroFloat {
-      0%, 100% { transform: translateY(-50%) scale(1); }
-      50% { transform: translateY(-52%) scale(1.025); }
-    }
-    @keyframes orbitSpin { to { transform: rotate(360deg); } }
-    @keyframes orbitSpinReverse { to { transform: rotate(-360deg); } }
-    @keyframes scanSweep {
-      0%, 100% { transform: translateY(-210px); opacity: 0; }
-      18%, 78% { opacity: .55; }
-      50% { transform: translateY(210px); opacity: .75; }
-    }
-    @keyframes hintPulse {
-      0%, 100% { opacity: .45; transform: translateY(0); }
-      50% { opacity: 1; transform: translateY(-3px); }
-    }
-
-    @keyframes footerSweep {
-      0% { left: 0; opacity: 0; }
-      12% { opacity: 1; }
-      88% { opacity: 1; }
-      100% { left: calc(var(--progress, 0%) - 70px); opacity: 0; }
-    }
-    @keyframes timelineJourney {
-      0%, 12% {
-        left: 24px;
-        background: var(--cyan);
-        box-shadow: 0 0 8px #ffffff, 0 0 24px var(--cyan);
-      }
-      44%, 56% {
-        left: calc(33.333% + 36px);
-        background: var(--cyan-soft);
-        box-shadow: 0 0 8px #ffffff, 0 0 24px var(--cyan);
-      }
-      88%, 100% {
-        left: calc(66.666% + 48px);
-        background: var(--amber);
-        box-shadow: 0 0 8px #ffffff, 0 0 24px var(--amber);
-      }
-    }
-    @media (max-width: 980px) {
-      body { overflow: auto; }
-      .slide { padding-inline: 30px; }
-      .grid-4 { grid-template-columns: repeat(2, 1fr); }
-      .grid-3 { grid-template-columns: repeat(2, 1fr); }
-      .chapter-index { grid-template-columns: 1fr; }
-      .continuance-chain { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .continuance-step::after { display: none; }
-      .conclusion-layout { grid-template-columns: 1fr; }
-      .process { grid-template-columns: repeat(2, 1fr); }
-      .process-step { min-height: 190px; }
-      .toggle-wrap { grid-template-columns: 1fr; }
-      .toggle-nav { grid-template-columns: 1fr 1fr; }
-      .timeline { grid-template-columns: 1fr; gap: 14px; padding-top: 0; }
-      .timeline::before, .timeline::after, .event::before { display: none; }
-      .source-line { display: none; }
-      .balance-comparison { gap: 24px; }
-      .video-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-
-    @media (max-width: 700px) {
-      :root { --footer-h: 76px; }
-      .presentation { scroll-snap-type: none; }
-      .slide { min-height: auto; padding: 92px 22px calc(var(--footer-h) + 30px); overflow: visible; }
-      .hero, .balance-slide { min-height: 100svh; background-position: 64% center; }
-      .grid-2, .grid-3, .grid-4, .stat-row, .argument-list, .continuance-chain { grid-template-columns: 1fr; }
-      .process { grid-template-columns: 1fr; }
-      .harm-item, .principle-item, .law-item, .recommendation-item { grid-template-columns: 1fr; gap: 6px; }
-      .references { columns: 1; }
-      .balance-comparison, .video-grid { grid-template-columns: 1fr; }
-      .balance-comparison { gap: 14px; }
-      .hero-visual { width: 118vw; right: -72vw; opacity: .72; }
-      .hero-scan { display: none; }
-      .footer { grid-template-columns: 1fr auto; }
-      .footer-course { display: none; }
-      .slide-menu { grid-template-columns: 1fr; }
-      .menu-intro { display: none; }
-      .menu-list { grid-template-columns: 1fr; padding: 72px 28px 28px; }
-      .close-menu { position: absolute; top: 16px; right: 18px; }
-      .hint { display: none; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
-      .reveal { opacity: 1; transform: none; }
-    }
-
-    @media print {
-      body { overflow: visible; background: white; color: black; }
-      .presentation { height: auto; overflow: visible; }
-      .slide {
-        min-height: 7.5in;
-        page-break-after: always;
-        color: white;
-        print-color-adjust: exact;
-        -webkit-print-color-adjust: exact;
-      }
-      .topbar, .footer, .slide-menu, .hint { display: none !important; }
-      .reveal { opacity: 1; transform: none; }
-    }
+    :root{--bg:#050714;--deep:#0b1027;--panel:#121735;--violet:#825cff;--lav:#b9a7ff;--coral:#ff6b7a;--ice:#d7e6ff;--white:#f7f9ff;--muted:#9daac5;--line:rgba(185,167,255,.2);--footer:66px;--ease:cubic-bezier(.22,1,.36,1)}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--white);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;overflow:hidden}
+    button,a{font:inherit} a{color:inherit}.book{height:100svh;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none}.book::-webkit-scrollbar{display:none}
+    .scene{position:relative;min-height:100svh;padding:clamp(92px,10vh,125px) clamp(34px,7vw,120px) calc(var(--footer) + 42px);display:flex;align-items:center;scroll-snap-align:start;overflow:hidden;background:
+      radial-gradient(circle at 80% 20%,rgba(130,92,255,.14),transparent 32%),
+      linear-gradient(110deg,var(--bg),#09162d)}
+    .scene::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(185,167,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(185,167,255,.035) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(to right,transparent,black)}
+    .inner{position:relative;z-index:2;width:min(1500px,100%);margin:auto}
+    h1,h2,h3,p{margin-top:0} h1{font-size:clamp(4rem,8.6vw,9rem);line-height:.83;letter-spacing:-.075em;margin-bottom:26px} h2{font-size:clamp(2.8rem,5.8vw,6.2rem);line-height:.92;letter-spacing:-.055em;margin-bottom:34px;max-width:1100px} h3{font-size:clamp(1.05rem,1.35vw,1.35rem)} p{font-size:clamp(1rem,1.35vw,1.3rem);line-height:1.58;color:var(--ice)}
+    .eyebrow{display:flex;align-items:center;gap:13px;margin-bottom:24px;color:var(--lav);font:700 .78rem/1.2 "SFMono-Regular",Consolas,monospace;letter-spacing:.18em;text-transform:uppercase}.eyebrow::before{content:"";width:34px;height:1px;background:linear-gradient(90deg,var(--violet),var(--coral))}
+    .source{position:absolute;z-index:3;right:6vw;bottom:calc(var(--footer) + 14px);color:rgba(215,230,255,.55);font-size:.69rem}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}.active .reveal{opacity:1;transform:none}.active .reveal:nth-child(2){transition-delay:.08s}.active .reveal:nth-child(3){transition-delay:.16s}
+    .topbar{position:fixed;z-index:50;inset:0 0 auto;display:flex;align-items:center;justify-content:space-between;padding:18px 30px;pointer-events:none}.brand{font-size:.78rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase}.brand span{color:var(--violet)}.menu-btn{pointer-events:auto;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:rgba(5,7,20,.65);color:var(--white);cursor:pointer}
+    .footer{position:fixed;z-index:45;inset:auto 0 0;height:var(--footer);display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;padding:0 30px;background:rgba(3,8,20,.94);border-top:1px solid var(--line);backdrop-filter:blur(18px);font-size:.73rem;text-transform:uppercase;letter-spacing:.05em}.footer-name{font-weight:850}.footer-course{text-align:center;color:var(--muted);text-transform:none}.footer-right{justify-self:end;display:flex;align-items:center;gap:16px}.counter{color:var(--lav);font-family:Consolas,monospace}.nav{display:flex;gap:8px}.nav button{width:36px;height:36px;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--white);cursor:pointer}.nav button:hover{background:var(--violet)}
+    .progress{position:fixed;z-index:60;left:0;right:0;bottom:var(--footer);height:2px;background:rgba(255,255,255,.06)}.progress span{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--violet),var(--coral));transition:width .5s var(--ease);position:relative}.progress span::after{content:"";position:absolute;right:-5px;top:-4px;width:10px;height:10px;border-radius:50%;background:var(--white);box-shadow:0 0 18px var(--violet)}
+    .hero{background:#030816}.hero-art{position:absolute;z-index:0;inset:0 0 0 42%;background:linear-gradient(90deg,#030816 0%,transparent 38%),url("images/cambridgeo-hero.png") 70% center/cover no-repeat;transform:scale(1.05);animation:breathe 9s ease-in-out infinite alternate}.hero-copy{position:relative;z-index:3;width:min(760px,58vw)}.hero .subtitle{font-size:clamp(1.15rem,2vw,1.75rem);color:var(--ice)}.byline{display:flex;gap:28px;flex-wrap:wrap;margin-top:38px;color:var(--muted);font-size:.88rem}.byline strong{color:var(--white)}@keyframes breathe{to{transform:scale(1.12) translateX(-1%)}}
+    .five-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:7vw;align-items:center}.five{font-size:clamp(12rem,26vw,29rem);line-height:.72;font-weight:900;letter-spacing:-.09em;color:transparent;-webkit-text-stroke:2px var(--violet);filter:drop-shadow(0 0 35px rgba(130,92,255,.25))}.question-stack{border-left:2px solid var(--coral);padding-left:34px}.question-stack p:first-of-type{font-size:clamp(1.5rem,2.8vw,3rem);line-height:1.18;color:var(--white)}
+    .incident-layout{display:grid;grid-template-columns:.85fr 1.15fr;gap:5vw}.trail{position:relative;padding-left:38px;border-left:1px solid var(--line)}.trail-step{position:relative;padding:0 0 25px}.trail-step::before{content:"";position:absolute;left:-45px;top:5px;width:13px;height:13px;border-radius:50%;background:var(--violet);box-shadow:0 0 20px var(--violet)}.trail-step b{display:block;color:var(--lav);margin-bottom:7px}.evidence{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.evidence article{min-height:155px;padding:22px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(130,92,255,.13),rgba(11,16,39,.75))}.evidence strong{display:block;font-size:clamp(1.8rem,3vw,3.2rem);color:var(--white);margin-bottom:8px}.evidence span{color:var(--muted);line-height:1.45}
+    .ledger{display:grid;grid-template-columns:repeat(2,1fr);border:1px solid var(--line);background:rgba(7,11,28,.7)}.ledger article{padding:clamp(26px,4vw,55px);min-height:260px}.ledger article+article{border-left:1px solid var(--line)}.ledger .amount{font-size:clamp(3.4rem,7vw,8rem);font-weight:900;letter-spacing:-.07em;color:var(--coral);line-height:.9}.stamp{display:inline-block;margin-top:26px;padding:8px 12px;border:1px solid var(--coral);color:var(--coral);font:700 .72rem/1 monospace;letter-spacing:.13em;transform:rotate(-2deg)}
+    .fault-lines{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.fault{position:relative;padding:30px;background:var(--deep);min-height:190px;overflow:hidden}.fault::after{content:attr(data-num);position:absolute;right:15px;bottom:-28px;font-size:7rem;font-weight:900;color:rgba(130,92,255,.07)}.fault b{color:var(--lav);font-size:1.2rem}.fault p{font-size:1rem;color:var(--muted)}
+    .notice-layout{display:grid;grid-template-columns:.75fr 1.25fr;gap:6vw;align-items:center}.newsfeed{max-width:460px;margin:auto;padding:18px;border-radius:24px;background:#f5f7fb;color:#182038;box-shadow:0 35px 90px rgba(0,0,0,.35)}.news-head{display:flex;align-items:center;gap:12px;border-bottom:1px solid #dfe4ec;padding-bottom:14px}.fb-dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#1877f2;color:#fff;font-weight:900}.newsfeed h3{margin:22px 0 10px}.newsfeed p{color:#46516a;font-size:.95rem}.news-btn{padding:12px;text-align:center;border-radius:8px;background:#1877f2;color:white;font-weight:800}.notice-notes{display:grid;gap:12px}.notice-notes article{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:18px 0;border-bottom:1px solid var(--line)}.notice-notes b{color:var(--lav)}.notice-notes span{color:var(--ice);line-height:1.5}
+    .clarity{display:grid;grid-template-columns:1fr 1fr;gap:24px}.clarity section{padding:30px;border:1px solid var(--line);min-height:340px}.clarity .clear{background:linear-gradient(145deg,rgba(130,92,255,.15),transparent)}.clarity .muddy{background:linear-gradient(145deg,rgba(255,107,122,.12),transparent)}.clarity ul{padding-left:20px;color:var(--ice);line-height:1.7}.meter{height:8px;margin:24px 0;background:linear-gradient(90deg,var(--violet) 0 42%,var(--coral) 42% 100%);border-radius:99px}
+    .profile-window{display:grid;grid-template-columns:.9fr 1.1fr;border:1px solid var(--line);background:rgba(7,11,28,.75)}.profile-window>div{padding:clamp(28px,4vw,52px)}.profile-window>div+div{border-left:1px solid var(--line)}.tag-cloud{display:flex;flex-wrap:wrap;gap:10px}.tag{padding:9px 13px;border-radius:99px;background:rgba(130,92,255,.14);border:1px solid var(--line);color:var(--lav);font-size:.85rem}.inference{margin-top:22px;padding:20px;border-left:3px solid var(--coral);background:rgba(255,107,122,.07)}.inference b{color:var(--coral)}
+    .case-line{position:relative;max-width:1040px;margin-top:28px;padding-left:42px}.case-line::before{content:"";position:absolute;left:10px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--violet),var(--coral))}.case{position:relative;display:grid;grid-template-columns:180px 1fr;gap:24px;padding:0 0 28px}.case::before{content:"";position:absolute;left:-39px;top:7px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--violet)}.case time{color:var(--lav);font:700 .82rem/1.4 monospace}.case p{font-size:1rem;color:var(--muted)}
+    .loop-wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:7vw;align-items:center}.loop{position:relative;width:min(440px,74vw);aspect-ratio:1;border:1px solid var(--line);border-radius:50%;animation:slowspin 24s linear infinite}.loop::before{content:"";position:absolute;inset:17%;border:1px dashed rgba(255,107,122,.5);border-radius:50%}.loop-center{position:absolute;inset:35%;display:grid;place-items:center;border-radius:50%;background:var(--violet);font-weight:850;text-align:center;animation:slowspin 24s linear infinite reverse}.loop-node{position:absolute;width:105px;padding:9px;text-align:center;border:1px solid var(--line);background:var(--deep);font-weight:750}.n1{top:-18px;left:calc(50% - 52px)}.n2{right:-48px;top:calc(50% - 22px)}.n3{bottom:-18px;left:calc(50% - 52px)}.n4{left:-48px;top:calc(50% - 22px)}@keyframes slowspin{to{transform:rotate(360deg)}}.loop-question{font-size:clamp(1.7rem,3.5vw,4rem);line-height:1.12;color:var(--white)}
+    .reflection{display:grid;grid-template-columns:1.15fr .85fr;gap:5vw}.reflection-copy{padding-left:30px;border-left:2px solid var(--coral)}.reflection-stats{display:grid;gap:12px}.reflection-stats article{padding:20px;border:1px solid var(--line);background:rgba(130,92,255,.08)}.reflection-stats b{display:block;font-size:2rem;color:var(--lav)}.quote{margin-top:32px;font-size:clamp(2rem,4vw,4.5rem);line-height:1.05;font-weight:850;letter-spacing:-.04em}
+    .pdf-layout{display:grid;grid-template-columns:1fr 310px;gap:24px;height:calc(100svh - 190px)}.pdf-frame{width:100%;height:100%;border:1px solid var(--line);background:white}.pdf-side{display:flex;flex-direction:column;justify-content:center;padding:26px;border:1px solid var(--line);background:rgba(11,16,39,.7)}.btn{display:inline-flex;justify-content:center;align-items:center;padding:14px 18px;margin-top:12px;border-radius:99px;text-decoration:none;font-weight:800;border:1px solid var(--line)}.btn.primary{background:linear-gradient(90deg,var(--violet),#6744d8)}.btn.secondary:hover{border-color:var(--coral)}
+    .media-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.media-card{display:block;padding:28px;min-height:240px;text-decoration:none;border:1px solid var(--line);background:linear-gradient(145deg,rgba(130,92,255,.12),rgba(11,16,39,.7));transition:.3s var(--ease)}.media-card:hover{transform:translateY(-8px);border-color:var(--lav)}.media-mark{font:800 .76rem/1 monospace;letter-spacing:.16em;color:var(--coral)}.media-card h3{margin-top:54px;font-size:1.55rem}.media-card p{font-size:.95rem;color:var(--muted)}
+    .refs{columns:2;column-gap:45px;padding:0;list-style:none}.refs li{break-inside:avoid;padding:0 0 11px;margin-bottom:11px;border-bottom:1px solid var(--line);font-size:clamp(.68rem,.9vw,.86rem);line-height:1.38;color:#c8d4ea}
+    .drawer{position:fixed;z-index:100;inset:0;display:grid;grid-template-columns:1fr minmax(300px,520px);background:rgba(2,4,12,.84);backdrop-filter:blur(14px);opacity:0;visibility:hidden;transition:.3s}.drawer.open{opacity:1;visibility:visible}.drawer-panel{grid-column:2;background:#080d20;padding:70px 34px;overflow:auto}.drawer-panel button{position:absolute;right:25px;top:22px;background:none;border:0;color:white;font-size:2rem;cursor:pointer}.drawer a{display:flex;gap:18px;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ice)}.drawer a span{color:var(--violet);font-family:monospace}
+    @media(max-width:900px){.five-grid,.incident-layout,.notice-layout,.loop-wrap,.reflection,.pdf-layout{grid-template-columns:1fr}.five{font-size:10rem}.ledger,.fault-lines,.clarity,.profile-window{grid-template-columns:1fr}.ledger article+article,.profile-window>div+div{border-left:0;border-top:1px solid var(--line)}.media-grid{grid-template-columns:1fr 1fr}.pdf-layout{height:auto}.pdf-frame{height:66svh}.pdf-side{min-height:260px}.source{display:none}}
+    @media(max-width:650px){:root{--footer:72px}.scene{align-items:flex-start;padding:90px 22px calc(var(--footer) + 30px);min-height:auto}.hero{min-height:100svh}.hero-art{inset:0 0 0 20%;opacity:.6}.hero-copy{width:100%}h1{font-size:4.2rem}.evidence,.media-grid{grid-template-columns:1fr}.notice-notes article,.case{grid-template-columns:1fr}.case time{margin-bottom:-14px}.refs{columns:1}.footer{grid-template-columns:1fr auto;padding:0 18px}.footer-course{display:none}.loop{width:270px}.drawer{grid-template-columns:1fr}.drawer-panel{grid-column:1}.topbar{padding:15px 18px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
   </style>
 </head>
 <body>
-  <header class="topbar" aria-label="Presentation controls">
-    <div class="brand"><span>Midterm</span> Research Paper</div>
-    <button class="menu-btn" id="menuButton" type="button" aria-label="Open slide menu" aria-expanded="false">☰</button>
-  </header>
-
-  <main class="presentation" id="presentation">
-    <section class="slide hero active" id="title" data-title="Title">
-      <div class="hero-visual" aria-hidden="true"></div>
-      <div class="hero-scan" aria-hidden="true"></div>
-      <div class="hero-copy">
-        <div class="kicker reveal">INFA 702 Midterm Paper / Fall 2026</div>
-        <h1 class="hero-title reveal">Cambridge Analytica</h1>
-        <p class="hero-subtitle reveal">A case study in data privacy and political influence</p>
-        <div class="byline reveal">
-          <span><strong>Erika Hernandez</strong></span>
-          <span>INFA 702 · Data Privacy</span>
-          <span>Professor Quentin Covert</span>
-        </div>
-      </div>
-      <div class="hint">Use arrow keys, space, or scroll</div>
-    </section>
-
-    <section class="slide" id="contents" data-title="Paper contents">
-      <div>
-        <div class="kicker reveal">Table of Contents</div>
-        <h2 class="reveal">The paper, section by section</h2>
-        <div class="chapter-index reveal">
-          <div class="chapter-row" data-jump="context"><span class="chapter-number">01</span><b>Introduction</b><span>Five dollars</span></div>
-          <div class="chapter-row" data-jump="proposal"><span class="chapter-number">02</span><b>Incident Summary</b><span>What happened</span></div>
-          <div class="chapter-row" data-jump="harms-1"><span class="chapter-number">03</span><b>Legal Ramifications</b><span>Penalties</span></div>
-          <div class="chapter-row" data-jump="harms-2"><span class="chapter-number">04</span><b>Ethical Ramifications</b><span>Responsibility</span></div>
-          <div class="chapter-row" data-jump="principles"><span class="chapter-number">05</span><b>Privacy Policies and Notices</b><span>Disclosure</span></div>
-          <div class="chapter-row" data-jump="readability"><span class="chapter-number">06</span><b>Readability</b><span>User control</span></div>
-          <div class="chapter-row" data-jump="privacy-issues"><span class="chapter-number">07</span><b>Significant Privacy Issues</b><span>Targeting</span></div>
-          <div class="chapter-row" data-jump="other-incidents"><span class="chapter-number">08</span><b>Other Incidents</b><span>Continuing cases</span></div>
-          <div class="chapter-row" data-jump="continuance"><span class="chapter-number">09</span><b>Incident Continuance Question</b><span>What comes next</span></div>
-          <div class="chapter-row" data-jump="conclusion"><span class="chapter-number">10</span><b>Conclusion</b><span>Final reflection</span></div>
-        </div>
+  <header class="topbar"><div class="brand"><span>Midterm</span> / Cambridge Analytica</div><button class="menu-btn" id="menuBtn" aria-label="Open chapter menu">☰</button></header>
+  <div class="progress"><span id="progressBar"></span></div>
+  <main class="book" id="book">
+    <section class="scene hero active" id="cover" data-title="Cover">
+      <div class="hero-art" aria-hidden="true"></div>
+      <div class="inner hero-copy">
+        <div class="eyebrow reveal">INFA 702 · Midterm Research Paper</div>
+        <h1 class="reveal">Cambridge<br>Analytica</h1>
+        <p class="subtitle reveal">How a five-dollar survey became a global privacy scandal</p>
+        <div class="byline reveal"><span><strong>Erika Hernandez</strong></span><span>Cyber Defense, Managerial</span><span>Dakota State University</span><span>November 1, 2026</span></div>
       </div>
     </section>
 
-    <section class="slide" id="context" data-title="The five-dollar question">
-      <div>
-        <div class="kicker reveal">Introduction</div>
-        <h2 class="reveal">What would you give away for five dollars?</h2>
-        <div class="definition reveal">
-          <p><strong>Cambridge Analytica used a personality quiz to collect Facebook data.</strong> People volunteered to take the survey, but the data collection reached beyond the people who completed it.</p>
-          <p>The real privacy question was not only what users knowingly shared. It was what the platform allowed others to collect, combine, analyze, and use to influence behavior.</p>
+    <section class="scene" id="introduction" data-title="Introduction">
+      <div class="inner five-grid">
+        <div class="five reveal">$5</div>
+        <div class="question-stack reveal">
+          <div class="eyebrow">Introduction</div>
+          <h2>Would you hand over your profile?</h2>
+          <p>What if five dollars allowed someone to see your Facebook information, build a psychological profile, and test whether targeted content could change your political views?</p>
+          <p>The survey looked simple. The consequences reached the people who participated, their friends, and eventually the democratic process.</p>
         </div>
       </div>
-      <div class="source-line">Source: Amer &amp; Noujaim, 2019</div>
+      <div class="source">Source: Amer &amp; Noujaim, 2019</div>
     </section>
 
-    <section class="slide" id="proposal" data-title="Incident summary">
-      <div>
-        <div class="kicker reveal">Incident Summary</div>
-        <h2 class="reveal">A quiz opened the door to millions of profiles</h2>
-        <p class="lede reveal">Users connected a personality survey to Facebook. The application collected information from participants and, through Facebook’s platform design at the time, information connected to many of their friends.</p>
-        <div class="stat-row reveal">
-          <div class="stat"><b>$5 survey</b><span>People were offered a small payment to complete a personality survey.</span></div>
-          <div class="stat"><b>87 million</b><span>Facebook later said as many as 87 million users may have had data shared.</span></div>
-          <div class="stat"><b>Political targeting</b><span>Psychographic profiles supported highly targeted political messaging.</span></div>
-        </div>
-      </div>
-      <div class="source-line">Sources: Amer &amp; Noujaim, 2019; NBC News, 2018</div>
-    </section>
-
-    <section class="slide" id="technology" data-title="Incident summary: data collection">
-      <div>
-        <div class="kicker reveal">Incident Summary · Continued</div>
-        <h2 class="reveal">How did the data become influence?</h2>
-        <div class="process reveal" aria-label="Five-step Cambridge Analytica data process">
-          <article class="process-step active"><h3>Quiz</h3><p>A user completed a personality survey and connected it to Facebook.</p></article>
-          <article class="process-step"><h3>Collect</h3><p>The application collected participant information and accessible friend data.</p></article>
-          <article class="process-step"><h3>Combine</h3><p>Data points were combined to create detailed psychological profiles.</p></article>
-          <article class="process-step"><h3>Target</h3><p>Campaigns could divide audiences into groups and deliver different messages.</p></article>
-          <article class="process-step"><h3>Influence</h3><p>Content was designed to move behavior, opinions, engagement, or voting choices.</p></article>
-        </div>
-      </div>
-      <div class="source-line">Sources: Amer &amp; Noujaim, 2019; PBS, n.d.</div>
-    </section>
-
-    <section class="slide" id="harms-1" data-title="Legal ramifications">
-      <div>
-        <div class="kicker reveal">Legal Ramifications</div>
-        <h2 class="reveal">The scandal produced historic penalties</h2>
-        <div class="harm-list reveal">
-          <div class="harm-item"><b>United Kingdom</b><span>The Information Commissioner’s Office imposed the maximum penalty available under the law at the time.</span></div>
-          <div class="harm-item"><b>United States</b><span>In 2019, the Federal Trade Commission approved a $5 billion settlement with Facebook.</span></div>
-          <div class="harm-item"><b>Regulatory oversight</b><span>The case raised questions about consent, platform responsibility, third-party access, and whether privacy promises were followed.</span></div>
-          <div class="harm-item"><b>Continuing litigation</b><span>Years later, Cambridge Analytica-related claims and questions about Facebook’s disclosures continued through the courts.</span></div>
-        </div>
-      </div>
-      <div class="source-line">Sources: FTC, 2019; Vijayan, 2024</div>
-    </section>
-
-    <section class="slide" id="harms-2" data-title="Ethical ramifications">
-      <div>
-        <div class="kicker reveal">Ethical Ramifications</div>
-        <h2 class="reveal">Legal access did not make the use ethical</h2>
-        <div class="harm-list reveal">
-          <div class="harm-item"><b>Informed consent</b><span>Many affected users did not knowingly agree to have their information used for political profiling.</span></div>
-          <div class="harm-item"><b>Third-party responsibility</b><span>Facebook did not adequately control how an outside organization obtained and used platform data.</span></div>
-          <div class="harm-item"><b>Manipulation</b><span>Highly personalized political messaging could exploit fear, personality, or uncertainty instead of supporting informed decisions.</span></div>
-          <div class="harm-item"><b>Accountability</b><span>Facebook, developers, campaigns, and Cambridge Analytica each pointed toward other parties when responsibility was questioned.</span></div>
-        </div>
-      </div>
-      <div class="source-line">Sources: Amer &amp; Noujaim, 2019; NBC News, 2018</div>
-    </section>
-
-    <section class="slide" id="principles" data-title="Privacy policies and notices">
-      <div>
-        <div class="kicker reveal">Privacy Policies and Notices</div>
-        <h2 class="reveal">“Protecting Your Information” came after the exposure</h2>
-        <div class="principle-list reveal">
-          <div class="principle-item"><b>87 million notices</b><span>Facebook notified users who might have had their data shared with Cambridge Analytica.</span></div>
-          <div class="principle-item"><b>Platform-wide notice</b><span>All Facebook users also received information about reviewing applications connected to their accounts.</span></div>
-          <div class="principle-item"><b>Privacy Checkup</b><span>Facebook now provides guided controls for sharing, account security, data settings, and advertising preferences.</span></div>
-          <div class="principle-item"><b>Timing matters</b><span>A notice issued after data has already been collected cannot provide meaningful consent before the harm occurs.</span></div>
-          <div class="principle-item"><b>Transparency matters</b><span>Users need to understand what was collected, who received it, why it was used, and how to remove access.</span></div>
-        </div>
-      </div>
-      <div class="source-line">Sources: NBC News, 2018; CBS News, 2018</div>
-    </section>
-
-    <section class="slide" id="readability" data-title="Readability">
-      <div>
-        <div class="kicker reveal">Readability and User Control</div>
-        <h2 class="reveal">Privacy controls exist, but finding answers is still difficult</h2>
-        <div class="law-list reveal">
-          <div class="law-item"><b>Too much information</b><span>Long privacy explanations and technical language can overwhelm users who are trying to make a simple choice.</span></div>
-          <div class="law-item"><b>Ad preferences</b><span>Users can change categories and settings, but they may not see a clear list explaining exactly how their profile is targeted.</span></div>
-          <div class="law-item"><b>Third-party applications</b><span>Users need a simple way to identify connected applications and remove access.</span></div>
-          <div class="law-item"><b>Deleting data</b><span>Removing posts or deleting a profile does not necessarily prove that every copy, profile, or inference has disappeared.</span></div>
-          <div class="law-item"><b>Effective choice</b><span>A privacy control only helps when an ordinary person can find it, understand it, and use it.</span></div>
-        </div>
-      </div>
-      <div class="source-line">Sources: Facebook privacy controls reviewed for the original paper; CBS News, 2018</div>
-    </section>
-
-    <section class="slide" id="privacy-issues" data-title="Significant privacy issues">
-      <div>
-        <div class="kicker reveal">Significant Privacy Issues</div>
-        <h2 class="reveal">Privacy settings do not always explain the full picture</h2>
-        <div class="toggle-wrap reveal">
-          <div class="toggle-nav" role="tablist" aria-label="Significant privacy issues">
-            <button class="toggle-btn active" type="button" role="tab" aria-selected="true" data-panel="for-panel">What users see</button>
-            <button class="toggle-btn" type="button" role="tab" aria-selected="false" data-panel="against-panel">What happens behind the screen</button>
+    <section class="scene" id="incident" data-title="Incident Summary">
+      <div class="inner">
+        <div class="eyebrow reveal">Incident Summary</div><h2 class="reveal">From quiz to political influence</h2>
+        <div class="incident-layout reveal">
+          <div class="trail">
+            <div class="trail-step"><b>01 · Volunteer</b><p>People accepted five dollars and connected a personality survey to Facebook.</p></div>
+            <div class="trail-step"><b>02 · Collect</b><p>The application obtained participant data and information connected to their friends.</p></div>
+            <div class="trail-step"><b>03 · Profile</b><p>Thousands of data points were used to predict personality and likely behavior.</p></div>
+            <div class="trail-step"><b>04 · Target</b><p>Campaigns delivered different political messages to carefully selected groups.</p></div>
           </div>
-          <div>
-            <div class="toggle-panel active" id="for-panel" role="tabpanel">
-              <ul class="argument-list">
-                <li>Facebook provides privacy settings, Privacy Checkup, and advertising preferences.</li>
-                <li>Users can review connected applications and remove access.</li>
-                <li>Privacy pages explain what information the platform collects.</li>
-                <li>Videos describe personalization as a way to make content more useful.</li>
-                <li>Users can change some categories used for advertising.</li>
-                <li>The controls can create the feeling that the user has complete control.</li>
-              </ul>
-            </div>
-            <div class="toggle-panel" id="against-panel" role="tabpanel">
-              <ul class="argument-list against">
-                <li>Users may not see a clear list of every advertisement category assigned to them.</li>
-                <li>Ordinary activity can be combined to create predictions the user never provided directly.</li>
-                <li>Data can be copied and used outside the platform where the original controls no longer apply.</li>
-                <li>Deleting an account does not prove that every copied record or inference disappeared.</li>
-                <li>Political targeting can show different messages to different groups without public visibility.</li>
-                <li>Privacy choices become less meaningful when the important details are difficult to find.</li>
-              </ul>
-            </div>
+          <div class="evidence">
+            <article><strong>87M</strong><span>users may have had their information shared.</span></article>
+            <article><strong>5,000</strong><span>data points were described for individual profiles.</span></article>
+            <article><strong>5.9M</strong><span>visual Facebook ads were claimed by Trump’s digital campaign director.</span></article>
+            <article><strong>2018</strong><span>Mark Zuckerberg testified before Congress after the scandal became public.</span></article>
           </div>
         </div>
       </div>
-      <div class="source-line">Sources: Facebook privacy controls reviewed for the original paper; Amer &amp; Noujaim, 2019</div>
+      <div class="source">Sources: Amer &amp; Noujaim, 2019; NBC News, 2018</div>
     </section>
 
-    <section class="slide" id="other-incidents" data-title="Other incidents">
-      <div>
-        <div class="kicker reveal">Other Incidents</div>
-        <h2 class="reveal">The controversy did not end with Cambridge Analytica</h2>
-        <div class="timeline reveal">
-          <article class="event"><time>2018–2019</time><h3>Promises and penalties</h3><p>Facebook announced privacy changes, while regulators imposed penalties and additional oversight.</p></article>
-          <article class="event"><time>2024</time><h3>Litigation continued</h3><p>Facebook asked the Supreme Court to dismiss a Cambridge Analytica-related shareholder lawsuit.</p></article>
-          <article class="event"><time>October 2026</time><h3>New Mexico cases</h3><p>Meta faced major judgments involving user data privacy and claims about the safety of social media for children.</p></article>
+    <section class="scene" id="legal" data-title="Legal Ramifications">
+      <div class="inner">
+        <div class="eyebrow reveal">Legal Ramifications</div><h2 class="reveal">The cost of failing to protect privacy</h2>
+        <div class="ledger reveal">
+          <article><div class="amount">$663K</div><h3>United Kingdom</h3><p>The Information Commissioner’s Office announced the maximum fine allowed under the law at the time.</p><span class="stamp">MAXIMUM PENALTY</span></article>
+          <article><div class="amount">$5B</div><h3>United States</h3><p>In 2019, the FTC voted 3–2 to approve a historic settlement with Facebook following its privacy investigation.</p><span class="stamp">FTC SETTLEMENT</span></article>
         </div>
-      </div>
-      <div class="source-line">Sources: CBS News, 2018; Vijayan, 2024; Hays, 2026</div>
+      </div><div class="source">Source: Federal Trade Commission, 2019</div>
     </section>
 
-    <section class="slide" id="continuance" data-title="Incident continuance question">
-      <div>
-        <div class="kicker reveal">Incident Continuance Question</div>
-        <h2 class="reveal">Why could this happen again?</h2>
-        <div class="continuance-chain reveal">
-          <article class="continuance-step"><small>01</small><h3>Data</h3><p>Platforms continue collecting activity, interests, relationships, and behavior.</p></article>
-          <article class="continuance-step"><small>02</small><h3>Profiles</h3><p>Separate details are combined into predictions about personality and likely actions.</p></article>
-          <article class="continuance-step"><small>03</small><h3>Targeting</h3><p>Advertisers and campaigns pay to reach carefully selected groups.</p></article>
-          <article class="continuance-step"><small>04</small><h3>Influence</h3><p>Messages can be designed to affect what people buy, believe, or vote for.</p></article>
+    <section class="scene" id="ethical" data-title="Ethical Ramifications">
+      <div class="inner">
+        <div class="eyebrow reveal">Ethical Ramifications</div><h2 class="reveal">The failure went beyond the law</h2>
+        <div class="fault-lines reveal">
+          <article class="fault" data-num="01"><b>Consent</b><p>Friends of survey participants did not knowingly agree to political profiling.</p></article>
+          <article class="fault" data-num="02"><b>Third parties</b><p>Facebook did not adequately vet or control how outside companies used platform data.</p></article>
+          <article class="fault" data-num="03"><b>Confidentiality</b><p>Facebook’s own Code of Conduct required user and personal data to be protected.</p></article>
+          <article class="fault" data-num="04"><b>Accountability</b><p>The platform, developer, data company, and campaigns each pointed toward someone else.</p></article>
         </div>
-        <div class="central-question reveal">If data can predict behavior, how much power should companies have to use it to influence what people buy, believe, or vote for?</div>
-      </div>
-      <div class="source-line">Sources: Amer &amp; Noujaim, 2019; Cadwalladr, 2019</div>
+      </div><div class="source">Sources: NBC News, 2018; Amer &amp; Noujaim, 2019</div>
     </section>
 
-    <section class="slide" id="conclusion" data-title="Conclusion">
-      <div>
-        <div class="kicker reveal">Conclusion</div>
-        <h2 class="reveal">The scandal was about more than one quiz</h2>
-        <div class="conclusion-layout reveal">
-          <div class="reflection-note">
-            <p><strong>This case changed how social media looks after returning from a seven-year break.</strong></p>
-            <p>Deleting years of posts showed how easy it is to create a digital history and how difficult it is to take it back. There is still no complete confidence that deleting a profile means every copy and every derived profile is gone.</p>
-            <a class="paper-link" href="images/Erika-Hernandez-Cambridge-Analytica-Midterm.pdf" target="_blank" rel="noopener noreferrer">Read the original midterm paper <span aria-hidden="true">↗</span></a>
-          </div>
-          <div>
-            <p class="lede">Cambridge Analytica showed how information collected through an ordinary platform could be combined, transformed into psychological profiles, and used for a purpose that many people never expected.</p>
-            <p class="final-thought">“Privacy is power” and “data rights are human rights.”</p>
-          </div>
-        </div>
-      </div>
-      <div class="source-line">Sources: Cadwalladr, 2019; Amer &amp; Noujaim, 2019</div>
+    <section class="scene" id="notices" data-title="Privacy Policies and Notices">
+      <div class="inner notice-layout">
+        <div class="newsfeed reveal"><div class="news-head"><div class="fb-dot">f</div><strong>Facebook</strong></div><h3>Protecting Your Information</h3><p>Review the applications connected to your Facebook account and the information shared with them.</p><div class="news-btn">Review your information</div></div>
+        <div class="reveal"><div class="eyebrow">Privacy Policies / Notices</div><h2>The notice arrived after the exposure</h2><div class="notice-notes">
+          <article><b>87 million users</b><span>Potentially affected users received a message in their news feeds.</span></article>
+          <article><b>Everyone else</b><span>Facebook also sent a broader notice to its full user population.</span></article>
+          <article><b>Privacy Checkup</b><span>Users could review sharing, security, connected applications, and ad preferences.</span></article>
+          <article><b>The limitation</b><span>A notice after collection cannot provide informed consent before the harm occurs.</span></article>
+        </div></div>
+      </div><div class="source">Source: NBC News, 2018</div>
     </section>
 
-    <section class="slide" id="video-resources" data-title="Video resources">
-      <div>
-        <div class="kicker reveal">Continue Exploring</div>
-        <h2 class="reveal">Learn more about the topic</h2>
-        <p class="lede reveal">These videos provide additional perspectives from the documentary, Cambridge Analytica whistleblower Christopher Wylie, and journalist Carole Cadwalladr.</p>
-        <div class="video-grid reveal">
-          <a class="video-card" href="https://www.netflix.com/title/80117542" target="_blank" rel="noopener noreferrer">
-            <div class="video-thumb netflix">
-              <span class="resource-mark" aria-hidden="true">NETFLIX</span>
-              <span class="play-button" aria-hidden="true">▶</span>
-            </div>
-            <div class="video-info"><span>DOCUMENTARY</span><h3>The Great Hack</h3><p>Explore the people, data, and political campaigns behind the scandal.</p></div>
-          </a>
-          <a class="video-card" href="https://www.pbs.org/wnet/amanpour-and-company/video/christopher-wylie-on-data-crime-and-cambridge-analytica/" target="_blank" rel="noopener noreferrer">
-            <div class="video-thumb pbs">
-              <span class="resource-mark" aria-hidden="true">PBS</span>
-              <span class="play-button" aria-hidden="true">▶</span>
-            </div>
-            <div class="video-info"><span>INTERVIEW</span><h3>Christopher Wylie on Data Crime</h3><p>Hear from the former Cambridge Analytica research director.</p></div>
-          </a>
-          <a class="video-card" href="https://www.ted.com/talks/carole_cadwalladr_this_is_what_a_digital_coup_looks_like" target="_blank" rel="noopener noreferrer">
-            <div class="video-thumb ted">
-              <span class="resource-mark" aria-hidden="true">TED</span>
-              <span class="play-button" aria-hidden="true">▶</span>
-            </div>
-            <div class="video-info"><span>TED TALK</span><h3>This Is What a Digital Coup Looks Like</h3><p>Carole Cadwalladr connects data rights, power, and democracy.</p></div>
-          </a>
+    <section class="scene" id="readability" data-title="Readability">
+      <div class="inner">
+        <div class="eyebrow reveal">Readability</div><h2 class="reveal">Some controls are clear. The full story is not.</h2>
+        <div class="clarity reveal">
+          <section class="clear"><h3>Clear enough to use</h3><div class="meter"></div><ul><li>Privacy Checkup provides guided toggles.</li><li>Users can adjust who sees their posts.</li><li>Security and ad preferences are grouped together.</li><li>Some pages now include AI-generated summaries.</li></ul></section>
+          <section class="muddy"><h3>Still muddy</h3><div class="meter"></div><ul><li>Long answers and jargon overwhelm users.</li><li>The old “Protecting Your Information” label is difficult to find.</li><li>Exporting data does not explain every inference.</li><li>Finding a control is not the same as understanding the consequences.</li></ul></section>
         </div>
       </div>
     </section>
 
-    <section class="slide" id="references" data-title="References">
-      <div>
-        <div class="kicker reveal">Research Record</div>
-        <h2 class="reveal">References</h2>
-        <ul class="references reveal">
-          <li>Amer, K., &amp; Noujaim, J. (Directors). (2019). <em>The Great Hack</em> [Film]. Netflix.</li>
-          <li>Cadwalladr, C. (2019). <em>This is what a digital coup looks like</em> [Video]. TED Conferences. https://www.ted.com/talks/carole_cadwalladr_this_is_what_a_digital_coup_looks_like</li>
-          <li>CBS News. (2018, April 10). <em>8 promises from Facebook after Cambridge Analytica.</em> https://www.cbsnews.com/news/facebooks-promises-for-protecting-your-information-after-data-breach-scandal/</li>
-          <li>Federal Trade Commission. (2019, July 24). <em>FTC imposes $5 billion penalty and sweeping new privacy restrictions on Facebook.</em> https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook</li>
-          <li>Hays, K. (2026, October 21). <em>Meta fined $25bn for “lies” over user data privacy.</em> BBC News. https://www.bbc.com/news/articles/cqdr8zxrr3dxo</li>
-          <li>NBC News. (2018, April 8). <em>Full Wylie interview: “Very difficult to verify” whether Facebook data has been purged.</em> https://www.nbcnews.com/meet-the-press/video/full-wylie-interview-very-difficult-to-verify-whether-facebook-data-has-been-purged-1205607491661</li>
-          <li>NBC News. (2018, April 9). <em>Facebook to send Cambridge Analytica data-use notices to 87 million users today.</em> https://www.nbcnews.com/tech/social-media/facebook-send-cambridge-analytica-data-use-notices-monday-n863811</li>
-          <li>PBS. (n.d.). <em>Christopher Wylie on data crime and Cambridge Analytica.</em> Amanpour &amp; Company. https://www.pbs.org/wnet/amanpour-and-company/video/christopher-wylie-on-data-crime-and-cambridge-analytica/</li>
-          <li>Vijayan, J. (2024). <em>Facebook asks Supreme Court to dismiss Cambridge Analytica lawsuit.</em> Dark Reading. https://www.darkreading.com/application-security/facebook-supreme-court-dismiss-cambridge-analytica-lawsuit</li>
-        </ul>
+    <section class="scene" id="privacy-issues" data-title="Significant Privacy Issues">
+      <div class="inner">
+        <div class="eyebrow reveal">Significant Privacy Issues</div><h2 class="reveal">What the user sees versus what the platform knows</h2>
+        <div class="profile-window reveal">
+          <div><h3>What the user sees</h3><p>“You looked at a mattress, so we can make advertising more useful.”</p><div class="tag-cloud"><span class="tag">Ad preferences</span><span class="tag">Companies liked</span><span class="tag">Hide this ad</span><span class="tag">Privacy controls</span></div></div>
+          <div><h3>What may be inferred</h3><div class="tag-cloud"><span class="tag">Interests</span><span class="tag">Relationships</span><span class="tag">Personality</span><span class="tag">Political views</span><span class="tag">Likely behavior</span><span class="tag">Persuadability</span></div><div class="inference"><b>The gap:</b><p>Users can change some settings, but they may not receive a complete list of the profiles, predictions, and targeted audiences built from their activity.</p></div></div>
+        </div>
       </div>
+    </section>
+
+    <section class="scene" id="other-incidents" data-title="Other Incidents">
+      <div class="inner">
+        <div class="eyebrow reveal">Other Incidents</div><h2 class="reveal">The legal story continued</h2>
+        <div class="case-line reveal">
+          <article class="case"><time>2018–2019</time><div><h3>Promises and penalties</h3><p>Facebook announced privacy changes while regulators imposed penalties and oversight.</p></div></article>
+          <article class="case"><time>2024</time><div><h3>Supreme Court request</h3><p>Facebook asked the Supreme Court to dismiss a Cambridge Analytica-related shareholder lawsuit.</p></div></article>
+          <article class="case"><time>October 2026</time><div><h3>New Mexico cases</h3><p>Meta faced major judgments involving user data privacy and separate claims concerning children’s safety.</p></div></article>
+        </div>
+      </div><div class="source">Sources: CBS News, 2018; Vijayan, 2024; Hays, 2026</div>
+    </section>
+
+    <section class="scene" id="continuance" data-title="Incident Continuance Question">
+      <div class="inner loop-wrap">
+        <div class="loop reveal"><div class="loop-center">THE<br>LOOP</div><div class="loop-node n1">Data</div><div class="loop-node n2">Profiles</div><div class="loop-node n3">Influence</div><div class="loop-node n4">Money</div></div>
+        <div class="reveal"><div class="eyebrow">Incident Continuance Question</div><h2>Why will this keep happening?</h2><p class="loop-question">Because personal data creates money, targeting, and power.</p><p>Social media companies benefit from knowing what users may buy, believe, or vote for. As long as that information remains valuable, organizations will continue trying to collect more of it.</p></div>
+      </div><div class="source">Source: Amer &amp; Noujaim, 2019</div>
+    </section>
+
+    <section class="scene" id="conclusion" data-title="Conclusion">
+      <div class="inner">
+        <div class="eyebrow reveal">Conclusion</div><h2 class="reveal">Deleting a profile does not erase the question</h2>
+        <div class="reflection reveal">
+          <div class="reflection-copy"><p>The scandal happened during a seven-year break from social media. Returning made it clear how much the platforms had changed—and how difficult it was to remove years of posts and pictures.</p><p>There is no complete confidence that deleting a profile means every copy, prediction, or digital avatar is gone. The scandal was not only about a quiz. It was about control over the information that defines people.</p><div class="quote">“Privacy is power.”</div></div>
+          <div class="reflection-stats"><article><b>7 years</b><span>away from social media</span></article><article><b>5,000+</b><span>data points described per profile</span></article><article><b>70,000</b><span>possible data points by age 18</span></article><article><b>Human rights</b><span>Data rights belong in the same conversation</span></article></div>
+        </div>
+      </div><div class="source">Sources: Amer &amp; Noujaim, 2019; Cadwalladr, 2019</div>
+    </section>
+
+    <section class="scene" id="paper" data-title="Read the Paper">
+      <div class="inner pdf-layout">
+        <iframe class="pdf-frame reveal" src="images/Erika-Hernandez-Cambridge-Analytica-Midterm.pdf#view=FitH" title="Cambridge Analytica midterm paper preview"></iframe>
+        <aside class="pdf-side reveal"><div class="eyebrow">Original Paper</div><h3>Read it here or take it with you</h3><p>The complete 12-page midterm paper is embedded in this site.</p><a class="btn primary" href="assets/Erika-Hernandez-Cambridge-Analytica-Midterm.pdf" download>Download PDF ↓</a><a class="btn secondary" href="assets/Erika-Hernandez-Cambridge-Analytica-Midterm.pdf" target="_blank" rel="noopener">Open full screen ↗</a></aside>
+      </div>
+    </section>
+
+    <section class="scene" id="media" data-title="Watch and Explore">
+      <div class="inner"><div class="eyebrow reveal">Watch and Explore</div><h2 class="reveal">Continue beyond the paper</h2><div class="media-grid reveal">
+        <a class="media-card" href="https://www.netflix.com/title/80117542" target="_blank" rel="noopener"><span class="media-mark">NETFLIX</span><h3>The Great Hack</h3><p>The documentary that traces the scandal, its people, and political campaigns.</p></a>
+        <a class="media-card" href="https://www.pbs.org/wnet/amanpour-and-company/video/christopher-wylie-on-data-crime-and-cambridge-analytica/" target="_blank" rel="noopener"><span class="media-mark">PBS</span><h3>Christopher Wylie</h3><p>Cambridge Analytica’s former research director discusses data crime.</p></a>
+        <a class="media-card" href="https://www.ted.com/talks/carole_cadwalladr_this_is_what_a_digital_coup_looks_like" target="_blank" rel="noopener"><span class="media-mark">TED</span><h3>A Digital Coup</h3><p>Carole Cadwalladr connects privacy, data rights, power, and democracy.</p></a>
+      </div></div>
+    </section>
+
+    <section class="scene" id="references" data-title="References">
+      <div class="inner"><div class="eyebrow reveal">Research Record</div><h2 class="reveal">References</h2><ul class="refs reveal">
+        <li>Amer, K., &amp; Noujaim, J. (Directors). (2019). <em>The Great Hack</em> [Film]. Netflix.</li>
+        <li>Cadwalladr, C. (2019). <em>This is what a digital coup looks like</em> [Video]. TED Conferences.</li>
+        <li>CBS News. (2018, April 10). <em>8 promises from Facebook after Cambridge Analytica.</em></li>
+        <li>Federal Trade Commission. (2019, July 24). <em>FTC imposes $5 billion penalty and sweeping new privacy restrictions on Facebook.</em></li>
+        <li>Hays, K. (2026, October 21). <em>Meta fined $25bn for “lies” over user data privacy.</em> BBC News.</li>
+        <li>NBC News. (2018, April 8). <em>Full Wylie interview: “Very difficult to verify” whether Facebook data has been purged.</em></li>
+        <li>NBC News. (2018, April 9). <em>Facebook to send Cambridge Analytica data-use notices to 87 million users today.</em></li>
+        <li>PBS. (n.d.). <em>Christopher Wylie on data crime and Cambridge Analytica.</em> Amanpour &amp; Company.</li>
+        <li>Vijayan, J. (2024). <em>Facebook asks Supreme Court to dismiss Cambridge Analytica lawsuit.</em> Dark Reading.</li>
+      </ul></div>
     </section>
   </main>
 
-  <footer class="footer" id="footer">
-    <div class="footer-name">Erika Hernandez</div>
-    <div class="footer-course">INFA 702 · Data Privacy · Fall 2026</div>
-    <div class="footer-right">
-      <div class="counter" id="counter" aria-live="polite">01 / 17</div>
-      <div class="nav-controls">
-        <button class="nav-btn" id="previousButton" type="button" aria-label="Previous slide">↑</button>
-        <button class="nav-btn" id="nextButton" type="button" aria-label="Next slide">↓</button>
-      </div>
-    </div>
-  </footer>
-
-  <aside class="slide-menu" id="slideMenu" aria-hidden="true">
-    <div class="menu-intro">
-      <button class="close-menu" id="closeMenu" type="button" aria-label="Close slide menu">×</button>
-      <div class="kicker">Navigation</div>
-      <h2>Jump to a section</h2>
-      <p>Use this menu, the arrow keys, spacebar, or the controls in the footer.</p>
-    </div>
-    <nav class="menu-list" id="menuList" aria-label="Slides"></nav>
-  </aside>
-
+  <footer class="footer"><div class="footer-name">Erika Hernandez</div><div class="footer-course">INFA 702 · Data Privacy · Fall 2026</div><div class="footer-right"><span class="counter" id="counter">01 / 14</span><div class="nav"><button id="prev" aria-label="Previous chapter">↑</button><button id="next" aria-label="Next chapter">↓</button></div></div></footer>
+  <aside class="drawer" id="drawer" aria-hidden="true"><div class="drawer-panel"><button id="closeMenu" aria-label="Close menu">×</button><div class="eyebrow">Chapters</div><nav id="chapterNav"></nav></div></aside>
   <script>
-    (() => {
-      const presentation = document.getElementById('presentation');
-      const slides = [...document.querySelectorAll('.slide')];
-      const footer = document.getElementById('footer');
-      const counter = document.getElementById('counter');
-      const previousButton = document.getElementById('previousButton');
-      const nextButton = document.getElementById('nextButton');
-      const menuButton = document.getElementById('menuButton');
-      const slideMenu = document.getElementById('slideMenu');
-      const closeMenu = document.getElementById('closeMenu');
-      const menuList = document.getElementById('menuList');
-      let currentIndex = 0;
-      let wheelLocked = false;
-
-      const pad = number => String(number).padStart(2, '0');
-
-      function goToSlide(index, behavior = 'smooth') {
-        const safeIndex = Math.max(0, Math.min(slides.length - 1, index));
-        slides[safeIndex].scrollIntoView({ behavior, block: 'start' });
-        updateUI(safeIndex);
-      }
-
-      function updateUI(index) {
-        currentIndex = index;
-        slides.forEach((slide, slideIndex) => slide.classList.toggle('active', slideIndex === index));
-        counter.textContent = `${pad(index + 1)} / ${pad(slides.length)}`;
-        footer.style.setProperty('--progress', `${((index + 1) / slides.length) * 100}%`);
-        previousButton.disabled = index === 0;
-        nextButton.disabled = index === slides.length - 1;
-        document.title = `${slides[index].dataset.title} | Erika Hernandez`;
-        history.replaceState(null, '', `#${slides[index].id}`);
-      }
-
-      const observer = new IntersectionObserver(entries => {
-        const visible = entries
-          .filter(entry => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) updateUI(slides.indexOf(visible.target));
-      }, { root: presentation, threshold: [.52, .7] });
-      slides.forEach(slide => observer.observe(slide));
-
-      previousButton.addEventListener('click', () => goToSlide(currentIndex - 1));
-      nextButton.addEventListener('click', () => goToSlide(currentIndex + 1));
-
-      document.addEventListener('keydown', event => {
-        if (slideMenu.classList.contains('open')) {
-          if (event.key === 'Escape') setMenu(false);
-          return;
-        }
-        const nextKeys = ['ArrowDown', 'ArrowRight', 'PageDown', ' '];
-        const previousKeys = ['ArrowUp', 'ArrowLeft', 'PageUp'];
-        if (nextKeys.includes(event.key)) {
-          event.preventDefault();
-          goToSlide(currentIndex + 1);
-        } else if (previousKeys.includes(event.key)) {
-          event.preventDefault();
-          goToSlide(currentIndex - 1);
-        } else if (event.key === 'Home') {
-          event.preventDefault();
-          goToSlide(0);
-        } else if (event.key === 'End') {
-          event.preventDefault();
-          goToSlide(slides.length - 1);
-        } else if (event.key.toLowerCase() === 'm') {
-          setMenu(true);
-        }
-      });
-
-      presentation.addEventListener('wheel', event => {
-        if (window.innerWidth < 701 || wheelLocked || Math.abs(event.deltaY) < 24) return;
-        event.preventDefault();
-        wheelLocked = true;
-        goToSlide(currentIndex + (event.deltaY > 0 ? 1 : -1));
-        window.setTimeout(() => { wheelLocked = false; }, 720);
-      }, { passive: false });
-
-      function setMenu(open) {
-        slideMenu.classList.toggle('open', open);
-        slideMenu.setAttribute('aria-hidden', String(!open));
-        menuButton.setAttribute('aria-expanded', String(open));
-        if (open) closeMenu.focus(); else menuButton.focus();
-      }
-
-      slides.forEach((slide, index) => {
-        const link = document.createElement('a');
-        link.className = 'menu-link';
-        link.href = `#${slide.id}`;
-        link.innerHTML = `<span>${pad(index + 1)}</span><span>${slide.dataset.title}</span>`;
-        link.addEventListener('click', event => {
-          event.preventDefault();
-          setMenu(false);
-          window.setTimeout(() => goToSlide(index), 80);
-        });
-        menuList.appendChild(link);
-      });
-
-      menuButton.addEventListener('click', () => setMenu(true));
-      closeMenu.addEventListener('click', () => setMenu(false));
-      slideMenu.addEventListener('click', event => {
-        if (event.target === slideMenu) setMenu(false);
-      });
-
-      document.querySelectorAll('[data-jump]').forEach(card => {
-        card.setAttribute('role', 'button');
-        card.setAttribute('tabindex', '0');
-        const jump = () => {
-          const target = document.getElementById(card.dataset.jump);
-          goToSlide(slides.indexOf(target));
-        };
-        card.addEventListener('click', jump);
-        card.addEventListener('keydown', event => {
-          if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            jump();
-          }
-        });
-      });
-
-      document.querySelectorAll('.process-step').forEach(step => {
-        step.addEventListener('click', () => {
-          step.parentElement.querySelectorAll('.process-step').forEach(item => item.classList.remove('active'));
-          step.classList.add('active');
-        });
-      });
-
-      document.querySelectorAll('.toggle-btn').forEach(button => {
-        button.addEventListener('click', () => {
-          document.querySelectorAll('.toggle-btn').forEach(item => {
-            item.classList.toggle('active', item === button);
-            item.setAttribute('aria-selected', String(item === button));
-          });
-          document.querySelectorAll('.toggle-panel').forEach(panel => panel.classList.toggle('active', panel.id === button.dataset.panel));
-        });
-      });
-
-      const initialId = location.hash.slice(1);
-      const initialIndex = slides.findIndex(slide => slide.id === initialId);
-      goToSlide(initialIndex >= 0 ? initialIndex : 0, 'auto');
+    (()=>{const book=document.getElementById('book'),scenes=[...document.querySelectorAll('.scene')],counter=document.getElementById('counter'),bar=document.getElementById('progressBar'),drawer=document.getElementById('drawer'),nav=document.getElementById('chapterNav');let current=0,locked=false;
+      scenes.forEach((s,i)=>{const a=document.createElement('a');a.href='#'+s.id;a.innerHTML='<span>'+String(i+1).padStart(2,'0')+'</span>'+s.dataset.title;a.onclick=()=>close();nav.appendChild(a)});
+      function set(i,scroll=true){i=Math.max(0,Math.min(scenes.length-1,i));current=i;scenes.forEach((s,n)=>s.classList.toggle('active',n===i));counter.textContent=String(i+1).padStart(2,'0')+' / '+String(scenes.length).padStart(2,'0');bar.style.width=((i+1)/scenes.length*100)+'%';if(scroll)scenes[i].scrollIntoView({behavior:'smooth'})}
+      function move(d){if(locked)return;locked=true;set(current+d);setTimeout(()=>locked=false,650)}
+      function open(){drawer.classList.add('open');drawer.setAttribute('aria-hidden','false')}function close(){drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true')}
+      document.getElementById('next').onclick=()=>move(1);document.getElementById('prev').onclick=()=>move(-1);document.getElementById('menuBtn').onclick=open;document.getElementById('closeMenu').onclick=close;drawer.onclick=e=>{if(e.target===drawer)close()};
+      addEventListener('keydown',e=>{if(['ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();move(1)}if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault();move(-1)}if(e.key==='Escape')close()});
+      const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=scenes.indexOf(e.target);if(i>=0)set(i,false)}}),{root:book,threshold:.62});scenes.forEach(s=>io.observe(s));set(0,false);
     })();
   </script>
 </body>
