@@ -7,7 +7,7 @@
 	<head>
 		<title>Utah Tech Experts</title>
 		<!-- This is for the image on the title bar -->
-		<link rel="icon" href="images/logo.png" type="images/">
+		<link rel="icon" href="images/logo.png" type="image/png">
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<meta name="description" content="A technology portfolio featuring IT support, website development, cybersecurity knowledge, and helpful security resources." />
@@ -703,11 +703,41 @@
 				min-height: 48rem;
 				background-color: #020908;
 				background-image:
-					linear-gradient(90deg, rgba(2, 8, 11, 0.98) 0%, rgba(2, 8, 11, 0.9) 31%, rgba(2, 8, 11, 0.57) 54%, rgba(2, 8, 11, 0.1) 78%),
+					linear-gradient(90deg, rgba(2, 8, 11, 0.93) 0%, rgba(2, 8, 11, 0.78) 31%, rgba(2, 8, 11, 0.32) 54%, rgba(2, 8, 11, 0.02) 78%),
 					url("images/ute-cyber-hero.png");
 				background-position: center;
 				background-repeat: no-repeat;
 				background-size: cover;
+			}
+
+			.hero-orbit {
+				position: absolute;
+				top: 50%;
+				right: 2.5%;
+				z-index: 1;
+				width: min(38vw, 35rem);
+				aspect-ratio: 1;
+				border: 1px solid rgba(112, 255, 157, 0.15);
+				border-radius: 50%;
+				opacity: 0.58;
+				pointer-events: none;
+				transform: translateY(-50%) rotate(-8deg);
+			}
+
+			.hero-orbit::before {
+				content: "";
+				position: absolute;
+				inset: -1px;
+				border-radius: 50%;
+				background: conic-gradient(from 0deg, transparent 0deg 225deg, rgba(112, 255, 157, 0.08) 248deg, rgba(112, 255, 157, 0.9) 278deg, rgba(143, 255, 238, 0.35) 292deg, transparent 316deg 360deg);
+				-webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+				mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+				filter: drop-shadow(0 0 0.55rem rgba(44, 255, 114, 0.4));
+				animation: orbit-sweep 18s linear infinite;
+			}
+
+			@keyframes orbit-sweep {
+				to { transform: rotate(360deg); }
 			}
 
 			#header #nav .header-research {
@@ -736,7 +766,7 @@
 				position: relative;
 				display: inline-block;
 				isolation: isolate;
-				animation: title-signal-flicker 8s steps(1, end) infinite;
+				animation: title-signal-flicker 5.8s steps(1, end) infinite;
 			}
 
 			.glitch-title::before,
@@ -752,13 +782,13 @@
 			.glitch-title::before {
 				color: #70ff9d;
 				text-shadow: -2px 0 rgba(44, 255, 114, 0.72);
-				animation: title-static-left 8s steps(1, end) infinite;
+				animation: title-static-left 5.8s steps(1, end) infinite;
 			}
 
 			.glitch-title::after {
 				color: #8fffee;
 				text-shadow: 2px 0 rgba(46, 196, 182, 0.68);
-				animation: title-static-right 8s steps(1, end) infinite;
+				animation: title-static-right 5.8s steps(1, end) infinite;
 			}
 
 			@keyframes title-signal-flicker {
@@ -869,7 +899,7 @@
 					height: auto;
 					min-height: 46rem;
 					background-image:
-						linear-gradient(180deg, rgba(2, 8, 11, 0.74) 0%, rgba(2, 8, 11, 0.95) 72%, #02080b 100%),
+						linear-gradient(180deg, rgba(2, 8, 11, 0.5) 0%, rgba(2, 8, 11, 0.72) 62%, rgba(2, 8, 11, 0.92) 100%),
 						url("images/ute-cyber-hero.png");
 					background-position: 68% center;
 				}
@@ -886,6 +916,12 @@
 					background: rgba(2, 8, 11, 0.52);
 					backdrop-filter: blur(8px);
 					-webkit-backdrop-filter: blur(8px);
+				}
+
+				.hero-orbit {
+					right: -18vw;
+					width: 72vw;
+					opacity: 0.38;
 				}
 			}
 
@@ -910,6 +946,10 @@
 				.glitch-title::before,
 				.glitch-title::after {
 					display: none;
+				}
+
+				.hero-orbit::before {
+					animation: none;
 				}
 			}
 		</style>
@@ -960,6 +1000,7 @@
 			<!-- Banner -->
 				<section id="banner">
 					<div class="crt-scan" aria-hidden="true"></div>
+					<div class="hero-orbit" aria-hidden="true"></div>
 					<div class="content">
 						<header>
 							<h2 class="glitch-title" data-text="Technology Solutions Built for the Real World">Technology Solutions Built for the Real World</h2>
@@ -1345,9 +1386,9 @@
 				<aside id="research-archive" class="research-archive" aria-label="Selected academic research">
 					<div class="research-archive-inner">
 						<span class="research-archive-label">Research archive</span>
-						<a href="/INFA702/">Apple CSAM Privacy Research</a>
+						<a href="https://utahtechexperts.com/INFA702#title">Apple CSAM Privacy Research</a>
 						<span class="research-archive-separator" aria-hidden="true">//</span>
-						<a href="/CambridgeAnalytica/">Cambridge Analytica Privacy Research</a>
+						<a href="https://utahtechexperts.com/CambridgeAnalytica#cover">Cambridge Analytica Privacy Research</a>
 					</div>
 				</aside>
 
