@@ -495,6 +495,207 @@
 					transform: none;
 				}
 			}
+
+			/* Refined homepage hero: keeps the Matrix styling while giving the
+			   digital guide more room and a cleaner, portfolio-ready composition. */
+			@media screen and (min-width: 981px) {
+				#banner .content {
+					display: grid;
+					grid-template-columns: minmax(0, 1.08fr) minmax(31rem, 0.92fr);
+					align-items: center;
+					gap: clamp(2rem, 5vw, 5.5rem);
+					width: min(92vw, 82rem);
+					max-width: none;
+					margin: 0 auto;
+					padding: 8.5rem 1.5rem 7rem;
+					text-align: left;
+				}
+
+				#banner .content > header {
+					display: block;
+					max-width: 43rem;
+					text-align: left;
+				}
+
+				#banner .content header h2 {
+					font-size: clamp(2.75rem, 4.4vw, 4.8rem);
+					line-height: 1.02;
+					letter-spacing: -0.045em;
+					text-shadow: 0 0 2rem rgba(44, 255, 114, 0.08);
+				}
+
+				#banner .content header p {
+					max-width: 40rem;
+					margin-top: 1.25rem;
+					font-size: 1.08rem;
+					line-height: 1.75;
+				}
+
+				.cyber-guardian {
+					display: block;
+					width: 31rem;
+					height: 31rem;
+					margin: 0;
+					justify-self: end;
+					isolation: isolate;
+				}
+
+				.cyber-guardian::before {
+					inset: -7%;
+					width: 114%;
+					height: 114%;
+					background:
+						radial-gradient(circle at 62% 43%, rgba(44, 255, 114, 0.19), transparent 43%),
+						radial-gradient(circle at 50% 58%, rgba(46, 196, 182, 0.11), transparent 66%);
+					filter: blur(0.1rem);
+				}
+
+				.cyber-guardian::after {
+					content: "";
+					position: absolute;
+					inset: 0.35rem 0.35rem 0.7rem 2.4rem;
+					z-index: 0;
+					border: 1px solid rgba(44, 255, 114, 0.14);
+					border-radius: 1.2rem;
+					background:
+						linear-gradient(135deg, rgba(44, 255, 114, 0.055), transparent 27%),
+						linear-gradient(315deg, rgba(46, 196, 182, 0.05), transparent 32%),
+						rgba(2, 10, 8, 0.2);
+					box-shadow:
+						inset 0 0 2.5rem rgba(44, 255, 114, 0.025),
+						0 1.5rem 4rem rgba(0, 0, 0, 0.22);
+					clip-path: polygon(0 0, 88% 0, 100% 12%, 100% 100%, 12% 100%, 0 88%);
+					pointer-events: none;
+				}
+
+				.cyber-guardian .guardian-field {
+					left: 4.5rem;
+					top: 1.5rem;
+					width: 26rem;
+					height: 26rem;
+					z-index: 1;
+				}
+
+				.cyber-guardian .guardian-render {
+					left: 5rem;
+					top: 1rem;
+					width: 25rem;
+					height: 28rem;
+					z-index: 3;
+				}
+
+				.cyber-guardian .guardian-body-render {
+					height: 26rem;
+				}
+
+				.cyber-guardian .guardian-render .guardian-head {
+					top: -0.55rem;
+					width: 5.9rem;
+				}
+
+				.cyber-guardian .guardian-logo-badge {
+					top: 8.1rem;
+					width: 3.75rem;
+					height: 3.75rem;
+				}
+
+				.cyber-guardian .guardian-shadow {
+					left: 9rem;
+					bottom: 1.1rem;
+					width: 17rem;
+				}
+
+				.guardian-console {
+					left: -1.1rem;
+					top: 18.4rem;
+					width: 20.5rem;
+					padding: 1.15rem 1.25rem;
+					font-size: 0.76rem;
+					background: linear-gradient(145deg, rgba(2, 14, 9, 0.96), rgba(3, 10, 8, 0.89));
+					backdrop-filter: blur(12px);
+					-webkit-backdrop-filter: blur(12px);
+				}
+
+				.guardian-motion-toggle {
+					right: 0.7rem;
+					bottom: 1rem;
+				}
+			}
+
+			/* Quiet portfolio links: visible to curious visitors without turning
+			   school work into a large promotional section. */
+			.research-archive {
+				padding: 1.25rem 1.5rem;
+				border-top: 1px solid rgba(44, 255, 114, 0.09);
+				border-bottom: 1px solid rgba(44, 255, 114, 0.09);
+				background: rgba(2, 10, 8, 0.78);
+				font-family: "Courier New", Courier, monospace;
+			}
+
+			.research-archive-inner {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-wrap: wrap;
+				gap: 0.55rem 0.85rem;
+				max-width: 70rem;
+				margin: 0 auto;
+				font-size: 0.73rem;
+				letter-spacing: 0.055rem;
+			}
+
+			.research-archive-label {
+				color: rgba(112, 255, 157, 0.56);
+				text-transform: uppercase;
+			}
+
+			.research-archive-label::before {
+				content: "> ";
+				color: #2cff72;
+			}
+
+			.research-archive a {
+				border-bottom: 0;
+				color: rgba(255, 255, 255, 0.46);
+				text-decoration: none;
+				transition: color 0.2s ease, text-shadow 0.2s ease;
+			}
+
+			.research-archive a:hover,
+			.research-archive a:focus-visible {
+				color: #70ff9d;
+				text-shadow: 0 0 0.7rem rgba(44, 255, 114, 0.35);
+			}
+
+			.research-archive-separator {
+				color: rgba(255, 255, 255, 0.16);
+			}
+
+			@media screen and (max-width: 980px) {
+				#banner .content {
+					max-width: 48rem;
+				}
+
+				.research-archive-inner {
+					font-size: 0.68rem;
+				}
+			}
+
+			@media screen and (max-width: 480px) {
+				.research-archive {
+					padding: 1rem 1.1rem;
+				}
+
+				.research-archive-inner {
+					align-items: flex-start;
+					flex-direction: column;
+					gap: 0.45rem;
+				}
+
+				.research-archive-separator {
+					display: none;
+				}
+			}
 		</style>
 	</head>
 	<body class="is-preload landing">
@@ -952,6 +1153,16 @@
 						</footer>
 					</div>
 				</section>
+
+			<!-- Quiet Research Archive -->
+				<aside class="research-archive" aria-label="Selected academic research">
+					<div class="research-archive-inner">
+						<span class="research-archive-label">Research archive</span>
+						<a href="/INFA702/">Apple CSAM Privacy Research</a>
+						<span class="research-archive-separator" aria-hidden="true">//</span>
+						<a href="/CambridgeAnalytica/">Cambridge Analytica Privacy Research</a>
+					</div>
+				</aside>
 
 			<!-- Footer -->
 				<footer id="footer">
