@@ -710,12 +710,6 @@
 				background-size: cover;
 			}
 
-			#banner::before {
-				background:
-					radial-gradient(circle at 72% 47%, rgba(44, 255, 114, 0.08), transparent 30%),
-					linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(1, 8, 7, 0.42));
-			}
-
 			#header #nav .header-research {
 				border-bottom: 0;
 				color: rgba(112, 255, 157, 0.68);
@@ -738,9 +732,108 @@
 				text-shadow: 0 0 0.8rem rgba(44, 255, 114, 0.42);
 			}
 
+			.glitch-title {
+				position: relative;
+				display: inline-block;
+				isolation: isolate;
+				animation: title-signal-flicker 8s steps(1, end) infinite;
+			}
+
+			.glitch-title::before,
+			.glitch-title::after {
+				content: attr(data-text);
+				position: absolute;
+				inset: 0;
+				z-index: 1;
+				opacity: 0;
+				pointer-events: none;
+			}
+
+			.glitch-title::before {
+				color: #70ff9d;
+				text-shadow: -2px 0 rgba(44, 255, 114, 0.72);
+				animation: title-static-left 8s steps(1, end) infinite;
+			}
+
+			.glitch-title::after {
+				color: #8fffee;
+				text-shadow: 2px 0 rgba(46, 196, 182, 0.68);
+				animation: title-static-right 8s steps(1, end) infinite;
+			}
+
+			@keyframes title-signal-flicker {
+				0%, 86%, 88%, 91%, 94%, 100% {
+					opacity: 1;
+					filter: none;
+					transform: translate(0);
+				}
+				87% {
+					opacity: 0.72;
+					filter: contrast(1.45) brightness(1.25);
+					transform: translateX(1px);
+				}
+				89% {
+					opacity: 0.92;
+					filter: contrast(1.2);
+					transform: translateX(-1px);
+				}
+				92% {
+					opacity: 0.78;
+					filter: brightness(1.38);
+					transform: translate(1px, -1px);
+				}
+			}
+
+			@keyframes title-static-left {
+				0%, 86%, 94%, 100% {
+					opacity: 0;
+					transform: translate(0);
+					clip-path: inset(0 0 100% 0);
+				}
+				87% {
+					opacity: 0.78;
+					transform: translate(-4px, 1px);
+					clip-path: inset(8% 0 66% 0);
+				}
+				89% {
+					opacity: 0.55;
+					transform: translate(3px, -1px);
+					clip-path: inset(45% 0 34% 0);
+				}
+				92% {
+					opacity: 0.72;
+					transform: translate(-2px, 1px);
+					clip-path: inset(72% 0 12% 0);
+				}
+			}
+
+			@keyframes title-static-right {
+				0%, 86%, 94%, 100% {
+					opacity: 0;
+					transform: translate(0);
+					clip-path: inset(100% 0 0 0);
+				}
+				88% {
+					opacity: 0.68;
+					transform: translate(4px, -1px);
+					clip-path: inset(24% 0 57% 0);
+				}
+				90% {
+					opacity: 0.5;
+					transform: translate(-3px, 1px);
+					clip-path: inset(58% 0 19% 0);
+				}
+				93% {
+					opacity: 0.64;
+					transform: translate(2px);
+					clip-path: inset(4% 0 78% 0);
+				}
+			}
+
 			@media screen and (min-width: 981px) {
 				#banner .content {
-					display: block;
+					display: inline-block;
+					vertical-align: middle;
 					width: min(92vw, 82rem);
 					max-width: none;
 					margin: 0 auto;
@@ -806,6 +899,19 @@
 					padding: 5.5rem 1.25rem 6.5rem;
 				}
 			}
+
+			@media (prefers-reduced-motion: reduce) {
+				.glitch-title,
+				.glitch-title::before,
+				.glitch-title::after {
+					animation: none;
+				}
+
+				.glitch-title::before,
+				.glitch-title::after {
+					display: none;
+				}
+			}
 		</style>
 	</head>
 	<body class="is-preload landing">
@@ -856,7 +962,7 @@
 					<div class="crt-scan" aria-hidden="true"></div>
 					<div class="content">
 						<header>
-							<h2>Technology Solutions Built for the Real World</h2>
+							<h2 class="glitch-title" data-text="Technology Solutions Built for the Real World">Technology Solutions Built for the Real World</h2>
 							<p>A showcase of IT support, website development, cybersecurity knowledge, and practical technology solutions.<br />
 							Need help with a website or another technology project? Let’s talk about what you need.</p>
 						</header>
