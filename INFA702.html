@@ -88,7 +88,7 @@
     .hero {
       background-image:
         linear-gradient(90deg, rgba(2, 11, 20, .98) 0%, rgba(2, 11, 20, .9) 38%, rgba(2, 11, 20, .2) 72%),
-        url("images/csam-privacy-hero.png");
+        url("assets/csam-privacy-hero.png");
       background-size: cover;
       background-position: center;
     }
@@ -97,7 +97,7 @@
     .balance-slide {
       background-image:
         linear-gradient(90deg, rgba(2, 11, 20, .97) 0%, rgba(2, 11, 20, .88) 36%, rgba(2, 11, 20, .22) 74%),
-        url("images/privacy-balance.png");
+        url("assets/privacy-balance.png");
       background-size: cover;
       background-position: center;
     }
@@ -367,13 +367,13 @@
       content: "";
       position: absolute;
       top: 9px;
-      left: 0;
+      left: var(--timeline-start-x, 24px);
       width: 14px;
       height: 14px;
       border-radius: 50%;
       background: var(--white);
       box-shadow: 0 0 8px var(--cyan), 0 0 22px var(--cyan);
-      animation: timelineRunner 4s ease-in-out infinite alternate;
+      animation: timelineRunner 4.2s ease-in-out infinite;
     }
     .event {
       position: relative;
@@ -432,6 +432,31 @@
       line-height: 1.22;
       letter-spacing: -.035em;
       color: var(--white);
+    }
+
+    .static-title {
+      position: relative;
+      isolation: isolate;
+    }
+    .static-title::before,
+    .static-title::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      color: var(--white);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .static-title::before {
+      color: var(--cyan);
+      text-shadow: 2px 0 var(--cyan);
+      animation: titleStaticCyan 6s steps(1, end) infinite;
+    }
+    .static-title::after {
+      color: var(--amber);
+      text-shadow: -2px 0 var(--amber);
+      animation: titleStaticAmber 6s steps(1, end) infinite;
     }
 
     .resource-intro {
@@ -738,6 +763,19 @@
       font-size: .74rem;
       letter-spacing: .08em;
       text-transform: uppercase;
+      animation: hintBreathe 2.2s ease-in-out infinite;
+    }
+    .hint::before {
+      content: "";
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      margin-right: 9px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan);
+      vertical-align: 1px;
+      animation: hintDotPulse 1.35s ease-in-out infinite;
     }
 
     @keyframes panelIn {
@@ -749,17 +787,51 @@
       from { left: -76px; opacity: 0; }
       8% { opacity: 1; }
       92% { opacity: 1; }
-      to { left: 100%; opacity: 0; }
+      to { left: calc(var(--progress, 0%) - 76px); opacity: 0; }
     }
 
     @keyframes timelineRunner {
-      from { left: 0; }
-      to { left: calc(100% - 14px); }
+      0% { left: var(--timeline-start-x, 24px); opacity: 0; }
+      8% { opacity: 1; }
+      88% { left: var(--timeline-end-x, calc(66.666% + 48px)); opacity: 1; }
+      100% { left: var(--timeline-end-x, calc(66.666% + 48px)); opacity: 0; }
     }
 
     @keyframes timelineRunnerMobile {
-      from { top: 0; }
-      to { top: calc(100% - 14px); }
+      0% { top: var(--timeline-start-y, 24px); opacity: 0; }
+      8% { opacity: 1; }
+      88% { top: var(--timeline-end-y, 66.666%); opacity: 1; }
+      100% { top: var(--timeline-end-y, 66.666%); opacity: 0; }
+    }
+
+    @keyframes hintBreathe {
+      0%, 100% { color: rgba(213, 229, 237, .48); }
+      50% { color: rgba(245, 251, 255, .9); }
+    }
+
+    @keyframes hintDotPulse {
+      0%, 100% { transform: scale(.72); opacity: .5; box-shadow: 0 0 5px var(--cyan); }
+      50% { transform: scale(1.22); opacity: 1; box-shadow: 0 0 16px var(--cyan); }
+    }
+
+    @keyframes titleStaticCyan {
+      0%, 12%, 14%, 46%, 48%, 80%, 82%, 100% { opacity: 0; transform: none; clip-path: inset(0); }
+      12.4% { opacity: .75; transform: translate(4px, -1px); clip-path: inset(8% 0 68% 0); }
+      13% { opacity: .55; transform: translate(-3px, 1px); clip-path: inset(42% 0 34% 0); }
+      46.4% { opacity: .7; transform: translate(3px, 0); clip-path: inset(64% 0 12% 0); }
+      47% { opacity: .5; transform: translate(-2px, 1px); clip-path: inset(22% 0 55% 0); }
+      80.4% { opacity: .72; transform: translate(4px, 1px); clip-path: inset(34% 0 40% 0); }
+      81% { opacity: .48; transform: translate(-3px, -1px); clip-path: inset(70% 0 8% 0); }
+    }
+
+    @keyframes titleStaticAmber {
+      0%, 12%, 14%, 46%, 48%, 80%, 82%, 100% { opacity: 0; transform: none; clip-path: inset(0); }
+      12.4% { opacity: .55; transform: translate(-4px, 1px); clip-path: inset(55% 0 20% 0); }
+      13% { opacity: .42; transform: translate(3px, -1px); clip-path: inset(18% 0 60% 0); }
+      46.4% { opacity: .58; transform: translate(-3px, 1px); clip-path: inset(30% 0 44% 0); }
+      47% { opacity: .4; transform: translate(2px, 0); clip-path: inset(72% 0 7% 0); }
+      80.4% { opacity: .58; transform: translate(-4px, 0); clip-path: inset(10% 0 66% 0); }
+      81% { opacity: .4; transform: translate(3px, 1px); clip-path: inset(48% 0 28% 0); }
     }
 
     @media (max-width: 980px) {
@@ -794,9 +866,9 @@
         background: linear-gradient(180deg, var(--cyan), rgba(24, 200, 242, .2), var(--amber));
       }
       .timeline::after {
-        top: 0;
+        top: var(--timeline-start-y, 24px);
         left: 0;
-        animation: timelineRunnerMobile 4s ease-in-out infinite alternate;
+        animation: timelineRunnerMobile 4.2s ease-in-out infinite;
       }
       .event::before {
         display: block;
@@ -1152,7 +1224,7 @@
     <section class="slide" id="conclusion" data-title="Conclusion">
       <div>
         <div class="kicker reveal">Conclusion</div>
-        <h2 class="reveal">Good intentions do not remove future risks</h2>
+        <h2 class="reveal static-title" data-text="Good intentions do not remove future risks">Good intentions do not remove future risks</h2>
         <p class="lede reveal">Apple’s proposal attempted to protect children and identify known illegal material, but it also raised concerns about device scanning, false matches, government pressure, and expansion to other content.</p>
         <p class="final-thought reveal">Technology can be designed with good intentions, but companies must also consider how that technology could be used in the future.</p>
       </div>
@@ -1287,10 +1359,23 @@
       const slideMenu = document.getElementById('slideMenu');
       const closeMenu = document.getElementById('closeMenu');
       const menuList = document.getElementById('menuList');
+      const timeline = document.querySelector('.timeline');
       let currentIndex = 0;
       let wheelLocked = false;
 
       const pad = number => String(number).padStart(2, '0');
+
+      function updateTimelinePath() {
+        if (!timeline) return;
+        const events = [...timeline.querySelectorAll('.event')];
+        if (events.length < 3) return;
+        timeline.style.setProperty('--timeline-start-x', `${events[0].offsetLeft + 24}px`);
+        timeline.style.setProperty('--timeline-end-x', `${events[events.length - 1].offsetLeft + 24}px`);
+        timeline.style.setProperty('--timeline-start-y', `${events[0].offsetTop + 24}px`);
+        timeline.style.setProperty('--timeline-end-y', `${events[events.length - 1].offsetTop + 24}px`);
+      }
+      window.addEventListener('resize', updateTimelinePath);
+      requestAnimationFrame(updateTimelinePath);
 
       function goToSlide(index, behavior = 'smooth') {
         const safeIndex = Math.max(0, Math.min(slides.length - 1, index));
@@ -1420,6 +1505,7 @@
       const initialId = location.hash.slice(1);
       const initialIndex = slides.findIndex(slide => slide.id === initialId);
       goToSlide(initialIndex >= 0 ? initialIndex : 0, 'auto');
+      updateTimelinePath();
     })();
   </script>
 </body>
