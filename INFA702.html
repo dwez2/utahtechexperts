@@ -88,7 +88,7 @@
     .hero {
       background-image:
         linear-gradient(90deg, rgba(2, 11, 20, .98) 0%, rgba(2, 11, 20, .9) 38%, rgba(2, 11, 20, .2) 72%),
-        url("images/csam-privacy-hero.png");
+        url("assets/csam-privacy-hero.png");
       background-size: cover;
       background-position: center;
     }
@@ -97,7 +97,7 @@
     .balance-slide {
       background-image:
         linear-gradient(90deg, rgba(2, 11, 20, .97) 0%, rgba(2, 11, 20, .88) 36%, rgba(2, 11, 20, .22) 74%),
-        url("images/privacy-balance.png");
+        url("assets/privacy-balance.png");
       background-size: cover;
       background-position: center;
     }
@@ -363,6 +363,18 @@
       height: 2px;
       background: linear-gradient(90deg, var(--cyan), rgba(24, 200, 242, .18), var(--amber));
     }
+    .timeline::after {
+      content: "";
+      position: absolute;
+      top: 9px;
+      left: 0;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--white);
+      box-shadow: 0 0 8px var(--cyan), 0 0 22px var(--cyan);
+      animation: timelineRunner 4s ease-in-out infinite alternate;
+    }
     .event {
       position: relative;
       padding: 26px;
@@ -485,6 +497,68 @@
       font-size: .76rem;
     }
 
+    .resource-divider {
+      background:
+        radial-gradient(circle at 50% 44%, rgba(24, 200, 242, .2), transparent 34%),
+        linear-gradient(135deg, #020b14 0%, #071c32 48%, #171238 100%);
+      text-align: center;
+    }
+    .resource-divider::after {
+      right: 50%;
+      bottom: -52%;
+      transform: translateX(50%);
+      border-color: rgba(255, 186, 98, .24);
+      box-shadow: 0 0 130px rgba(24, 200, 242, .13) inset;
+    }
+    .resource-divider-copy {
+      width: min(920px, 100%);
+      margin-inline: auto;
+    }
+    .resource-divider .kicker { color: var(--amber); }
+    .resource-divider .kicker::before { background: linear-gradient(90deg, var(--amber), transparent); }
+    .resource-divider h2 { max-width: none; margin-inline: auto; }
+    .resource-divider .lede { margin-inline: auto; }
+    .resource-slide {
+      background:
+        radial-gradient(circle at 88% 14%, rgba(255, 186, 98, .1), transparent 25%),
+        radial-gradient(circle at 8% 82%, rgba(121, 83, 255, .12), transparent 30%),
+        linear-gradient(135deg, #020b14, #061b2d 52%, #101331);
+    }
+    .resource-slide .kicker { color: var(--amber); }
+    .resource-slide .resource-card { border-top-color: rgba(255, 186, 98, .72); }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .video-preview {
+      overflow: hidden;
+      background: rgba(5, 24, 39, .84);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .24);
+    }
+    .video-frame {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: #01070c;
+    }
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .video-label { padding: 14px 16px 16px; }
+    .video-label span {
+      color: var(--cyan-soft);
+      font: 700 .72rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
     .source-line {
       position: absolute;
       right: clamp(28px, 7vw, 118px);
@@ -550,6 +624,19 @@
       background: linear-gradient(90deg, var(--cyan), var(--amber));
       box-shadow: 0 0 18px rgba(24, 200, 242, .55);
       transition: width .5s var(--ease);
+    }
+    .footer::after {
+      content: "";
+      position: absolute;
+      top: -3px;
+      left: 0;
+      width: 76px;
+      height: 6px;
+      border-radius: 999px;
+      background: radial-gradient(ellipse at center, rgba(255, 255, 255, .98) 0%, var(--cyan) 20%, rgba(24, 200, 242, .45) 46%, transparent 76%);
+      filter: drop-shadow(0 0 7px var(--cyan));
+      pointer-events: none;
+      animation: progressRunner 3.4s linear infinite;
     }
     .footer-name {
       color: var(--white);
@@ -658,6 +745,23 @@
       to { opacity: 1; transform: none; }
     }
 
+    @keyframes progressRunner {
+      from { left: -76px; opacity: 0; }
+      8% { opacity: 1; }
+      92% { opacity: 1; }
+      to { left: 100%; opacity: 0; }
+    }
+
+    @keyframes timelineRunner {
+      from { left: 0; }
+      to { left: calc(100% - 14px); }
+    }
+
+    @keyframes timelineRunnerMobile {
+      from { top: 0; }
+      to { top: calc(100% - 14px); }
+    }
+
     @media (max-width: 980px) {
       body { overflow: hidden; }
       .presentation { scroll-snap-type: none; }
@@ -674,10 +778,34 @@
       .process-step { min-height: 190px; }
       .toggle-wrap { grid-template-columns: 1fr; }
       .toggle-nav { grid-template-columns: 1fr 1fr; }
-      .timeline { grid-template-columns: 1fr; gap: 14px; padding-top: 0; }
-      .timeline::before, .event::before { display: none; }
+      .timeline {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 0 0 0 30px;
+      }
+      .timeline::before {
+        display: block;
+        top: 0;
+        bottom: 0;
+        left: 6px;
+        right: auto;
+        width: 2px;
+        height: auto;
+        background: linear-gradient(180deg, var(--cyan), rgba(24, 200, 242, .2), var(--amber));
+      }
+      .timeline::after {
+        top: 0;
+        left: 0;
+        animation: timelineRunnerMobile 4s ease-in-out infinite alternate;
+      }
+      .event::before {
+        display: block;
+        top: 24px;
+        left: -31px;
+      }
       .source-line { display: none; }
       .resource-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .video-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 700px) {
@@ -697,9 +825,14 @@
         background-position: 68% center;
       }
       .hero {
+        align-items: end;
         background-image:
-          linear-gradient(180deg, rgba(2, 11, 20, .72) 0%, rgba(2, 11, 20, .9) 52%, rgba(2, 11, 20, .98) 100%),
+          linear-gradient(180deg, rgba(2, 11, 20, .08) 0%, rgba(2, 11, 20, .28) 34%, rgba(2, 11, 20, .88) 68%, rgba(2, 11, 20, .99) 100%),
           url("assets/csam-privacy-hero.png");
+        background-size: cover, auto 62%;
+        background-position: center, 82% 4%;
+        background-repeat: no-repeat;
+        padding-top: 34vh;
       }
       .balance-slide {
         background-image:
@@ -1026,20 +1159,37 @@
       <div class="source-line">Sources: Apple, 2026; Newman, 2022</div>
     </section>
 
-    <section class="slide" id="video-resources" data-title="Additional video resources">
+    <section class="slide resource-divider" id="resources" data-title="Supporting resources">
+      <div class="resource-divider-copy">
+        <div class="kicker reveal">Presentation Complete</div>
+        <h2 class="reveal">The presentation ends here.</h2>
+        <p class="lede reveal">Continue for optional videos, original source documents, legal materials, and privacy frameworks used in the research.</p>
+      </div>
+    </section>
+
+    <section class="slide resource-slide" id="video-resources" data-title="Additional video resources">
       <div>
         <div class="kicker reveal">Continue Exploring</div>
         <h2 class="reveal">Additional video resources</h2>
-        <p class="resource-intro reveal">These optional videos provide more information about the topic. Each link opens YouTube in a new tab.</p>
-        <div class="resource-grid reveal">
-          <a class="resource-card" href="https://youtu.be/OQUO1DSwYN0" target="_blank" rel="noopener noreferrer"><span class="resource-tag">Video resource 01</span><h3>Learn more about the topic</h3><p>Open this additional video resource on YouTube.</p><span class="resource-open">Watch video ↗</span></a>
-          <a class="resource-card" href="https://youtu.be/B5qpKhBrtU8" target="_blank" rel="noopener noreferrer"><span class="resource-tag">Video resource 02</span><h3>Continue the research</h3><p>Open this additional video resource on YouTube.</p><span class="resource-open">Watch video ↗</span></a>
-          <a class="resource-card" href="https://youtube.com/shorts/WR2AYO6llTE?si=ft-YEZUcptJc7LRO" target="_blank" rel="noopener noreferrer"><span class="resource-tag">Video resource 03</span><h3>Quick video resource</h3><p>Open this short additional resource on YouTube.</p><span class="resource-open">Watch video ↗</span></a>
+        <p class="resource-intro reveal">These optional videos provide more information about the topic. You can preview and play them directly from this page.</p>
+        <div class="video-grid reveal">
+          <article class="video-preview">
+            <div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/OQUO1DSwYN0" title="Additional Apple CSAM video resource one" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+            <div class="video-label"><span>Video resource 01</span></div>
+          </article>
+          <article class="video-preview">
+            <div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/B5qpKhBrtU8" title="Additional Apple CSAM video resource two" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+            <div class="video-label"><span>Video resource 02</span></div>
+          </article>
+          <article class="video-preview">
+            <div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/WR2AYO6llTE" title="Additional Apple CSAM short video resource" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+            <div class="video-label"><span>Video resource 03</span></div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="slide" id="references-legal" data-title="Sources: cases and legal analysis">
+    <section class="slide resource-slide" id="references-legal" data-title="Sources: cases and legal analysis">
       <div>
         <div class="kicker reveal">Explore the Research</div>
         <h2 class="reveal">Cases and legal analysis</h2>
@@ -1055,7 +1205,7 @@
       </div>
     </section>
 
-    <section class="slide" id="references-proposal" data-title="Sources: Apple’s proposal">
+    <section class="slide resource-slide" id="references-proposal" data-title="Sources: Apple’s proposal">
       <div>
         <div class="kicker reveal">Explore the Research</div>
         <h2 class="reveal">Apple’s proposal and response</h2>
@@ -1070,7 +1220,7 @@
       </div>
     </section>
 
-    <section class="slide" id="references-background" data-title="Sources: background and current approach">
+    <section class="slide resource-slide" id="references-background" data-title="Sources: background and current approach">
       <div>
         <div class="kicker reveal">Explore the Research</div>
         <h2 class="reveal">Background and current approach</h2>
@@ -1085,7 +1235,7 @@
       </div>
     </section>
 
-    <section class="slide" id="references-frameworks" data-title="Sources: privacy frameworks and laws">
+    <section class="slide resource-slide" id="references-frameworks" data-title="Sources: privacy frameworks and laws">
       <div>
         <div class="kicker reveal">Explore the Research</div>
         <h2 class="reveal">Privacy frameworks and laws</h2>
