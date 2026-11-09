@@ -6,7 +6,6 @@
   <meta name="description" content="An interactive presentation examining Apple's proposed CSAM detection technology, privacy harms, applicable laws, and recommendations.">
   <meta name="author" content="Erika Hernandez">
   <title>Apple's CSAM Detection Technology | Erika Hernandez</title>
-  <link rel="icon" href="images/phd-research-icon.png" type="images/">
   <style>
     :root {
       --navy-950: #020b14;
@@ -40,7 +39,6 @@
     .presentation {
       height: 100svh;
       overflow-y: auto;
-      overflow-x: hidden;
       scroll-snap-type: y mandatory;
       scrollbar-width: none;
       overscroll-behavior: contain;
@@ -88,68 +86,18 @@
     }
 
     .hero {
-      background:
-        radial-gradient(circle at 76% 44%, rgba(24, 200, 242, .15), transparent 34%),
-        linear-gradient(110deg, #020b14 0%, #031522 52%, #041b2b 100%);
+      background-image:
+        linear-gradient(90deg, rgba(2, 11, 20, .98) 0%, rgba(2, 11, 20, .9) 38%, rgba(2, 11, 20, .2) 72%),
+        url("assets/csam-privacy-hero.png");
+      background-size: cover;
+      background-position: center;
     }
     .hero::before { opacity: .35; }
-
-    .hero-copy { position: relative; z-index: 3; }
-    .hero-visual {
-      position: absolute;
-      z-index: 1;
-      width: min(68vw, 920px);
-      aspect-ratio: 1;
-      right: clamp(-170px, -7vw, -90px);
-      top: 48%;
-      transform: translateY(-50%);
-      border-radius: 50%;
-      background: url("images/csam-privacy-hero.png") center / cover no-repeat;
-      box-shadow:
-        0 0 0 1px rgba(140, 236, 255, .2),
-        0 0 90px rgba(24, 200, 242, .2),
-        inset 0 0 110px rgba(2, 11, 20, .45);
-      animation: heroFloat 9s ease-in-out infinite;
-    }
-    .hero-visual::before,
-    .hero-visual::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-    }
-    .hero-visual::before {
-      inset: -5%;
-      background: conic-gradient(from 40deg, transparent 0 22%, rgba(24, 200, 242, .9) 27%, transparent 31% 58%, rgba(255, 186, 98, .7) 62%, transparent 67%);
-      mask: radial-gradient(circle, transparent 67%, #000 68% 70%, transparent 71%);
-      animation: orbitSpin 15s linear infinite;
-      filter: drop-shadow(0 0 12px rgba(24, 200, 242, .7));
-    }
-    .hero-visual::after {
-      inset: 10%;
-      border: 1px solid rgba(140, 236, 255, .28);
-      border-left-color: var(--cyan);
-      border-right-color: var(--amber);
-      animation: orbitSpinReverse 21s linear infinite;
-      box-shadow: 0 0 35px rgba(24, 200, 242, .12) inset;
-    }
-    .hero-scan {
-      position: absolute;
-      z-index: 2;
-      width: min(64vw, 880px);
-      height: 2px;
-      right: -8vw;
-      top: 50%;
-      background: linear-gradient(90deg, transparent, rgba(140, 236, 255, .9), transparent);
-      box-shadow: 0 0 20px var(--cyan);
-      opacity: .55;
-      animation: scanSweep 5.5s ease-in-out infinite;
-    }
 
     .balance-slide {
       background-image:
         linear-gradient(90deg, rgba(2, 11, 20, .97) 0%, rgba(2, 11, 20, .88) 36%, rgba(2, 11, 20, .22) 74%),
-        url("images/privacy-balance.png");
+        url("assets/privacy-balance.png");
       background-size: cover;
       background-position: center;
     }
@@ -209,10 +157,7 @@
     .small { font-size: .92rem; color: var(--muted); }
 
     .hero-copy { max-width: 920px; }
-    .hero-title {
-      max-width: 930px;
-      text-shadow: 0 10px 45px rgba(0, 0, 0, .5), 0 0 30px rgba(24, 200, 242, .08);
-    }
+    .hero-title { max-width: 930px; }
     .hero-subtitle {
       max-width: 740px;
       font-size: clamp(1.15rem, 2vw, 1.75rem);
@@ -360,12 +305,9 @@
     .toggle-nav { display: grid; gap: 10px; }
     .toggle-btn, .menu-btn, .nav-btn, .close-menu {
       border: 1px solid var(--line);
-  background: rgba(4, 24, 39, .72);
-  color: var(--cyan-soft);
-  appearance: none;
-  -webkit-appearance: none;
-  cursor: pointer;
-  transition: .25s ease;
+      background: rgba(4, 24, 39, .72);
+      cursor: pointer;
+      transition: .25s ease;
     }
     .toggle-btn {
       padding: 15px 18px;
@@ -416,40 +358,16 @@
       content: "";
       position: absolute;
       top: 15px;
-      left: 24px;
-      right: calc(33.333% - 48px);
-      height: 3px;
-      z-index: 1;
-      background: linear-gradient(90deg, var(--cyan), rgba(24, 200, 242, .55), var(--amber));
-      box-shadow: 0 0 16px rgba(24, 200, 242, .5);
-    }
-    .timeline::after {
-      content: "";
-      position: absolute;
-      top: 9px;
-      left: 24px;
-      width: 14px;
-      height: 14px;
-      z-index: 4;
-      border-radius: 50%;
-      background: #ffffff;
-      box-shadow: 0 0 8px #ffffff, 0 0 24px var(--cyan);
-      pointer-events: none;
-      animation: timelineJourney 5s ease-in-out infinite;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), rgba(24, 200, 242, .18), var(--amber));
     }
     .event {
       position: relative;
-      z-index: 2;
       padding: 26px;
       background: rgba(7, 36, 55, .66);
       border: 1px solid var(--line);
-      transition: transform .35s var(--ease), background .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease);
-    }
-    .event:hover {
-      transform: translateY(-8px);
-      background: linear-gradient(180deg, rgba(24, 200, 242, .18), rgba(7, 36, 55, .78));
-      border-color: var(--cyan);
-      box-shadow: 0 18px 42px rgba(0, 0, 0, .24), 0 0 24px rgba(24, 200, 242, .12);
     }
     .event::before {
       content: "";
@@ -458,7 +376,6 @@
       left: 24px;
       width: 12px;
       height: 12px;
-      z-index: 3;
       border-radius: 50%;
       background: var(--cyan);
       box-shadow: 0 0 20px var(--cyan);
@@ -485,124 +402,6 @@
       letter-spacing: -.025em;
     }
 
-    .balance-slide {
-      background-position: center;
-    }
-    .balance-content { width: 100%; }
-    .balance-slide h2 {
-      margin-bottom: 20px;
-      font-size: clamp(2.4rem, 4.3vw, 4.8rem);
-    }
-    .balance-comparison {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: clamp(80px, 16vw, 250px);
-      align-items: stretch;
-      margin-top: 18px;
-    }
-    .balance-card {
-      padding: clamp(20px, 2.4vw, 30px);
-      background: linear-gradient(145deg, rgba(4, 25, 41, .93), rgba(7, 48, 74, .78));
-      border: 1px solid rgba(140, 236, 255, .34);
-      box-shadow: 0 24px 70px rgba(0, 0, 0, .34), 0 0 28px rgba(24, 200, 242, .08);
-      backdrop-filter: blur(18px);
-      transition: transform .35s var(--ease), background .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease);
-    }
-    .balance-card:hover {
-      transform: translateY(-8px);
-      background: linear-gradient(180deg, rgba(24, 200, 242, .2), rgba(2, 11, 20, .9));
-      border-color: var(--cyan);
-      box-shadow: 0 24px 70px rgba(0, 0, 0, .38), 0 0 32px rgba(24, 200, 242, .18);
-    }
-    .balance-card h3 {
-      color: var(--cyan-soft);
-      font-size: clamp(1.2rem, 1.7vw, 1.5rem);
-    }
-    .balance-card ul {
-      margin: 14px 0 0;
-      padding-left: 1.15rem;
-      color: #e0eef4;
-      font-size: clamp(.92rem, 1.12vw, 1.08rem);
-      line-height: 1.48;
-    }
-    .balance-card li + li { margin-top: 8px; }
-    .central-question {
-      max-width: 1000px;
-      margin: 24px auto 0;
-      padding: 15px 24px;
-      color: var(--white);
-      background: rgba(2, 11, 20, .8);
-      border: 1px solid rgba(140, 236, 255, .28);
-      box-shadow: 0 0 35px rgba(24, 200, 242, .1);
-      font-size: clamp(1.08rem, 1.6vw, 1.45rem);
-      font-weight: 720;
-      line-height: 1.35;
-      text-align: center;
-    }
-
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: clamp(16px, 2vw, 28px);
-    }
-    .video-card {
-      position: relative;
-      display: block;
-      overflow: hidden;
-      color: var(--white);
-      text-decoration: none;
-      background: rgba(7, 36, 55, .72);
-      border: 1px solid var(--line);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, .24);
-      transition: transform .35s var(--ease), border-color .35s ease, box-shadow .35s ease;
-    }
-    .video-card:hover,
-    .video-card:focus-visible {
-      transform: translateY(-7px);
-      border-color: var(--cyan);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, .35), 0 0 35px rgba(24, 200, 242, .14);
-      outline: none;
-    }
-    .video-thumb {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-      background: #03131f;
-    }
-    .video-thumb img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      opacity: .72;
-      transition: transform .5s var(--ease), opacity .35s ease;
-    }
-    .video-card:hover img { transform: scale(1.05); opacity: .9; }
-    .play-button {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 58px;
-      height: 58px;
-      display: grid;
-      place-items: center;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      color: #02111d;
-      background: var(--cyan-soft);
-      box-shadow: 0 0 30px rgba(24, 200, 242, .58);
-      font-size: 1.2rem;
-      padding-left: 3px;
-    }
-    .video-info { padding: 20px 22px 24px; }
-    .video-info span {
-      color: var(--cyan);
-      font: 700 .76rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
-      letter-spacing: .12em;
-    }
-    .video-info h3 { margin: 10px 0 6px; }
-    .video-info p { margin: 0; color: var(--muted); font-size: .94rem; }
-
     .finding {
       padding: 22px 0;
       border-top: 1px solid var(--line);
@@ -623,22 +422,68 @@
       color: var(--white);
     }
 
-    .references {
-      columns: 2;
-      column-gap: 46px;
-      padding: 0;
-      list-style: none;
+    .resource-intro {
+      max-width: 860px;
+      margin: -16px 0 22px;
+      color: var(--muted);
+      font-size: clamp(.92rem, 1.15vw, 1.05rem);
     }
-    .references li {
-      break-inside: avoid;
-      margin: 0 0 13px;
-      padding: 0 0 13px;
-      border-bottom: 1px solid rgba(140, 236, 255, .1);
-      color: #c8dbe5;
-      font-size: clamp(.78rem, 1vw, .92rem);
-      line-height: 1.42;
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
     }
-    .references .pending { color: var(--amber); }
+    .resource-card {
+      position: relative;
+      min-height: 132px;
+      display: flex;
+      flex-direction: column;
+      padding: 18px 20px;
+      color: var(--white);
+      text-decoration: none;
+      background: linear-gradient(145deg, rgba(9, 45, 68, .84), rgba(5, 24, 39, .78));
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      box-shadow: 0 22px 54px rgba(0, 0, 0, .16);
+      transition: transform .3s var(--ease), border-color .3s ease, background .3s ease;
+    }
+    .resource-card:hover,
+    .resource-card:focus-visible {
+      transform: translateY(-4px);
+      border-color: var(--cyan);
+      background: linear-gradient(145deg, rgba(10, 58, 86, .94), rgba(5, 31, 49, .9));
+      outline: none;
+    }
+    .resource-tag {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--cyan);
+      font: 700 .68rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .resource-card h3 {
+      margin-bottom: 7px;
+      font-size: clamp(.98rem, 1.2vw, 1.14rem);
+    }
+    .resource-card p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: clamp(.78rem, .88vw, .9rem);
+      line-height: 1.38;
+    }
+    .resource-open {
+      margin-top: auto;
+      color: var(--cyan-soft);
+      font: 700 .72rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .resource-note {
+      margin: 16px 0 0;
+      color: rgba(213, 229, 237, .62);
+      font-size: .76rem;
+    }
 
     .source-line {
       position: absolute;
@@ -705,19 +550,6 @@
       background: linear-gradient(90deg, var(--cyan), var(--amber));
       box-shadow: 0 0 18px rgba(24, 200, 242, .55);
       transition: width .5s var(--ease);
-    }
-    .footer::after {
-      content: "";
-      position: absolute;
-      top: -2px;
-      left: 0;
-      width: 70px;
-      height: 4px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .95), var(--cyan), transparent);
-      filter: drop-shadow(0 0 7px var(--cyan));
-      pointer-events: none;
-      animation: footerSweep 3s ease-in-out infinite;
     }
     .footer-name {
       color: var(--white);
@@ -819,66 +651,23 @@
       font-size: .74rem;
       letter-spacing: .08em;
       text-transform: uppercase;
-      animation: hintPulse 2.2s ease-in-out infinite;
-    }
-    .hint::before {
-      content: "";
-      display: inline-block;
-      width: 7px;
-      height: 7px;
-      margin-right: 10px;
-      border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 14px var(--cyan);
-      vertical-align: 1px;
     }
 
     @keyframes panelIn {
       from { opacity: 0; transform: translateY(12px); }
       to { opacity: 1; transform: none; }
     }
-    @keyframes heroFloat {
-      0%, 100% { transform: translateY(-50%) scale(1); }
-      50% { transform: translateY(-52%) scale(1.025); }
-    }
-    @keyframes orbitSpin { to { transform: rotate(360deg); } }
-    @keyframes orbitSpinReverse { to { transform: rotate(-360deg); } }
-    @keyframes scanSweep {
-      0%, 100% { transform: translateY(-210px); opacity: 0; }
-      18%, 78% { opacity: .55; }
-      50% { transform: translateY(210px); opacity: .75; }
-    }
-    @keyframes hintPulse {
-      0%, 100% { opacity: .45; transform: translateY(0); }
-      50% { opacity: 1; transform: translateY(-3px); }
-    }
 
-    @keyframes footerSweep {
-      0% { left: 0; opacity: 0; }
-      12% { opacity: 1; }
-      88% { opacity: 1; }
-      100% { left: calc(var(--progress, 0%) - 70px); opacity: 0; }
-    }
-    @keyframes timelineJourney {
-      0%, 12% {
-        left: 24px;
-        background: var(--cyan);
-        box-shadow: 0 0 8px #ffffff, 0 0 24px var(--cyan);
-      }
-      44%, 56% {
-        left: calc(33.333% + 36px);
-        background: var(--cyan-soft);
-        box-shadow: 0 0 8px #ffffff, 0 0 24px var(--cyan);
-      }
-      88%, 100% {
-        left: calc(66.666% + 48px);
-        background: var(--amber);
-        box-shadow: 0 0 8px #ffffff, 0 0 24px var(--amber);
-      }
-    }
     @media (max-width: 980px) {
-      body { overflow: auto; }
-      .slide { padding-inline: 30px; }
+      body { overflow: hidden; }
+      .presentation { scroll-snap-type: none; }
+      .slide {
+        min-height: 100svh;
+        align-items: start;
+        padding: 84px 30px calc(var(--footer-h) + 30px);
+        overflow: visible;
+      }
+      .hero, .balance-slide { align-items: center; }
       .grid-4 { grid-template-columns: repeat(2, 1fr); }
       .grid-3 { grid-template-columns: repeat(2, 1fr); }
       .process { grid-template-columns: repeat(2, 1fr); }
@@ -886,32 +675,88 @@
       .toggle-wrap { grid-template-columns: 1fr; }
       .toggle-nav { grid-template-columns: 1fr 1fr; }
       .timeline { grid-template-columns: 1fr; gap: 14px; padding-top: 0; }
-      .timeline::before, .timeline::after, .event::before { display: none; }
+      .timeline::before, .event::before { display: none; }
       .source-line { display: none; }
-      .balance-comparison { gap: 24px; }
-      .video-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .resource-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 700px) {
-      :root { --footer-h: 76px; }
+      :root { --footer-h: 70px; }
+      html, body { min-width: 0; }
       .presentation { scroll-snap-type: none; }
-      .slide { min-height: auto; padding: 92px 22px calc(var(--footer-h) + 30px); overflow: visible; }
-      .hero, .balance-slide { min-height: 100svh; background-position: 64% center; }
+      .slide {
+        min-height: 100svh;
+        align-items: start;
+        padding: 84px 20px calc(var(--footer-h) + 28px);
+        overflow: visible;
+      }
+      .slide > div:first-child { width: 100%; }
+      .hero, .balance-slide {
+        align-items: center;
+        min-height: 100svh;
+        background-position: 68% center;
+      }
+      .hero {
+        background-image:
+          linear-gradient(180deg, rgba(2, 11, 20, .72) 0%, rgba(2, 11, 20, .9) 52%, rgba(2, 11, 20, .98) 100%),
+          url("assets/csam-privacy-hero.png");
+      }
+      .balance-slide {
+        background-image:
+          linear-gradient(180deg, rgba(2, 11, 20, .68) 0%, rgba(2, 11, 20, .9) 58%, rgba(2, 11, 20, .98) 100%),
+          url("assets/privacy-balance.png");
+      }
+      h1 { font-size: clamp(2.85rem, 14vw, 4.5rem); line-height: .94; }
+      h2 { margin-bottom: 22px; font-size: clamp(2.2rem, 11vw, 3.4rem); line-height: 1; }
+      h3 { font-size: 1.08rem; }
+      p { font-size: 1rem; }
+      .kicker { margin-bottom: 14px; font-size: .68rem; }
+      .hero-subtitle { font-size: 1.12rem; }
+      .byline { margin-top: 26px; gap: 8px 18px; font-size: .78rem; }
       .grid-2, .grid-3, .grid-4, .stat-row, .argument-list { grid-template-columns: 1fr; }
+      .grid-2, .grid-3, .grid-4 { gap: 12px; }
+      .card { min-height: 0; padding: 18px; }
+      .agenda-grid .card { min-height: 0; }
       .process { grid-template-columns: 1fr; }
+      .process-step { min-height: 0; padding: 20px 18px; }
+      .process-step::before { margin-bottom: 20px; }
       .harm-item, .principle-item, .law-item, .recommendation-item { grid-template-columns: 1fr; gap: 6px; }
-      .references { columns: 1; }
-      .balance-comparison, .video-grid { grid-template-columns: 1fr; }
-      .balance-comparison { gap: 14px; }
-      .hero-visual { width: 118vw; right: -72vw; opacity: .72; }
-      .hero-scan { display: none; }
-      .footer { grid-template-columns: 1fr auto; }
+      .harm-item, .principle-item, .law-item, .recommendation-item { padding: 13px 0; }
+      .toggle-nav { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .toggle-btn { padding: 13px 12px; text-align: center; }
+      .argument-list li { padding: 16px 16px 16px 44px; }
+      .timeline { gap: 12px; }
+      .event { padding: 20px; }
+      .resource-intro { margin-top: -8px; }
+      .resource-grid { grid-template-columns: 1fr; gap: 12px; }
+      .resource-card { min-height: 0; padding: 17px 18px; }
+      .footer {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 8px;
+        padding: 11px 14px 10px;
+      }
+      .footer-name { overflow: hidden; font-size: .68rem; letter-spacing: .05em; white-space: nowrap; text-overflow: ellipsis; }
       .footer-course { display: none; }
+      .footer-right { gap: 7px; }
+      .counter { min-width: 54px; font-size: .7rem; }
+      .nav-controls { gap: 6px; }
+      .nav-btn { width: 32px; height: 32px; }
+      .topbar { height: 58px; padding-inline: 16px; }
+      .brand { max-width: calc(100vw - 82px); overflow: hidden; font-size: .7rem; white-space: nowrap; text-overflow: ellipsis; }
+      .menu-btn { width: 40px; height: 40px; }
       .slide-menu { grid-template-columns: 1fr; }
       .menu-intro { display: none; }
-      .menu-list { grid-template-columns: 1fr; padding: 72px 28px 28px; }
+      .menu-list { grid-template-columns: 1fr; padding: 72px 22px calc(var(--footer-h) + 28px); }
       .close-menu { position: absolute; top: 16px; right: 18px; }
       .hint { display: none; }
+    }
+
+    @media (max-width: 390px) {
+      .slide { padding-inline: 16px; }
+      h1 { font-size: 2.65rem; }
+      h2 { font-size: 2.08rem; }
+      .footer-name { max-width: 112px; }
+      .counter { min-width: 48px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -937,16 +782,14 @@
 </head>
 <body>
   <header class="topbar" aria-label="Presentation controls">
-    <div class="brand"><span>Final</span> Project</div>
+    <div class="brand"><span>Final</span> Research Project</div>
     <button class="menu-btn" id="menuButton" type="button" aria-label="Open slide menu" aria-expanded="false">☰</button>
   </header>
 
   <main class="presentation" id="presentation">
     <section class="slide hero active" id="title" data-title="Title">
-      <div class="hero-visual" aria-hidden="true"></div>
-      <div class="hero-scan" aria-hidden="true"></div>
       <div class="hero-copy">
-        <div class="kicker reveal">Final Semester Project / Fall 2026</div>
+        <div class="kicker reveal">Semester Project / Fall 2026</div>
         <h1 class="hero-title reveal">Apple’s CSAM Detection Technology</h1>
         <p class="hero-subtitle reveal">Protecting children while protecting privacy</p>
         <div class="byline reveal">
@@ -1141,30 +984,12 @@
     </section>
 
     <section class="slide balance-slide" id="question" data-title="The central privacy question">
-      <div class="balance-content">
+      <div>
         <div class="kicker reveal">The Central Privacy Question</div>
         <h2 class="reveal">Safety and privacy must coexist</h2>
-        <div class="balance-comparison reveal">
-          <article class="balance-card">
-            <h3>Protecting Children</h3>
-            <ul>
-              <li>Detect collections of known CSAM.</li>
-              <li>Reduce the continued distribution of abuse material.</li>
-              <li>Report confirmed cases to NCMEC.</li>
-              <li>Limit repeated harm to victims.</li>
-            </ul>
-          </article>
-          <article class="balance-card">
-            <h3>Protecting Privacy</h3>
-            <ul>
-              <li>Avoid scanning people’s personal devices.</li>
-              <li>Prevent false matches and investigations.</li>
-              <li>Prevent government surveillance or censorship.</li>
-              <li>Keep the technology from expanding to other content.</li>
-            </ul>
-          </article>
+        <div class="question-box reveal">
+          <p>Can companies protect children without creating technology that could weaken everyone’s privacy?</p>
         </div>
-        <div class="central-question reveal">Can companies protect children without creating technology that could weaken everyone’s privacy?</div>
       </div>
       <div class="source-line">Sources: Apple, 2021; Electronic Frontier Foundation, 2021</div>
     </section>
@@ -1201,56 +1026,79 @@
       <div class="source-line">Sources: Apple, 2026; Newman, 2022</div>
     </section>
 
-    <section class="slide" id="video-resources" data-title="Video resources">
+    <section class="slide" id="video-resources" data-title="Additional video resources">
       <div>
         <div class="kicker reveal">Continue Exploring</div>
-        <h2 class="reveal">Learn more about the topic</h2>
-        <p class="lede reveal">These optional videos provide additional background and perspectives on Apple’s proposal, child safety, and the privacy debate.</p>
-        <div class="video-grid reveal">
-          <a class="video-card" href="https://youtu.be/OQUO1DSwYN0" target="_blank" rel="noopener noreferrer">
-            <div class="video-thumb">
-              <img src="https://i.ytimg.com/vi/OQUO1DSwYN0/hqdefault.jpg" alt="Preview image for video resource one" loading="lazy">
-              <span class="play-button" aria-hidden="true">▶</span>
-            </div>
-            <div class="video-info"><span>VIDEO 01</span><h3>Additional topic resource</h3><p>Open this video on YouTube.</p></div>
-          </a>
-          <a class="video-card" href="https://youtu.be/B5qpKhBrtU8" target="_blank" rel="noopener noreferrer">
-            <div class="video-thumb">
-              <img src="https://i.ytimg.com/vi/B5qpKhBrtU8/hqdefault.jpg" alt="Preview image for video resource two" loading="lazy">
-              <span class="play-button" aria-hidden="true">▶</span>
-            </div>
-            <div class="video-info"><span>VIDEO 02</span><h3>Additional topic resource</h3><p>Open this video on YouTube.</p></div>
-          </a>
-          <a class="video-card" href="https://youtube.com/shorts/WR2AYO6llTE?si=ft-YEZUcptJc7LRO" target="_blank" rel="noopener noreferrer">
-            <div class="video-thumb">
-              <img src="https://i.ytimg.com/vi/WR2AYO6llTE/hqdefault.jpg" alt="Preview image for short video resource" loading="lazy">
-              <span class="play-button" aria-hidden="true">▶</span>
-            </div>
-            <div class="video-info"><span>SHORT VIDEO</span><h3>Quick topic resource</h3><p>Open this short video on YouTube.</p></div>
-          </a>
+        <h2 class="reveal">Additional video resources</h2>
+        <p class="resource-intro reveal">These optional videos provide more information about the topic. Each link opens YouTube in a new tab.</p>
+        <div class="resource-grid reveal">
+          <a class="resource-card" href="https://youtu.be/OQUO1DSwYN0" target="_blank" rel="noopener noreferrer"><span class="resource-tag">Video resource 01</span><h3>Learn more about the topic</h3><p>Open this additional video resource on YouTube.</p><span class="resource-open">Watch video ↗</span></a>
+          <a class="resource-card" href="https://youtu.be/B5qpKhBrtU8" target="_blank" rel="noopener noreferrer"><span class="resource-tag">Video resource 02</span><h3>Continue the research</h3><p>Open this additional video resource on YouTube.</p><span class="resource-open">Watch video ↗</span></a>
+          <a class="resource-card" href="https://youtube.com/shorts/WR2AYO6llTE?si=ft-YEZUcptJc7LRO" target="_blank" rel="noopener noreferrer"><span class="resource-tag">Video resource 03</span><h3>Quick video resource</h3><p>Open this short additional resource on YouTube.</p><span class="resource-open">Watch video ↗</span></a>
         </div>
       </div>
     </section>
 
-    <section class="slide" id="references" data-title="References">
+    <section class="slide" id="references-legal" data-title="Sources: cases and legal analysis">
       <div>
-        <div class="kicker reveal">Research Record</div>
-        <h2 class="reveal">References</h2>
-        <ul class="references reveal">
-          <li>RAINN. (2026, May 31). <em>What is CSAM?</em> https://rainn.org/get-the-facts-about-csam-child-sexual-abuse-material/what-is-csam/</li>
-          <li>Apple. (2021). <em>Expanded protections for children.</em> Full APA entry to be finalized.</li>
-          <li>Apple. (2026). <em>Communication Safety.</em> Full APA entry to be finalized.</li>
-          <li>Clayton, J. (2021). <em>Apple to scan iPhones for child sex abuse images.</em> BBC News.</li>
-          <li>Electronic Frontier Foundation. (2021). Full APA entry to be finalized.</li>
-          <li>Solove, D. J. (2006). <em>A taxonomy of privacy.</em> University of Pennsylvania Law Review, 154(3).</li>
-          <li>Organisation for Economic Co-operation and Development. (2013). <em>The OECD Privacy Framework.</em></li>
-          <li>Newman, L. H. (2022). Full APA entry to be finalized.</li>
-          <li>18 U.S.C. § 2258A.</li>
-          <li>18 U.S.C. § 2703.</li>
-          <li>California Consumer Privacy Act / California Privacy Rights Act.</li>
-          <li>Regulation (EU) 2016/679, General Data Protection Regulation.</li>
-          <li class="pending">Draft note: Replace incomplete entries with the final verified APA references before publication.</li>
-        </ul>
+        <div class="kicker reveal">Explore the Research</div>
+        <h2 class="reveal">Cases and legal analysis</h2>
+        <p class="resource-intro reveal">Select any source to open the original document or article in a new tab.</p>
+        <div class="resource-grid reveal">
+          <a class="resource-card" href="https://9to5mac.com/wp-content/uploads/sites/6/2023/01/47387693_complaint.pdf" target="_blank" rel="noopener noreferrer"><span class="resource-tag">Court complaint</span><h3>Serrano v. Apple</h3><p>The complaint used in the paper’s legal analysis.</p><span class="resource-open">Open PDF ↗</span></a>
+          <a class="resource-card" href="https://www.theverge.com/2020/12/29/22205130/apple-corellium-dismissed-copyright-dmca-fair-use" target="_blank" rel="noopener noreferrer"><span class="resource-tag">Case overview</span><h3>Apple v. Corellium</h3><p>The Verge’s report on the fair-use decision.</p><span class="resource-open">Read article ↗</span></a>
+          <a class="resource-card" href="https://www.documentcloud.org/documents/20438330-20656722-0-117887/" target="_blank" rel="noopener noreferrer"><span class="resource-tag">Court document</span><h3>Apple v. Corellium filing</h3><p>The court record connected to the Corellium case.</p><span class="resource-open">View document ↗</span></a>
+          <a class="resource-card" href="https://support.corellium.com/devices/ios" target="_blank" rel="noopener noreferrer"><span class="resource-tag">Technical documentation</span><h3>Corellium iOS documentation</h3><p>Information about Corellium’s virtual iOS devices.</p><span class="resource-open">View documentation ↗</span></a>
+          <a class="resource-card" href="https://macdailynews.com/2021/08/17/apple-appeals-lawsuit-against-corellium-after-corellium-announces-initiative-to-verify-apples-csam-scanning/" target="_blank" rel="noopener noreferrer"><span class="resource-tag">News report</span><h3>Corellium and Apple’s proposal</h3><p>Coverage connecting Corellium with verification of the CSAM system.</p><span class="resource-open">Read article ↗</span></a>
+        </div>
+        <p class="resource-note reveal">The paper contains the complete APA-formatted reference list.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="references-proposal" data-title="Sources: Apple’s proposal">
+      <div>
+        <div class="kicker reveal">Explore the Research</div>
+        <h2 class="reveal">Apple’s proposal and response</h2>
+        <p class="resource-intro reveal">These sources explain the original proposal, the public criticism, and Apple’s decision not to release it.</p>
+        <div class="resource-grid reveal">
+          <a class="resource-card" href="https://www.apple.com/child-safety/pdf/Expanded_Protections_for_Children_Frequently_Asked_Questions.pdf" target="_blank" rel="noopener noreferrer"><span class="resource-tag">Apple · Original FAQ</span><h3>Expanded Protections for Children</h3><p>Apple’s explanation of how its proposed system would have worked.</p><span class="resource-open">Open PDF ↗</span></a>
+          <a class="resource-card" href="https://arstechnica.com/tech-policy/2021/08/apple-photo-scanning-plan-faces-global-backlash-from-90-rights-groups/" target="_blank" rel="noopener noreferrer"><span class="resource-tag">Ars Technica</span><h3>Global privacy backlash</h3><p>Criticism from civil-rights and privacy organizations.</p><span class="resource-open">Read article ↗</span></a>
+          <a class="resource-card" href="https://www.wired.com/story/apple-icloud-photo-scan-csam-pause-backlash/" target="_blank" rel="noopener noreferrer"><span class="resource-tag">WIRED</span><h3>Apple delays the proposal</h3><p>Coverage of Apple’s decision to pause the rollout.</p><span class="resource-open">Read article ↗</span></a>
+          <a class="resource-card" href="https://www.theverge.com/2021/12/15/22837631/apple-csam-detection-child-safety-feature-webpage-removal-delay" target="_blank" rel="noopener noreferrer"><span class="resource-tag">The Verge</span><h3>Proposal removed from Apple’s page</h3><p>Coverage of the delayed feature disappearing from Apple’s website.</p><span class="resource-open">Read article ↗</span></a>
+          <a class="resource-card" href="https://www.theverge.com/2022/12/9/23500838/apple-csam-plans-dropped-eff-ncmec-cdt-reactions" target="_blank" rel="noopener noreferrer"><span class="resource-tag">The Verge</span><h3>Apple abandons the proposal</h3><p>Reactions after Apple chose not to release the scanning system.</p><span class="resource-open">Read article ↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="references-background" data-title="Sources: background and current approach">
+      <div>
+        <div class="kicker reveal">Explore the Research</div>
+        <h2 class="reveal">Background and current approach</h2>
+        <p class="resource-intro reveal">These sources provide technical context, define CSAM, and explain Apple’s current child-safety approach.</p>
+        <div class="resource-grid reveal">
+          <a class="resource-card" href="https://www.wired.com/story/apple-photo-scanning-csam-communication-safety-messages/" target="_blank" rel="noopener noreferrer"><span class="resource-tag">WIRED</span><h3>Communication Safety instead</h3><p>Apple’s move away from iCloud scanning toward Communication Safety.</p><span class="resource-open">Read article ↗</span></a>
+          <a class="resource-card" href="https://www.bu.edu/riscs/2021/08/10/apple-csam/" target="_blank" rel="noopener noreferrer"><span class="resource-tag">Boston University</span><h3>Technical and accountability concerns</h3><p>Discussion of security, privacy, and accountability questions.</p><span class="resource-open">Read analysis ↗</span></a>
+          <a class="resource-card" href="https://www.bbc.com/news/technology-58109748" target="_blank" rel="noopener noreferrer"><span class="resource-tag">BBC</span><h3>Overview of the original proposal</h3><p>A plain-language explanation of Apple’s 2021 announcement.</p><span class="resource-open">Read article ↗</span></a>
+          <a class="resource-card" href="https://rainn.org/get-the-facts-about-csam-child-sexual-abuse-material/what-is-csam/" target="_blank" rel="noopener noreferrer"><span class="resource-tag">RAINN</span><h3>What is CSAM?</h3><p>A definition and explanation of child sexual abuse material.</p><span class="resource-open">Learn more ↗</span></a>
+          <a class="resource-card" href="https://www.apple.com/child-safety/" target="_blank" rel="noopener noreferrer"><span class="resource-tag">Apple · Current information</span><h3>Child Safety</h3><p>Apple’s current information about its child-safety features.</p><span class="resource-open">Visit Apple ↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="references-frameworks" data-title="Sources: privacy frameworks and laws">
+      <div>
+        <div class="kicker reveal">Explore the Research</div>
+        <h2 class="reveal">Privacy frameworks and laws</h2>
+        <p class="resource-intro reveal">These materials support the presentation’s privacy-harms analysis, privacy principles, and legal context.</p>
+        <div class="resource-grid reveal">
+          <a class="resource-card" href="https://www.eff.org/deeplinks/2021/08/apples-plan-think-different-about-encryption-opens-backdoor-your-private-life" target="_blank" rel="noopener noreferrer"><span class="resource-tag">EFF · 2021</span><h3>Privacy and expansion concerns</h3><p>Surveillance, government pressure, and possible expansion beyond CSAM.</p><span class="resource-open">Read analysis ↗</span></a>
+          <a class="resource-card" href="https://scholarship.law.gwu.edu/faculty_publications/921/" target="_blank" rel="noopener noreferrer"><span class="resource-tag">Solove · 2006</span><h3>A Taxonomy of Privacy</h3><p>The privacy-harms categories used in the presentation.</p><span class="resource-open">View publication ↗</span></a>
+          <a class="resource-card" href="https://legalinstruments.oecd.org/en/instruments/OECD-LEGAL-0188" target="_blank" rel="noopener noreferrer"><span class="resource-tag">OECD · 2013</span><h3>Privacy Guidelines</h3><p>Collection limitation, purpose limitation, openness, and accountability.</p><span class="resource-open">View guidelines ↗</span></a>
+          <a class="resource-card" href="https://uscode.house.gov/us/usc/119-118/t18/s2258A/" target="_blank" rel="noopener noreferrer"><span class="resource-tag">Federal law</span><h3>18 U.S.C. § 2258A</h3><p>Reporting apparent CSAM to NCMEC.</p><span class="resource-open">Read statute ↗</span></a>
+          <a class="resource-card" href="https://uscode.house.gov/us/usc/119-118/t18/s2703/" target="_blank" rel="noopener noreferrer"><span class="resource-tag">Federal law</span><h3>18 U.S.C. § 2703</h3><p>Government access to stored communications and account records.</p><span class="resource-open">Read statute ↗</span></a>
+          <a class="resource-card" href="https://www.oag.ca.gov/privacy/ccpa" target="_blank" rel="noopener noreferrer"><span class="resource-tag">California law</span><h3>CCPA / CPRA</h3><p>California privacy rights and information about legal investigations.</p><span class="resource-open">View guidance ↗</span></a>
+          <a class="resource-card" href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" target="_blank" rel="noopener noreferrer"><span class="resource-tag">European Union</span><h3>General Data Protection Regulation</h3><p>Lawful processing, transparency, minimization, and security requirements.</p><span class="resource-open">Read regulation ↗</span></a>
+        </div>
       </div>
     </section>
   </main>
@@ -1259,7 +1107,7 @@
     <div class="footer-name">Erika Hernandez</div>
     <div class="footer-course">INFA 702 · Data Privacy · Fall 2026</div>
     <div class="footer-right">
-      <div class="counter" id="counter" aria-live="polite">01 / 17</div>
+      <div class="counter" id="counter" aria-live="polite">01 / 16</div>
       <div class="nav-controls">
         <button class="nav-btn" id="previousButton" type="button" aria-label="Previous slide">↑</button>
         <button class="nav-btn" id="nextButton" type="button" aria-label="Next slide">↓</button>
@@ -1311,13 +1159,19 @@
         history.replaceState(null, '', `#${slides[index].id}`);
       }
 
-      const observer = new IntersectionObserver(entries => {
-        const visible = entries
-          .filter(entry => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) updateUI(slides.indexOf(visible.target));
-      }, { root: presentation, threshold: [.52, .7] });
-      slides.forEach(slide => observer.observe(slide));
+      let scrollFrame = null;
+      function syncSlideFromScroll() {
+        scrollFrame = null;
+        const marker = presentation.scrollTop + Math.min(window.innerHeight * .36, 260);
+        let activeIndex = 0;
+        slides.forEach((slide, index) => {
+          if (slide.offsetTop <= marker) activeIndex = index;
+        });
+        if (activeIndex !== currentIndex) updateUI(activeIndex);
+      }
+      presentation.addEventListener('scroll', () => {
+        if (scrollFrame === null) scrollFrame = requestAnimationFrame(syncSlideFromScroll);
+      }, { passive: true });
 
       previousButton.addEventListener('click', () => goToSlide(currentIndex - 1));
       nextButton.addEventListener('click', () => goToSlide(currentIndex + 1));
@@ -1347,7 +1201,7 @@
       });
 
       presentation.addEventListener('wheel', event => {
-        if (window.innerWidth < 701 || wheelLocked || Math.abs(event.deltaY) < 24) return;
+        if (window.innerWidth < 981 || wheelLocked || Math.abs(event.deltaY) < 24) return;
         event.preventDefault();
         wheelLocked = true;
         goToSlide(currentIndex + (event.deltaY > 0 ? 1 : -1));
