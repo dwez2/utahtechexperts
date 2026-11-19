@@ -959,7 +959,16 @@
 					animation: none;
 				}
 			}
-		</style>
+		
+#grc-hub .ute-grc-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem;text-align:left}
+#grc-hub .ute-grc-card,#grc-hub .ute-grc-case {background:#181f2a;color:#dce5ef;border:1px solid #384959;border-top:3px solid #7fe4d4;border-radius:.75rem;padding:clamp(1.2rem,3vw,2rem);min-width:0}
+#grc-hub .ute-grc-case {margin:1.25rem 0 1.75rem;text-align:left}
+#grc-hub .hub-eyebrow {color:#9bf1df}
+#grc-hub summary {color:#aaf2e4;cursor:pointer;font-weight:600;padding:.5rem 0}
+#grc-hub a:focus-visible,#grc-hub summary:focus-visible {outline:2px solid #aaf2e4;outline-offset:4px}
+#grc-hub .ute-grc-reading {margin:1rem 0 0}
+@media(max-width:736px){#grc-hub .ute-grc-grid{grid-template-columns:1fr}}
+</style>
 	</head>
 	<body class="is-preload landing">
 		<div id="page-wrapper">
@@ -1389,7 +1398,40 @@
 					</div>
 				</section>
 
-			<!-- Quiet Research Archive -->
+			
+<!-- Cybersecurity Risk & GRC Resource Hub -->
+<section id="grc-hub" class="wrapper special ai-security-hub" aria-labelledby="grc-title">
+  <div class="container">
+    <header class="major">
+      <span class="hub-eyebrow">Governance · Risk · Compliance</span>
+      <h2 id="grc-title">Cybersecurity Risk &amp; GRC Resource Hub</h2>
+      <p class="resource-intro">A field guide for assessing risk, documenting controls, and preparing for disruptions. Each resource includes a practical way to use it.</p>
+    </header>
+    <div class="ai-hub-grid ute-grc-grid">
+    <article class="ai-hub-card ute-grc-card"><span class="hub-eyebrow" aria-hidden="true">01</span><h3>Risk assessment &amp; governance</h3><p>Separate the risk decision from the technical finding.</p><ul class="ai-resource-list"><li><a href="https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"><strong>NIST SP 800-30 Rev. 1 · Risk Assessment (PDF)</strong><span>Identify threats, estimate likelihood and impact, and document uncertainty.</span></a></li><li><a href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-37r2.pdf"><strong>NIST SP 800-37 Rev. 2 · Risk Management Framework (PDF)</strong><span>See how control selection, assessment, authorization, and monitoring fit into a system lifecycle.</span></a></li><li><a href="https://www.nist.gov/cyberframework"><strong>NIST Cybersecurity Framework 2.0</strong><span>Use its cybersecurity outcomes to discuss priorities and ownership with leadership.</span></a></li></ul></article>
+<article class="ai-hub-card ute-grc-card"><span class="hub-eyebrow" aria-hidden="true">02</span><h3>Controls, policy &amp; audit</h3><p>Make requirements actionable and show how they are met.</p><ul class="ai-resource-list"><li><a href="https://www.cisecurity.org/controls/v8-1"><strong>CIS Critical Security Controls v8.1</strong><span>Prioritize safeguards and identify what evidence would show they are working. Publisher access to the guide.</span></a></li><li><a href="https://www.cisecurity.org/-/media/project/cisecurity/cisecurity/data/media/files/uploads/2019/08/NCSR-SANS-Policy-Templates.pdf"><strong>NCSR / SANS Policy Template Guide (PDF)</strong><span>Use this 2019 mapping as historical reference. Check current framework mappings before applying it.</span></a></li><li><a href="https://www.cisecurity.org/controls/policy-templates"><strong>CIS Controls v8.1 Policy Templates</strong><span>Adapt an Implementation Group 1 template by specifying ownership, review frequency, and evidence.</span></a></li></ul></article>
+<article class="ai-hub-card ute-grc-card"><span class="hub-eyebrow" aria-hidden="true">03</span><h3>Privacy &amp; compliance</h3><p>Identify which obligations apply before deciding how to demonstrate compliance.</p><ul class="ai-resource-list"><li><a href="https://www.oag.ca.gov/privacy/ccpa"><strong>California Attorney General · CCPA</strong><span>Start with the state’s overview of California consumer privacy rights.</span></a></li><li><a href="https://gdpr.eu/what-is-gdpr/"><strong>GDPR.eu · GDPR explainer</strong><span>Read a plain-language introduction before consulting the regulation itself.</span></a></li><li><a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj"><strong>EUR-Lex · Official GDPR text</strong><span>Read the source regulation for definitions and specific obligations.</span></a></li></ul></article>
+<article class="ai-hub-card ute-grc-card"><span class="hub-eyebrow" aria-hidden="true">04</span><h3>Continuity &amp; resilience</h3><p>Plan for disruption and practice making decisions under pressure.</p><ul class="ai-resource-list"><li><a href="https://www.cisa.gov/topics/critical-infrastructure-security-and-resilience/critical-infrastructure-sectors"><strong>CISA Critical Infrastructure Sectors</strong><span>Explore which services and dependencies matter in your sector.</span></a></li><li><a href="https://www.cisa.gov/resources-tools/services/cisa-tabletop-exercise-packages"><strong>CISA Tabletop Exercise Packages</strong><span>Use a scenario to test roles, escalation, communications, and recovery decisions.</span></a></li></ul></article>
+    </div>
+    <article class="ai-hub-card ute-grc-case">
+      <span class="hub-eyebrow">Applied example · Doctoral coursework</span>
+      <h3>How I’d assess a patient system outage</h3>
+      <p>In a simulated healthcare outage, I used NIST SP 800-30 to assess the risk of recurring power failures to a patient database. I framed the decision around patient care, recovery priorities, and accountability.</p>
+      <details>
+        <summary>See how I’d walk through the decision</summary>
+        <ol>
+          <li><strong>Define the impact:</strong> Identify affected services, clinical dependencies, and the consequences of delayed recovery.</li>
+          <li><strong>Assess the risk:</strong> Document likelihood, business impact, existing safeguards, and uncertainty.</li>
+          <li><strong>Recommend and validate:</strong> Compare backup power, recovery testing, and manual workflows. Assign owners and due dates, then use a tabletop exercise to test escalation and recovery decisions.</li>
+        </ol>
+      </details>
+      <p class="ute-grc-reading"><strong>Further reading:</strong> <a href="https://www.jblearning.com/catalog/productdetails/9781284183719"><em>Managing Risk in Information Systems</em>, 3rd ed.</a> by Darril Gibson and Andy Igonor.</p>
+    </article>
+    <ul class="actions special"><li><a class="button scrolly" href="#ai-security-hub">Explore the AI Security Learning Hub</a></li></ul>
+  </div>
+</section>
+
+<!-- Quiet Research Archive -->
 				<aside id="research-archive" class="research-archive" aria-label="Selected academic research">
 					<div class="research-archive-inner">
 						<span class="research-archive-label">Research archive</span>
