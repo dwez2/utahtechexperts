@@ -969,9 +969,6 @@
 #grc-hub .ute-grc-reading {margin:1rem 0 0}
 @media(max-width:736px){#grc-hub .ute-grc-grid{grid-template-columns:1fr}}
 
-#banner .ute-paths {display:flex;flex-wrap:wrap;gap:.7rem;justify-content:flex-start;margin:1.2rem 0 0;padding:0}
-#banner .ute-paths li {padding:0}
-#banner .ute-paths .button {height:auto;min-height:2.75rem;line-height:1.4;padding:.75rem 1rem;white-space:normal}
 #grc-hub .ute-privacy-section {text-align:left;margin:2rem 0}
 #grc-hub .ute-privacy-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
 #grc-hub .ute-privacy-video {min-width:0;padding:1rem;background:#181f2a;border:1px solid #384959;border-radius:.75rem;color:#dce5ef}
@@ -980,6 +977,17 @@
 #grc-hub .ute-video-thumb img {position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 #grc-hub .ute-video-thumb span {z-index:1;padding:.35rem .75rem;border-radius:.35rem;background:#101520;color:#aff6e8}
 @media(max-width:900px){#grc-hub .ute-privacy-grid {grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr))}}
+
+.ute-topic-band {background:linear-gradient(155deg,#071d21,#10182c 62%,#221d38);border-top:1px solid #38645f;padding:clamp(1.5rem,4vw,3rem) 0}
+.ute-topic-band .ute-topic-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.9rem}
+.ute-topic {display:flex;flex-direction:column;justify-content:center;gap:.2rem;padding:1rem;border:1px solid #4d697c;border-radius:.55rem;background:#101b2c;color:#f2fbff}
+.ute-topic strong {color:#f2fbff}
+.ute-topic span {font-size:.86em;color:#b6d7de}
+.ute-topic:hover,.ute-topic:focus-visible {background:#20304c;border-color:#8fffe3;color:#fff}
+.ute-topic:focus-visible {outline:2px solid #8fffe3;outline-offset:3px}
+#one.ute-intro {background:linear-gradient(180deg,#191b2d,#171820);padding:clamp(2rem,5vw,4rem) 0}
+@media(max-width:900px){.ute-topic-band .ute-topic-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.ute-topic-band .ute-topic-grid{grid-template-columns:1fr}}
 </style>
 	</head>
 	<body class="is-preload landing">
@@ -1031,20 +1039,17 @@
 					<div class="hero-orbit" aria-hidden="true"></div>
 					<div class="content">
 						<header>
-							<h2 class="glitch-title" data-text="Cybersecurity Resources &amp; Practical IT">Cybersecurity Resources &amp; Practical IT</h2>
-							<p>Guides, videos, and applied examples for students, IT professionals, and small businesses. Explore cybersecurity, privacy, AI security, and risk management.</p>
+							<h2 class="glitch-title" data-text="Security. AI. Governance.">Security. AI. Governance.</h2>
+							<p>Learn how to secure systems, use AI responsibly, and make better decisions about risk. Explore guides, videos, and practical examples you can use in class or at work.</p>
 						</header>
-      <ul class="actions ute-paths">
-        <li><a href="#resources" class="button primary scrolly">Explore resources</a></li>
-        <li><a href="#four" class="button scrolly">Small business projects</a></li>
-      </ul>
 					</div>
-					<a href="#one" class="goto-next scrolly">Next</a>
+					
 				</section>
 
-			<!-- One -->
-				<section id="one" class="spotlight style1 bottom">
-					<span class="image fit main"><img src="images/computer-closeing2.jpg" alt="" /></span>
+			<nav class="ute-topic-band" aria-label="Explore Utah Tech Experts"><div class="container ute-topic-grid"><a class="scrolly ute-topic" href="#four"><strong>Small Business</strong><span>Websites &amp; practical IT</span></a><a class="scrolly ute-topic" href="#resources"><strong>Cyber Info &amp; Reports</strong><span>Guides &amp; research</span></a><a class="scrolly ute-topic" href="#ai-security-hub"><strong>AI Security</strong><span>Frameworks &amp; videos</span></a><a class="scrolly ute-topic" href="#grc-hub"><strong>Cyber Risk &amp; GRC</strong><span>Risk, privacy &amp; resilience</span></a></div></nav>
+
+<!-- One -->
+				<section id="one" class="wrapper style1 ute-intro">
 					<div class="content">
 						<div class="container">
 							<div class="row">
@@ -1065,7 +1070,6 @@
 							
 						</div>
 					</div>
-					<a href="#two" class="goto-next scrolly">Next</a>
 				</section>
 
 			<!-- Two -->
