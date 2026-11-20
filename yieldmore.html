@@ -1,13 +1,1651 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>YieldMore | Erika Hernandez</title><style>
-:root{--bg:#091421;--panel:#102337;--text:#ecf4fc;--muted:#a3b7ca;--line:#294258;--blue:#65c7ff}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:18px/1.65 system-ui,sans-serif}body.light{--bg:#f1f6fb;--panel:#fff;--text:#102b42;--muted:#48647b;--line:#bfd2e2;--blue:#076baf}button,a{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--text);padding:9px 18px;border-radius:8px}button:hover,button:focus-visible{border-color:var(--blue)}button:disabled{opacity:.4;cursor:default}a{color:var(--blue)}header{display:flex;align-items:center;justify-content:space-between;padding:20px 4vw;border-bottom:1px solid var(--line);gap:15px}.brand{font-weight:800;letter-spacing:-1px;font-size:25px}.brand span{color:var(--blue)}.small{font-size:14px;color:var(--muted)}.layout{display:grid;grid-template-columns:235px 1fr;min-height:calc(100vh - 90px)}nav{padding:30px 20px;border-right:1px solid var(--line)}nav button{width:100%;text-align:left;border:0;background:none;margin:4px 0;font-size:15px;color:var(--muted)}nav button.active{background:var(--panel);color:var(--blue);box-shadow:inset 3px 0 var(--blue)}main{padding:48px clamp(24px,5vw,90px);max-width:1450px;width:100%;margin:auto}section[hidden]{display:none}h1{font-size:clamp(42px,6vw,78px);line-height:1.07;letter-spacing:-3px;margin:25px 0}h2{font-size:clamp(30px,4vw,48px);line-height:1.18;letter-spacing:-1.5px;margin:10px 0 24px}h3{font-size:20px;margin-top:0}.eyebrow{color:var(--blue);text-transform:uppercase;letter-spacing:2px;font-size:13px;font-weight:750}.lead{font-size:22px;max-width:780px;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:25px 0}.card{background:var(--panel);border:1px solid var(--line);padding:24px;border-radius:12px}.card p{margin-bottom:0}.tag{display:inline-block;font-size:13px;padding:4px 12px;border:1px solid var(--line);border-radius:30px;color:var(--muted)}.rule{border-left:3px solid var(--blue);padding:10px 20px;margin:25px 0;color:var(--muted)}.table{overflow:auto}table{border-collapse:collapse;width:100%;font-size:16px}th,td{text-align:left;padding:15px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--blue);font-size:13px;text-transform:uppercase;letter-spacing:1px}.controls{display:flex;align-items:center;justify-content:space-between;margin-top:36px;padding-top:20px;border-top:1px solid var(--line)}details{margin-top:20px;border:1px solid var(--line);border-radius:8px;padding:14px 20px}summary{cursor:pointer;font-size:15px;color:var(--blue)}.notes{color:var(--muted);font-size:16px}.network{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:20px;align-items:center}.hq{border:2px solid var(--blue)}.connection{text-align:center;color:var(--blue);font-size:14px}.sources li{margin-bottom:14px}.bar{height:3px;background:var(--line)}.bar div{height:100%;background:var(--blue);transition:width .25s}.hero-art{margin-top:30px;display:flex;gap:12px;align-items:center;color:var(--muted);font-size:14px}.hero-art b{color:var(--blue);font-size:35px}@media(max-width:800px){.layout{display:block}nav{display:flex;overflow:auto;border-right:0;border-bottom:1px solid var(--line);padding:10px}nav button{white-space:nowrap;width:auto}.network{grid-template-columns:1fr}main{padding:30px 22px}h1{letter-spacing:-2px}header .small{display:none}}@media print{nav,header,.controls,.bar,details{display:none}.layout{display:block}section[hidden]{display:block}section{break-after:page}body{--bg:white;--text:black;--muted:#333;--panel:white;--line:#aaa;--blue:#15618a}main{padding:15px}h1{font-size:48px}}
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>
+   YieldMore | Erika Hernandez
+  </title>
+  <style>
+   :root {
+    --bg: #091421;
+    --panel: #102337;
+    --text: #ecf4fc;
+    --muted: #a3b7ca;
+    --line: #294258;
+    --blue: #65c7ff
+}
 
-body.light{--bg:#ffe0f0;--panel:#fff5fb;--text:#4c1238;--muted:#7d285c;--line:#ee9cc8;--blue:#c90070}
-.layout{position:relative}nav{position:relative}nav::after{content:"";position:absolute;right:-2px;top:0;width:3px;height:95px;background:linear-gradient(transparent,var(--blue),transparent);box-shadow:0 0 12px var(--blue);animation:beam 6s linear infinite}.bar div{box-shadow:0 0 13px var(--blue);animation:glow 2.8s ease-in-out infinite}
-@keyframes beam{from{top:0}to{top:calc(100% - 95px)}}@keyframes glow{50%{filter:brightness(1.6)}}
-.orbital{height:240px;max-width:480px;position:relative;margin:25px 0;background:radial-gradient(ellipse at center,color-mix(in srgb,var(--blue) 18%,transparent),transparent 65%)}.orbit{position:absolute;inset:25px 50px;border:1px solid var(--blue);border-radius:50%;transform:rotate(-22deg)}.o2{inset:10px 100px;transform:rotate(45deg)}.core{position:absolute;top:82px;left:calc(50% - 35px);border:1px solid var(--blue);border-radius:18px;width:70px;height:70px;display:grid;place-items:center;font-weight:900;background:var(--panel);box-shadow:0 0 30px color-mix(in srgb,var(--blue) 30%,transparent)}.node{position:absolute;padding:5px 12px;background:var(--panel);border:1px solid var(--line);border-radius:20px;font-size:14px}.n1{top:22px;left:20%}.n2{right:0;top:110px}.n3{bottom:16px;left:20%}.scenario-text{max-width:850px;font-size:17px}select{display:block;width:100%;margin:5px 0 18px;padding:12px;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px}label{font-size:15px}output{display:block;font-size:25px;font-weight:800;color:var(--blue);margin:18px 0}.matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.cell{padding:17px 6px;border:2px solid transparent;text-align:center;border-radius:8px;font-weight:700;color:#172333}.cell.high{background:#ffb4b1}.cell.medium{background:#ffe3a4}.cell.low{background:#b5e4d0}.cell.selected{border:3px solid var(--text);outline:2px solid var(--blue);outline-offset:2px}.video-placeholder{border:2px dashed var(--line)}@media(prefers-reduced-motion:reduce){nav::after,.bar div{animation:none}*{transition:none!important}}@media(max-width:800px){nav::after{display:none}}@media print{.orbital{display:none}}
+* {
+    box-sizing: border-box
+}
 
-.dependency-tree{margin:30px 0 22px}.tree-hq{max-width:610px;margin:0 auto;text-align:center;border:2px solid var(--blue);box-shadow:0 0 25px color-mix(in srgb,var(--blue) 12%,transparent)}.tree-hq .eyebrow{margin:0 0 8px}.tree-hq h3{font-size:25px}.tree-stem{height:38px;width:2px;margin:auto;background:var(--blue)}.tree-branches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;position:relative;padding-top:28px}.tree-branches::before{content:"";position:absolute;top:0;left:calc((100% - 44px)/6);right:calc((100% - 44px)/6);height:2px;background:var(--blue)}.tree-leaf{position:relative;text-align:center;margin:0}.tree-leaf::before{content:"";position:absolute;width:2px;height:28px;top:-29px;left:calc(50% - 1px);background:var(--blue)}.tree-leaf p{margin-top:8px}.tree-leaf .connection{margin-top:16px}@media(max-width:700px){.tree-branches{grid-template-columns:1fr;padding-top:0;padding-left:24px;gap:18px}.tree-branches::before{left:0;top:0;bottom:calc(50% / 3);height:auto;width:2px;right:auto}.tree-leaf::before{left:-25px;top:50%;width:24px;height:2px}.tree-stem{margin-left:0;height:25px}.tree-hq{max-width:none}.tree-leaf{text-align:left}}
-</style></head><body><header><div class="brand">Yield<span>More</span><span class="small"> / Risk briefing</span></div><div><button id="theme">Light mode</button> <button onclick="window.print()">Print / PDF</button></div></header><div class="bar"><div id="progress"></div></div><div class="layout"><nav aria-label="Presentation sections" id="nav"></nav><main>
-<section><span class="eyebrow">INFA 713 · Final project</span><h1>Protect the systems.<br><span style="color:var(--blue)">Keep business moving.</span></h1><p class="lead">YieldMore Enterprise Risk Assessment and Mitigation Plan</p><p>Erika Hernandez<br><span class="small">Dakota State University · Managing Security Risks · Fall 2026<br>Instructor: Milinda Rambel-Stone</span></p><div class="hero-art"><b>3</b> company sites <b>3</b> headquarters servers <b>50</b> states served by salespeople</div><p class="rule">An academic case study applying cybersecurity risk management to YieldMore. Prepared for a senior-management briefing.</p><div class="orbital" aria-hidden="true"><div class="orbit o1"></div><div class="orbit o2"></div><div class="core">YM</div><span class="node n1">Identity</span><span class="node n2">Operations</span><span class="node n3">Recovery</span></div></section><section hidden><span class="eyebrow">Instructor-provided case</span><h2>Project scenario</h2><div class="scenario-text"><p>After IT professionals identify threat/vulnerability pairs and estimate the likelihood of their occurrence, IT management must decide which risk management techniques are appropriate to manage these risks. IT managers then present this information to senior management. The role of senior management is to allocate resources, specifically money and employees, to prepare for and respond to identified threats and vulnerabilities appropriately.</p><p>For this assignment, you assume the role of an IT security manager in a small business. You are tasked with identifying threats and vulnerabilities and determining appropriate risk management techniques.</p><p>YieldMore is a small agricultural company that produces and sells fertilizer products. The company headquarters is in a small town in Indiana. Outside its headquarters, there are two large production facilities—one in Nebraska and another in Oklahoma. Furthermore, YieldMore employs salespersons in every state in the United States to serve its customers locally.</p><p>The company has three servers located at its headquarters—a Microsoft Active Directory server, an application server, and a database server. The application server hosts YieldMore’s primary software application, which is a proprietary program managing inventory, sales, supply chain, and customer information. The database server manages all data stored locally with direct-attached storage.</p><p>All three sites use Ethernet-cabled local area networks (LANs) to connect the users’ Windows 10 workstations via industry-standard managed switches.</p><p>The remote production facilities connect headquarters via routers with T-1 LAN connections provided by an external Internet service provider (ISP), and they share an Internet connection through a firewall at headquarters.</p><p>Individual salespersons throughout the country connect to YieldMore’s network via virtual private network (VPN) software through their individual Internet connections, typically in a home office.</p></div><p class="small">Reproduced from the instructor-provided INFA 713 Final Research Project (2026). Scenario wording retained.</p></section><section hidden><span class="eyebrow">Purpose & business dependencies</span><h2>One headquarters.<br>A nationwide business.</h2><p>YieldMore produces and sells fertilizer products. Its primary application manages inventory, sales, supply chain, and customer information.</p><div class="dependency-tree" aria-label="Indiana headquarters above production facilities in Nebraska and Oklahoma and remote salespeople"><div class="card tree-hq"><p class="eyebrow">Central services</p><h3>Indiana headquarters</h3><p>Active Directory server · Application server<br>Database server with direct-attached storage</p><p class="connection">Shared internet through the headquarters firewall</p></div><div class="tree-stem" aria-hidden="true"></div><div class="tree-branches"><div class="card tree-leaf"><h3>Nebraska</h3><p>Production facility</p><p class="connection">T-1 connection to headquarters</p></div><div class="card tree-leaf"><h3>Oklahoma</h3><p>Production facility</p><p class="connection">T-1 connection to headquarters</p></div><div class="card tree-leaf"><h3>Remote salespeople</h3><p>Located throughout the U.S.</p><p class="connection">Individual internet connections + VPN to YieldMore</p></div></div></div><p class="small">All three company sites use Ethernet LANs, managed switches, and Windows 10 workstations. Remote salesperson operating systems are not specified.</p><details><summary>Understand this slide</summary><p class="notes">The production sites and salespeople depend on resources at headquarters. We will examine those dependencies without assuming that safeguards not mentioned in the scenario are absent.</p></details><details><summary>Scenario facts & assessment boundaries</summary><p class="notes">Source: INFA 713 Final Research Project, instructor-provided scenario (2026). This diagram summarizes connections; it is not a verified network design. No assessment of industrial control equipment is implied.</p></details></section><section hidden><span class="eyebrow">Assessment approach</span><h2>Likelihood. Impact. Priority.</h2><p>This scenario-based assessment uses a 12-month planning horizon. Ratings are conditional estimates under stated assumptions, not measured incident probabilities.</p><div class="grid"><div class="card"><h3>Likelihood</h3><p><b>Low (0.10):</b> requires unusual conditions or multiple failures.<br><b>Medium (0.50):</b> plausible during the next year.<br><b>High (1.00):</b> expected or repeatedly exposed under the stated weak-control assumption.</p></div><div class="card"><h3>Business impact</h3><p><b>Low (10):</b> limited disruption with routine recovery.<br><b>Medium (50):</b> significant interruption to a team or site.<br><b>High (100):</b> central-service disruption, major data loss, or broad unauthorized access.</p></div><div class="card"><h3>Priority</h3><p>Likelihood weight × impact score produces a score of 1–100.<br><b>1–10: Low; above 10–50: Medium; above 50–100: High.</b><br>Ties are resolved by scope of impact and recovery dependencies.</p></div></div><p class="rule">YieldMore example: storage failure is rated Medium likelihood and High impact if no usable independent backup exists. 0.50 × 100 = 50 (Medium). Verifying a tested backup could change the assessment.</p><p class="small">Concepts informed by NIST SP 800-30 Rev. 1 (Joint Task Force Transformation Initiative, 2012). The 3×3 cell values follow the supplied “Balancing Risk and Cost (2 of 2)” course slide. The Low/Medium/High bands are explicitly defined for this project; that slide does not state band cutoffs. The displayed weights are scoring conventions, not measured probabilities for YieldMore.</p><details><summary>Understand this assessment</summary><p class="notes">Likelihood asks how plausible the event is. Impact asks how serious its consequences would be. Priority combines them to guide decisions. A low-likelihood event can still deserve attention if the consequences are severe. The same definitions and time horizon apply to every risk.</p></details></section><section hidden><span class="eyebrow">Threat / vulnerability pairs · Ranked</span><h2>From most urgent to least urgent.</h2><p>Proposed order under the assumptions below. Course-aligned scores: R4 and R5 = 100 (High); R3 and R1 = 50 (Medium); R2 = 10 (Low). Verify safeguards before treating these ratings as final. R4 precedes R5 because of its potential direct access to central services; R3 precedes R1 because data loss can outlast a connectivity outage.</p><div class="table"><table><thead><tr><th>Order / ID</th><th>Threat event</th><th>Conditional vulnerability</th><th>Likelihood / impact / score</th></tr></thead><tbody><tr><td>1 · R4</td><td>Compromised VPN account</td><td>Inadequate authentication or excessive remote permissions, if present.</td><td>High / High<br>100</td></tr><tr><td>2 · R5</td><td>Workstation exploitation</td><td>Missing security updates or unsupported editions, if present.</td><td>High / High<br>100</td></tr><tr><td>3 · R10</td><td>Storage failure / data corruption</td><td>Local storage with no usable independent recovery copy, if confirmed.</td><td>Medium / High<br>50</td></tr><tr><td>4 · R1</td><td>HQ firewall / internet outage</td><td>Shared HQ internet path without functioning failover, if confirmed.</td><td>Medium / High<br>50</td></tr><tr><td>5 · R2</td><td>HQ power / site disruption</td><td>Co-located servers without effective alternate recovery, if confirmed.</td><td>Low / High<br>10</td></tr></tbody></table></div><details><summary>R4 · Why this rating?</summary><p>Assume MFA is absent and VPN permissions are broad; verify both. Repeated remote-account exposure supports High likelihood under this assumption.</p><p><b>Business impact:</b> Unauthorized access could reach central business information.</p></details><details><summary>R5 · Why this rating?</summary><p>Assume endpoints lack applicable extended support and security updates; verify editions, ESU, and patching. Persistent exposure supports High likelihood under this assumption.</p><p><b>Business impact:</b> Compromise could interrupt work and spread if access controls permit it.</p></details><details><summary>R3 · Why this rating?</summary><p>Assume no tested independent backup is available. Hardware failure or corruption is plausible; no incident history is supplied.</p><p><b>Business impact:</b> Database loss could interrupt inventory, sales, and customer-data access.</p></details><details><summary>R1 · Why this rating?</summary><p>Assume no independent ISP/firewall failover. Equipment and provider outages are plausible, but frequency is unknown.</p><p><b>Business impact:</b> All sites could lose internet-dependent business services.</p></details><details><summary>R2 · Why this rating?</summary><p>Assume alternate recovery is unavailable. A major site-disabling event requires less common conditions; power history and protections are unknown.</p><p><b>Business impact:</b> Loss of HQ could remove identity, application, and database services together.</p></details><p class="small">Method: Joint Task Force Transformation Initiative (2012). Endpoint support: Microsoft (n.d.); remote-access and recovery safeguards: Center for Internet Security (n.d.), Controls 6 and 11.</p></section><section hidden><span class="eyebrow">Interactive risk priorities</span><h2>Explore the risk scale.</h2><p>Choose a risk, then adjust likelihood and impact to explore how the course-aligned matrix changes its risk band. Your exploration does not change the proposed assessment.</p><div class="grid"><div class="card"><label for="riskpick">Scenario risk</label><select id="riskpick"><option value="0">R4 · Compromised VPN account</option><option value="1">R5 · Workstation exploitation</option><option value="2">R3 · Storage failure / data corruption</option><option value="3">R1 · HQ firewall / internet outage</option><option value="4">R2 · HQ power / site disruption</option></select><label for="like">Likelihood</label><select id="like"><option value="1">Low · 0.10</option><option value="2">Medium · 0.50</option><option value="3">High · 1.00</option></select><label for="impact">Business impact</label><select id="impact"><option value="1">Low · 10</option><option value="2">Medium · 50</option><option value="3">High · 100</option></select><output id="score" aria-live="polite"></output><button id="resetRisk">Reset selected risk</button></div><div class="card"><h3>Likelihood × impact</h3><div class="matrix" id="matrix"></div><p class="small">Rows: likelihood High to Low. Columns: impact Low to High. Project bands: Low 1–10 · Medium above 10–50 · High above 50–100. Cell values follow the supplied course slide.</p></div></div><details><summary>3×3 matrix vs. 3×3×3 McCumber Cube</summary><p><b>The risk matrix</b> has two dimensions: three likelihood levels and three impact levels. Its nine cells help compare risk scores. It is the calculator shown above.</p><p><b>The McCumber Cube</b> has three dimensions: security goals (confidentiality, integrity, availability), information states (transmission, storage, processing), and safeguards (technology, policies/practices, human factors). Three choices on each dimension create 27 combinations. It helps check security coverage; it does not calculate this priority score.</p><p><b>YieldMore example:</b> protecting the availability of stored database information through technology leads us to examine backups. Policies define backup and testing responsibilities, and staff training helps people carry them out.</p><p class="small">Source: Rambel-Stone (2025), McCumber Chapters 1–3 course slides, “How to Read the McCumber Cube?”</p></details><details><summary>Understand the result</summary><p class="notes">This is an educational comparison tool. A score is a decision aid, not a calculated probability or financial loss estimate. Controls can reduce likelihood, impact, or both. Scores tied in the same band still require judgment about scope, dependencies, cost, and timing.</p></details></section><section hidden><span class="eyebrow">Risk-handling plan</span><h2>Match the treatment to the risk.</h2><p>Recommended treatments are conditional on verifying the assumed gaps. The company does not have to use every treatment category.</p><details open><summary>R4 · Remote-access account compromise — Mitigate</summary><p>Require MFA, limit permissions, review remote access, and monitor sign-ins.</p><p class="notes"><b>Why:</b> Directly addresses account misuse and limits its consequences; stolen sessions remain a residual concern.</p></details><details open><summary>R5 · Workstation exploitation — Mitigate</summary><p>Inventory versions and support; patch and migrate unsupported endpoints, with a temporary supported bridge if needed.</p><p class="notes"><b>Why:</b> Addresses preventable endpoint exposure; migration needs application compatibility testing.</p></details><details open><summary>R3 · Storage failure and data corruption — Mitigate</summary><p>Create protected independent backups and test restoration against recovery needs.</p><p class="notes"><b>Why:</b> Reduces recovery consequences; backups must be usable and protected against the same incident.</p></details><details open><summary>R1 · Headquarters connectivity outage — Mitigate and share contractual exposure</summary><p>Evaluate diverse connectivity and firewall failover; use provider service commitments for part of the exposure.</p><p class="notes"><b>Why:</b> Redundancy reduces outage impact; contracts can share financial exposure but cannot guarantee continuity.</p></details><details open><summary>R2 · Headquarters power or site disruption — Mitigate</summary><p>Verify UPS/generator protection and develop alternate recovery with defined recovery objectives.</p><p class="notes"><b>Why:</b> Addresses common-location dependency even though the event is rated less likely; remaining downtime needs management acceptance.</p></details><p class="small">Safeguard examples: Center for Internet Security (n.d.), Controls 1, 6, 7, 11, and 12. Treatment concepts: Gibson and Igonor (2022), course reading; verify relevant chapter citations before submission.</p></section><section hidden><span class="eyebrow">Management summary & conclusion</span><h2>Turn assessment into decisions.</h2><div class="grid"><div class="card"><h3>First: verify controls</h3><p>Resolve unknown safeguards and document the basis for the final risk ratings.</p></div><div class="card"><h3>Next: assign and fund</h3><p>Identify the money, employees, and responsibilities needed for the selected treatments.</p></div><div class="card"><h3>Then: test and review</h3><p>Check whether implemented safeguards reduce the identified risks and address remaining exposure.</p></div></div><p class="rule">Management takeaway: YieldMore’s central services connect the business. Management needs a justified order of action to protect those services and support continued operations.</p><details><summary>Understand this slide</summary><p class="notes">Proposed decision: authorize IT to verify authentication, endpoint support, backups, and failover first. Confirmed high risks should receive named owners and a costed implementation plan. No dollar budget or staffing level is assumed from the scenario.</p></details></section><section hidden><span class="eyebrow">Conclusion</span><h2>Make time to reduce the risk.</h2><p class="lead">These risks are common in many companies. Identifying them is the first step; making time and assigning responsibility to address them is just as important.</p><p>I wanted to share a video I made using NotebookLM that gives a quick overview of what we discussed.</p><div class="card" style="padding:6px;border:1px solid var(--blue);box-shadow:0 0 24px color-mix(in srgb,var(--blue) 25%,transparent);overflow:hidden"><video controls playsinline preload="metadata" aria-label="YieldMore: Key Risks and Recommended Actions" style="display:block;width:100%;height:auto;max-height:70vh;border-radius:10px;background:#000"><source src="images/YieldMore_Key_Risks_and_Recommended_Actions.mp4" type="video/mp4">Your browser does not support embedded video. <a href="images/YieldMore_Key_Risks_and_Recommended_Actions.mp4">Download the YieldMore video</a>.</video></div><p class="small"><a href="images/YieldMore_Key_Risks_and_Recommended_Actions.mp4">Open the video separately</a> · Created using NotebookLM.</p><p>And as always, thank you.</p><p style="color:var(--blue);font-size:26px"><b>~Erika</b></p><details><summary>Understand the takeaway</summary><p class="notes">The recommendations address conditional gaps in the case. Verifying the actual safeguards could change both risk ratings and treatment priorities. Residual risk remains after improvements, so management needs to review the results.</p></details></section><section hidden><span class="eyebrow">References</span><h2>The evidence behind the assessment.</h2><p class="small">Professional guidance is cited in the analysis. Course-book details below come from the supplied reading list; verify title-page publication details and relevant chapters before submission.</p><ul class="sources"><li>Joint Task Force Transformation Initiative. (2012). <i>Guide for conducting risk assessments</i> (NIST SP 800-30 Rev. 1). National Institute of Standards and Technology. <a href="https://doi.org/10.6028/NIST.SP.800-30r1">https://doi.org/10.6028/NIST.SP.800-30r1</a></li><li>Center for Internet Security. (n.d.). <i>The 18 CIS Critical Security Controls.</i> <a href="https://www.cisecurity.org/controls/cis-controls-list">CIS Controls</a></li><li>Microsoft. (n.d.). <i>Windows 10 Extended Security Updates (ESU) program.</i> <a href="https://learn.microsoft.com/en-us/windows/whats-new/extended-security-updates">Microsoft Learn</a></li><li>Gibson, D., &amp; Igonor, A. (2022). <i>Managing risk in information systems</i> (3rd ed.). Jones &amp; Bartlett Learning. <a href="https://www.jblearning.com/catalog/productdetails/9781284183719">Publisher listing</a></li><li>McCumber, J. (2007). <i>Assessing and managing security risk in IT systems: A structured methodology.</i> Auerbach Publications. <span class="small">Provisional: course list says 2nd edition; verify year and edition against the book’s copyright page.</span></li><li>Rambel-Stone, M. (2025). <i>INFA 713 McCumber chapters 1–3</i> [Course slides]. Dakota State University.</li><li>Rambel-Stone, M. (2026). <i>INFA 713 final research project</i> [Course assignment]. Dakota State University.</li></ul></section><div class="controls"><button id="back">Back</button><span class="small" id="count" aria-live="polite"></span><button id="next">Next</button></div></main></div><script>
-const names=['Title','Project scenario','Purpose','Assessment approach','Threat / vulnerability pairs','Risk priorities','Risk-handling plan','Management summary','Conclusion','References'];const slides=[...document.querySelectorAll('main>section')];let current=0;const nav=document.getElementById('nav');names.forEach((n,i)=>{const b=document.createElement('button');b.textContent=n;b.onclick=()=>show(i);nav.append(b)});function show(i){current=i;slides.forEach((s,j)=>s.hidden=j!==i);[...nav.children].forEach((b,j)=>{b.classList.toggle('active',j===i);j===i?b.setAttribute('aria-current','step'):b.removeAttribute('aria-current')});document.getElementById('count').textContent=(i+1)+' / '+slides.length;document.getElementById('progress').style.width=((i+1)/slides.length*100)+'%';document.getElementById('back').disabled=i===0;document.getElementById('next').disabled=i===slides.length-1}document.getElementById('back').onclick=()=>show(current-1);document.getElementById('next').onclick=()=>show(current+1);document.addEventListener('keydown',e=>{if(e.target.closest('button,a,summary'))return;if(e.key==='ArrowRight'&&current<slides.length-1)show(current+1);if(e.key==='ArrowLeft'&&current>0)show(current-1)});const t=document.getElementById('theme');function theme(light){document.body.classList.toggle('light',light);t.textContent=light?'Dark mode':'Light mode'}try{theme(localStorage.getItem('yieldmore-theme')==='light')}catch{}t.onclick=()=>{theme(!document.body.classList.contains('light'));try{localStorage.setItem('yieldmore-theme',document.body.classList.contains('light')?'light':'dark')}catch{}};const presets=[[3,3],[3,3],[2,3],[2,3],[1,3]];const pick=document.getElementById('riskpick'),like=document.getElementById('like'),impact=document.getElementById('impact');function calc(){const l=+like.value,i=+impact.value,n=({1:.1,2:.5,3:1}[l])*({1:10,2:50,3:100}[i]);document.getElementById('score').textContent=({1:'0.10',2:'0.50',3:'1.00'}[l])+' × '+({1:10,2:50,3:100}[i])+' = '+n+' · '+(n>50?'High':n>10?'Medium':'Low');document.getElementById('matrix').innerHTML='';for(let row=3;row>=1;row--)for(let col=1;col<=3;col++){const v=({1:.1,2:.5,3:1}[row])*({1:10,2:50,3:100}[col]),d=document.createElement('div');d.className='cell '+(v>50?'high':v>10?'medium':'low')+(row===l&&col===i?' selected':'');d.textContent=v;d.setAttribute('aria-label','Likelihood '+row+', impact '+col+', score '+v+(row===l&&col===i?', selected':''));document.getElementById('matrix').append(d)}}function reset(){const p=presets[+pick.value];like.value=p[0];impact.value=p[1];calc()}pick.onchange=reset;like.onchange=impact.onchange=calc;document.getElementById('resetRisk').onclick=reset;reset();show(0);
-</script></body></html>
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 18px/1.65 system-ui, sans-serif
+}
+
+body.light {
+    --bg: #f1f6fb;
+    --panel: #fff;
+    --text: #102b42;
+    --muted: #48647b;
+    --line: #bfd2e2;
+    --blue: #076baf
+}
+
+button,
+a {
+    font: inherit
+}
+
+button {
+    cursor: pointer;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--text);
+    padding: 9px 18px;
+    border-radius: 8px
+}
+
+button:hover,
+button:focus-visible {
+    border-color: var(--blue)
+}
+
+button:disabled {
+    opacity: .4;
+    cursor: default
+}
+
+a {
+    color: var(--blue)
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 4vw;
+    border-bottom: 1px solid var(--line);
+    gap: 15px
+}
+
+.brand {
+    font-weight: 800;
+    letter-spacing: -1px;
+    font-size: 25px
+}
+
+.brand span {
+    color: var(--blue)
+}
+
+.small {
+    font-size: 14px;
+    color: var(--muted)
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 235px 1fr;
+    min-height: calc(100vh - 90px)
+}
+
+nav {
+    padding: 30px 20px;
+    border-right: 1px solid var(--line)
+}
+
+nav button {
+    width: 100%;
+    text-align: left;
+    border: 0;
+    background: none;
+    margin: 4px 0;
+    font-size: 15px;
+    color: var(--muted)
+}
+
+nav button.active {
+    background: var(--panel);
+    color: var(--blue);
+    box-shadow: inset 3px 0 var(--blue)
+}
+
+main {
+    padding: 48px clamp(24px, 5vw, 90px);
+    max-width: 1450px;
+    width: 100%;
+    margin: auto
+}
+
+section[hidden] {
+    display: none
+}
+
+h1 {
+    font-size: clamp(42px, 6vw, 78px);
+    line-height: 1.07;
+    letter-spacing: -3px;
+    margin: 25px 0
+}
+
+h2 {
+    font-size: clamp(30px, 4vw, 48px);
+    line-height: 1.18;
+    letter-spacing: -1.5px;
+    margin: 10px 0 24px
+}
+
+h3 {
+    font-size: 20px;
+    margin-top: 0
+}
+
+.eyebrow {
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 13px;
+    font-weight: 750
+}
+
+.lead {
+    font-size: 22px;
+    max-width: 780px;
+    color: var(--muted)
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 25px 0
+}
+
+.card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 24px;
+    border-radius: 12px
+}
+
+.card p {
+    margin-bottom: 0
+}
+
+.tag {
+    display: inline-block;
+    font-size: 13px;
+    padding: 4px 12px;
+    border: 1px solid var(--line);
+    border-radius: 30px;
+    color: var(--muted)
+}
+
+.rule {
+    border-left: 3px solid var(--blue);
+    padding: 10px 20px;
+    margin: 25px 0;
+    color: var(--muted)
+}
+
+.table {
+    overflow: auto
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 16px
+}
+
+th,
+td {
+    text-align: left;
+    padding: 15px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top
+}
+
+th {
+    color: var(--blue);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line)
+}
+
+details {
+    margin-top: 20px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 14px 20px
+}
+
+summary {
+    cursor: pointer;
+    font-size: 15px;
+    color: var(--blue)
+}
+
+.notes {
+    color: var(--muted);
+    font-size: 16px
+}
+
+.network {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr 1fr;
+    gap: 20px;
+    align-items: center
+}
+
+.hq {
+    border: 2px solid var(--blue)
+}
+
+.connection {
+    text-align: center;
+    color: var(--blue);
+    font-size: 14px
+}
+
+.sources li {
+    margin-bottom: 14px
+}
+
+.bar {
+    height: 3px;
+    background: var(--line)
+}
+
+.bar div {
+    height: 100%;
+    background: var(--blue);
+    transition: width .25s
+}
+
+.hero-art {
+    margin-top: 30px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    color: var(--muted);
+    font-size: 14px
+}
+
+.hero-art b {
+    color: var(--blue);
+    font-size: 35px
+}
+
+@media(max-width:800px) {
+    .layout {
+        display: block
+    }
+
+    nav {
+        display: flex;
+        overflow: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        padding: 10px
+    }
+
+    nav button {
+        white-space: nowrap;
+        width: auto
+    }
+
+    .network {
+        grid-template-columns: 1fr
+    }
+
+    main {
+        padding: 30px 22px
+    }
+
+    h1 {
+        letter-spacing: -2px
+    }
+
+    header .small {
+        display: none
+    }
+}
+
+@media print {
+
+    nav,
+    header,
+    .controls,
+    .bar,
+    details {
+        display: none
+    }
+
+    .layout {
+        display: block
+    }
+
+    section[hidden] {
+        display: block
+    }
+
+    section {
+        break-after: page
+    }
+
+    body {
+        --bg: white;
+        --text: black;
+        --muted: #333;
+        --panel: white;
+        --line: #aaa;
+        --blue: #15618a
+    }
+
+    main {
+        padding: 15px
+    }
+
+    h1 {
+        font-size: 48px
+    }
+}
+
+body.light {
+    --bg: #ffe0f0;
+    --panel: #fff5fb;
+    --text: #4c1238;
+    --muted: #7d285c;
+    --line: #ee9cc8;
+    --blue: #c90070
+}
+
+.layout {
+    position: relative
+}
+
+nav {
+    position: relative
+}
+
+nav::after {
+    content: "";
+    position: absolute;
+    right: -2px;
+    top: 0;
+    width: 3px;
+    height: 95px;
+    background: linear-gradient(transparent, var(--blue), transparent);
+    box-shadow: 0 0 12px var(--blue);
+    animation: beam 6s linear infinite
+}
+
+.bar div {
+    box-shadow: 0 0 13px var(--blue);
+    animation: glow 2.8s ease-in-out infinite
+}
+
+@keyframes beam {
+    from {
+        top: 0
+    }
+
+    to {
+        top: calc(100% - 95px)
+    }
+}
+
+@keyframes glow {
+    50% {
+        filter: brightness(1.6)
+    }
+}
+
+.orbital {
+    height: 240px;
+    max-width: 480px;
+    position: relative;
+    margin: 25px 0;
+    background: radial-gradient(ellipse at center, color-mix(in srgb, var(--blue) 18%, transparent), transparent 65%)
+}
+
+.orbit {
+    position: absolute;
+    inset: 25px 50px;
+    border: 1px solid var(--blue);
+    border-radius: 50%;
+    transform: rotate(-22deg)
+}
+
+.o2 {
+    inset: 10px 100px;
+    transform: rotate(45deg)
+}
+
+.core {
+    position: absolute;
+    top: 82px;
+    left: calc(50% - 35px);
+    border: 1px solid var(--blue);
+    border-radius: 18px;
+    width: 70px;
+    height: 70px;
+    display: grid;
+    place-items: center;
+    font-weight: 900;
+    background: var(--panel);
+    box-shadow: 0 0 30px color-mix(in srgb, var(--blue) 30%, transparent)
+}
+
+.node {
+    position: absolute;
+    padding: 5px 12px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    font-size: 14px
+}
+
+.n1 {
+    top: 22px;
+    left: 20%
+}
+
+.n2 {
+    right: 0;
+    top: 110px
+}
+
+.n3 {
+    bottom: 16px;
+    left: 20%
+}
+
+.scenario-text {
+    max-width: 850px;
+    font-size: 17px
+}
+
+select {
+    display: block;
+    width: 100%;
+    margin: 5px 0 18px;
+    padding: 12px;
+    font: inherit;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 8px
+}
+
+label {
+    font-size: 15px
+}
+
+output {
+    display: block;
+    font-size: 25px;
+    font-weight: 800;
+    color: var(--blue);
+    margin: 18px 0
+}
+
+.matrix {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px
+}
+
+.cell {
+    padding: 17px 6px;
+    border: 2px solid transparent;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: 700;
+    color: #172333
+}
+
+.cell.high {
+    background: #ffb4b1
+}
+
+.cell.medium {
+    background: #ffe3a4
+}
+
+.cell.low {
+    background: #b5e4d0
+}
+
+.cell.selected {
+    border: 3px solid var(--text);
+    outline: 2px solid var(--blue);
+    outline-offset: 2px
+}
+
+.video-placeholder {
+    border: 2px dashed var(--line)
+}
+
+@media(prefers-reduced-motion:reduce) {
+
+    nav::after,
+    .bar div {
+        animation: none
+    }
+
+    * {
+        transition: none !important
+    }
+}
+
+@media(max-width:800px) {
+    nav::after {
+        display: none
+    }
+}
+
+@media print {
+    .orbital {
+        display: none
+    }
+}
+
+.dependency-tree {
+    margin: 30px 0 22px
+}
+
+.tree-hq {
+    max-width: 610px;
+    margin: 0 auto;
+    text-align: center;
+    border: 2px solid var(--blue);
+    box-shadow: 0 0 25px color-mix(in srgb, var(--blue) 12%, transparent)
+}
+
+.tree-hq .eyebrow {
+    margin: 0 0 8px
+}
+
+.tree-hq h3 {
+    font-size: 25px
+}
+
+.tree-stem {
+    height: 38px;
+    width: 2px;
+    margin: auto;
+    background: var(--blue)
+}
+
+.tree-branches {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+    position: relative;
+    padding-top: 28px
+}
+
+.tree-branches::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: calc((100% - 44px)/6);
+    right: calc((100% - 44px)/6);
+    height: 2px;
+    background: var(--blue)
+}
+
+.tree-leaf {
+    position: relative;
+    text-align: center;
+    margin: 0
+}
+
+.tree-leaf::before {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 28px;
+    top: -29px;
+    left: calc(50% - 1px);
+    background: var(--blue)
+}
+
+.tree-leaf p {
+    margin-top: 8px
+}
+
+.tree-leaf .connection {
+    margin-top: 16px
+}
+
+@media(max-width:700px) {
+    .tree-branches {
+        grid-template-columns: 1fr;
+        padding-top: 0;
+        padding-left: 24px;
+        gap: 18px
+    }
+
+    .tree-branches::before {
+        left: 0;
+        top: 0;
+        bottom: calc(50% / 3);
+        height: auto;
+        width: 2px;
+        right: auto
+    }
+
+    .tree-leaf::before {
+        left: -25px;
+        top: 50%;
+        width: 24px;
+        height: 2px
+    }
+
+    .tree-stem {
+        margin-left: 0;
+        height: 25px
+    }
+
+    .tree-hq {
+        max-width: none
+    }
+
+    .tree-leaf {
+        text-align: left
+    }
+}
+  </style>
+  <!-- Browser tab icon: upload the PNG to your images folder -->
+  <link href="images/yieldmore-icon.png" rel="icon" type="image/png"/>
+ </head>
+ <body>
+  <header>
+   <div class="brand">
+    Yield
+    <span>
+     More
+    </span>
+    <span class="small">
+     / Risk briefing
+    </span>
+   </div>
+   <div>
+    <button id="theme">
+     Light mode
+    </button>
+    <button onclick="window.print()">
+     Print / PDF
+    </button>
+   </div>
+  </header>
+  <div class="bar">
+   <div id="progress">
+   </div>
+  </div>
+  <div class="layout">
+   <nav aria-label="Presentation sections" id="nav">
+   </nav>
+   <main>
+    <!-- SLIDE 1: Protect the systems. Keep business moving. -->
+    <section>
+     <span class="eyebrow">
+      INFA 713 · Final project
+     </span>
+     <h1>
+      Protect the systems.
+      <br/>
+      <span style="color:var(--blue)">
+       Keep business moving.
+      </span>
+     </h1>
+     <p class="lead">
+      YieldMore Enterprise Risk Assessment and Mitigation Plan
+     </p>
+     <p>
+      Erika Hernandez
+      <br/>
+      <span class="small">
+       Dakota State University · Managing Security Risks · Fall 2026
+       <br/>
+       Instructor: Milinda Rambel-Stone
+      </span>
+     </p>
+     <div class="hero-art">
+      <b>
+       3
+      </b>
+      company sites
+      <b>
+       3
+      </b>
+      headquarters servers
+      <b>
+       50
+      </b>
+      states served by salespeople
+     </div>
+     <p class="rule">
+      An academic case study applying cybersecurity risk management to YieldMore. Prepared for a senior-management briefing.
+     </p>
+     <div aria-hidden="true" class="orbital">
+      <div class="orbit o1">
+      </div>
+      <div class="orbit o2">
+      </div>
+      <div class="core">
+       YM
+      </div>
+      <span class="node n1">
+       Identity
+      </span>
+      <span class="node n2">
+       Operations
+      </span>
+      <span class="node n3">
+       Recovery
+      </span>
+     </div>
+    </section>
+    <!-- SLIDE 2: Project scenario -->
+    <section hidden="">
+     <span class="eyebrow">
+      Instructor-provided case
+     </span>
+     <h2>
+      Project scenario
+     </h2>
+     <div class="scenario-text">
+      <p>
+       After IT professionals identify threat/vulnerability pairs and estimate the likelihood of their occurrence, IT management must decide which risk management techniques are appropriate to manage these risks. IT managers then present this information to senior management. The role of senior management is to allocate resources, specifically money and employees, to prepare for and respond to identified threats and vulnerabilities appropriately.
+      </p>
+      <p>
+       For this assignment, you assume the role of an IT security manager in a small business. You are tasked with identifying threats and vulnerabilities and determining appropriate risk management techniques.
+      </p>
+      <p>
+       YieldMore is a small agricultural company that produces and sells fertilizer products. The company headquarters is in a small town in Indiana. Outside its headquarters, there are two large production facilities—one in Nebraska and another in Oklahoma. Furthermore, YieldMore employs salespersons in every state in the United States to serve its customers locally.
+      </p>
+      <p>
+       The company has three servers located at its headquarters—a Microsoft Active Directory server, an application server, and a database server. The application server hosts YieldMore’s primary software application, which is a proprietary program managing inventory, sales, supply chain, and customer information. The database server manages all data stored locally with direct-attached storage.
+      </p>
+      <p>
+       All three sites use Ethernet-cabled local area networks (LANs) to connect the users’ Windows 10 workstations via industry-standard managed switches.
+      </p>
+      <p>
+       The remote production facilities connect headquarters via routers with T-1 LAN connections provided by an external Internet service provider (ISP), and they share an Internet connection through a firewall at headquarters.
+      </p>
+      <p>
+       Individual salespersons throughout the country connect to YieldMore’s network via virtual private network (VPN) software through their individual Internet connections, typically in a home office.
+      </p>
+     </div>
+     <p class="small">
+      Reproduced from the instructor-provided INFA 713 Final Research Project (2026). Scenario wording retained.
+     </p>
+    </section>
+    <!-- SLIDE 3: One headquarters. A nationwide business. -->
+    <section hidden="">
+     <span class="eyebrow">
+      Purpose &amp; business dependencies
+     </span>
+     <h2>
+      One headquarters.
+      <br/>
+      A nationwide business.
+     </h2>
+     <p>
+      YieldMore produces and sells fertilizer products. Its primary application manages inventory, sales, supply chain, and customer information.
+     </p>
+     <div aria-label="Indiana headquarters above production facilities in Nebraska and Oklahoma and remote salespeople" class="dependency-tree">
+      <div class="card tree-hq">
+       <p class="eyebrow">
+        Central services
+       </p>
+       <h3>
+        Indiana headquarters
+       </h3>
+       <p>
+        Active Directory server · Application server
+        <br/>
+        Database server with direct-attached storage
+       </p>
+       <p class="connection">
+        Shared internet through the headquarters firewall
+       </p>
+      </div>
+      <div aria-hidden="true" class="tree-stem">
+      </div>
+      <div class="tree-branches">
+       <div class="card tree-leaf">
+        <h3>
+         Nebraska
+        </h3>
+        <p>
+         Production facility
+        </p>
+        <p class="connection">
+         T-1 connection to headquarters
+        </p>
+       </div>
+       <div class="card tree-leaf">
+        <h3>
+         Oklahoma
+        </h3>
+        <p>
+         Production facility
+        </p>
+        <p class="connection">
+         T-1 connection to headquarters
+        </p>
+       </div>
+       <div class="card tree-leaf">
+        <h3>
+         Remote salespeople
+        </h3>
+        <p>
+         Located throughout the U.S.
+        </p>
+        <p class="connection">
+         Individual internet connections + VPN to YieldMore
+        </p>
+       </div>
+      </div>
+     </div>
+     <p class="small">
+      All three company sites use Ethernet LANs, managed switches, and Windows 10 workstations. Remote salesperson operating systems are not specified.
+     </p>
+     <details>
+      <summary>
+       Understand this slide
+      </summary>
+      <p class="notes">
+       The production sites and salespeople depend on resources at headquarters. We will examine those dependencies without assuming that safeguards not mentioned in the scenario are absent.
+      </p>
+     </details>
+     <details>
+      <summary>
+       Scenario facts &amp; assessment boundaries
+      </summary>
+      <p class="notes">
+       Source: INFA 713 Final Research Project, instructor-provided scenario (2026). This diagram summarizes connections; it is not a verified network design. No assessment of industrial control equipment is implied.
+      </p>
+     </details>
+    </section>
+    <!-- SLIDE 4: Likelihood. Impact. Priority. -->
+    <section hidden="">
+     <span class="eyebrow">
+      Assessment approach
+     </span>
+     <h2>
+      Likelihood. Impact. Priority.
+     </h2>
+     <p>
+      This scenario-based assessment uses a 12-month planning horizon. Ratings are conditional estimates under stated assumptions, not measured incident probabilities.
+     </p>
+     <div class="grid">
+      <div class="card">
+       <h3>
+        Likelihood
+       </h3>
+       <p>
+        <b>
+         Low (0.10):
+        </b>
+        requires unusual conditions or multiple failures.
+        <br/>
+        <b>
+         Medium (0.50):
+        </b>
+        plausible during the next year.
+        <br/>
+        <b>
+         High (1.00):
+        </b>
+        expected or repeatedly exposed under the stated weak-control assumption.
+       </p>
+      </div>
+      <div class="card">
+       <h3>
+        Business impact
+       </h3>
+       <p>
+        <b>
+         Low (10):
+        </b>
+        limited disruption with routine recovery.
+        <br/>
+        <b>
+         Medium (50):
+        </b>
+        significant interruption to a team or site.
+        <br/>
+        <b>
+         High (100):
+        </b>
+        central-service disruption, major data loss, or broad unauthorized access.
+       </p>
+      </div>
+      <div class="card">
+       <h3>
+        Priority
+       </h3>
+       <p>
+        Likelihood weight × impact score produces a score of 1–100.
+        <br/>
+        <b>
+         1–10: Low; above 10–50: Medium; above 50–100: High.
+        </b>
+        <br/>
+        Ties are resolved by scope of impact and recovery dependencies.
+       </p>
+      </div>
+     </div>
+     <p class="rule">
+      YieldMore example: storage failure is rated Medium likelihood and High impact if no usable independent backup exists. 0.50 × 100 = 50 (Medium). Verifying a tested backup could change the assessment.
+     </p>
+     <p class="small">
+      Concepts informed by NIST SP 800-30 Rev. 1 (Joint Task Force Transformation Initiative, 2012). The 3×3 cell values follow the supplied “Balancing Risk and Cost (2 of 2)” course slide. The Low/Medium/High bands are explicitly defined for this project; that slide does not state band cutoffs. The displayed weights are scoring conventions, not measured probabilities for YieldMore.
+     </p>
+     <details>
+      <summary>
+       Understand this assessment
+      </summary>
+      <p class="notes">
+       Likelihood asks how plausible the event is. Impact asks how serious its consequences would be. Priority combines them to guide decisions. A low-likelihood event can still deserve attention if the consequences are severe. The same definitions and time horizon apply to every risk.
+      </p>
+     </details>
+    </section>
+    <!-- SLIDE 5: From most urgent to least urgent. -->
+    <section hidden="">
+     <span class="eyebrow">
+      Threat / vulnerability pairs · Ranked
+     </span>
+     <h2>
+      From most urgent to least urgent.
+     </h2>
+     <p>
+      Proposed order under the assumptions below. Course-aligned scores: R4 and R5 = 100 (High); R3 and R1 = 50 (Medium); R2 = 10 (Low). Verify safeguards before treating these ratings as final. R4 precedes R5 because of its potential direct access to central services; R3 precedes R1 because data loss can outlast a connectivity outage.
+     </p>
+     <div class="table">
+      <table>
+       <thead>
+        <tr>
+         <th>
+          Order / ID
+         </th>
+         <th>
+          Threat event
+         </th>
+         <th>
+          Conditional vulnerability
+         </th>
+         <th>
+          Likelihood / impact / score
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td>
+          1 · R4
+         </td>
+         <td>
+          Compromised VPN account
+         </td>
+         <td>
+          Inadequate authentication or excessive remote permissions, if present.
+         </td>
+         <td>
+          High / High
+          <br/>
+          100
+         </td>
+        </tr>
+        <tr>
+         <td>
+          2 · R5
+         </td>
+         <td>
+          Workstation exploitation
+         </td>
+         <td>
+          Missing security updates or unsupported editions, if present.
+         </td>
+         <td>
+          High / High
+          <br/>
+          100
+         </td>
+        </tr>
+        <tr>
+         <td>
+          3 · R10
+         </td>
+         <td>
+          Storage failure / data corruption
+         </td>
+         <td>
+          Local storage with no usable independent recovery copy, if confirmed.
+         </td>
+         <td>
+          Medium / High
+          <br/>
+          50
+         </td>
+        </tr>
+        <tr>
+         <td>
+          4 · R1
+         </td>
+         <td>
+          HQ firewall / internet outage
+         </td>
+         <td>
+          Shared HQ internet path without functioning failover, if confirmed.
+         </td>
+         <td>
+          Medium / High
+          <br/>
+          50
+         </td>
+        </tr>
+        <tr>
+         <td>
+          5 · R2
+         </td>
+         <td>
+          HQ power / site disruption
+         </td>
+         <td>
+          Co-located servers without effective alternate recovery, if confirmed.
+         </td>
+         <td>
+          Low / High
+          <br/>
+          10
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     <details>
+      <summary>
+       R4 · Why this rating?
+      </summary>
+      <p>
+       Assume MFA is absent and VPN permissions are broad; verify both. Repeated remote-account exposure supports High likelihood under this assumption.
+      </p>
+      <p>
+       <b>
+        Business impact:
+       </b>
+       Unauthorized access could reach central business information.
+      </p>
+     </details>
+     <details>
+      <summary>
+       R5 · Why this rating?
+      </summary>
+      <p>
+       Assume endpoints lack applicable extended support and security updates; verify editions, ESU, and patching. Persistent exposure supports High likelihood under this assumption.
+      </p>
+      <p>
+       <b>
+        Business impact:
+       </b>
+       Compromise could interrupt work and spread if access controls permit it.
+      </p>
+     </details>
+     <details>
+      <summary>
+       R3 · Why this rating?
+      </summary>
+      <p>
+       Assume no tested independent backup is available. Hardware failure or corruption is plausible; no incident history is supplied.
+      </p>
+      <p>
+       <b>
+        Business impact:
+       </b>
+       Database loss could interrupt inventory, sales, and customer-data access.
+      </p>
+     </details>
+     <details>
+      <summary>
+       R1 · Why this rating?
+      </summary>
+      <p>
+       Assume no independent ISP/firewall failover. Equipment and provider outages are plausible, but frequency is unknown.
+      </p>
+      <p>
+       <b>
+        Business impact:
+       </b>
+       All sites could lose internet-dependent business services.
+      </p>
+     </details>
+     <details>
+      <summary>
+       R2 · Why this rating?
+      </summary>
+      <p>
+       Assume alternate recovery is unavailable. A major site-disabling event requires less common conditions; power history and protections are unknown.
+      </p>
+      <p>
+       <b>
+        Business impact:
+       </b>
+       Loss of HQ could remove identity, application, and database services together.
+      </p>
+     </details>
+     <p class="small">
+      Method: Joint Task Force Transformation Initiative (2012). Endpoint support: Microsoft (n.d.); remote-access and recovery safeguards: Center for Internet Security (n.d.), Controls 6 and 11.
+     </p>
+    </section>
+    <!-- SLIDE 6: Explore the risk scale. -->
+    <section hidden="">
+     <span class="eyebrow">
+      Interactive risk priorities
+     </span>
+     <h2>
+      Explore the risk scale.
+     </h2>
+     <p>
+      Choose a risk, then adjust likelihood and impact to explore how the course-aligned matrix changes its risk band. Your exploration does not change the proposed assessment.
+     </p>
+     <div class="grid">
+      <div class="card">
+       <label for="riskpick">
+        Scenario risk
+       </label>
+       <select id="riskpick">
+        <option value="0">
+         R4 · Compromised VPN account
+        </option>
+        <option value="1">
+         R5 · Workstation exploitation
+        </option>
+        <option value="2">
+         R3 · Storage failure / data corruption
+        </option>
+        <option value="3">
+         R1 · HQ firewall / internet outage
+        </option>
+        <option value="4">
+         R2 · HQ power / site disruption
+        </option>
+       </select>
+       <label for="like">
+        Likelihood
+       </label>
+       <select id="like">
+        <option value="1">
+         Low · 0.10
+        </option>
+        <option value="2">
+         Medium · 0.50
+        </option>
+        <option value="3">
+         High · 1.00
+        </option>
+       </select>
+       <label for="impact">
+        Business impact
+       </label>
+       <select id="impact">
+        <option value="1">
+         Low · 10
+        </option>
+        <option value="2">
+         Medium · 50
+        </option>
+        <option value="3">
+         High · 100
+        </option>
+       </select>
+       <output aria-live="polite" id="score">
+       </output>
+       <button id="resetRisk">
+        Reset selected risk
+       </button>
+      </div>
+      <div class="card">
+       <h3>
+        Likelihood × impact
+       </h3>
+       <div class="matrix" id="matrix">
+       </div>
+       <p class="small">
+        Rows: likelihood High to Low. Columns: impact Low to High. Project bands: Low 1–10 · Medium above 10–50 · High above 50–100. Cell values follow the supplied course slide.
+       </p>
+      </div>
+     </div>
+     <details>
+      <summary>
+       3×3 matrix vs. 3×3×3 McCumber Cube
+      </summary>
+      <p>
+       <b>
+        The risk matrix
+       </b>
+       has two dimensions: three likelihood levels and three impact levels. Its nine cells help compare risk scores. It is the calculator shown above.
+      </p>
+      <p>
+       <b>
+        The McCumber Cube
+       </b>
+       has three dimensions: security goals (confidentiality, integrity, availability), information states (transmission, storage, processing), and safeguards (technology, policies/practices, human factors). Three choices on each dimension create 27 combinations. It helps check security coverage; it does not calculate this priority score.
+      </p>
+      <p>
+       <b>
+        YieldMore example:
+       </b>
+       protecting the availability of stored database information through technology leads us to examine backups. Policies define backup and testing responsibilities, and staff training helps people carry them out.
+      </p>
+      <p class="small">
+       Source: Rambel-Stone (2025), McCumber Chapters 1–3 course slides, “How to Read the McCumber Cube?”
+      </p>
+     </details>
+     <details>
+      <summary>
+       Understand the result
+      </summary>
+      <p class="notes">
+       This is an educational comparison tool. A score is a decision aid, not a calculated probability or financial loss estimate. Controls can reduce likelihood, impact, or both. Scores tied in the same band still require judgment about scope, dependencies, cost, and timing.
+      </p>
+     </details>
+    </section>
+    <!-- SLIDE 7: Match the treatment to the risk. -->
+    <section hidden="">
+     <span class="eyebrow">
+      Risk-handling plan
+     </span>
+     <h2>
+      Match the treatment to the risk.
+     </h2>
+     <p>
+      Recommended treatments are conditional on verifying the assumed gaps. The company does not have to use every treatment category.
+     </p>
+     <details open="">
+      <summary>
+       R4 · Remote-access account compromise — Mitigate
+      </summary>
+      <p>
+       Require MFA, limit permissions, review remote access, and monitor sign-ins.
+      </p>
+      <p class="notes">
+       <b>
+        Why:
+       </b>
+       Directly addresses account misuse and limits its consequences; stolen sessions remain a residual concern.
+      </p>
+     </details>
+     <details open="">
+      <summary>
+       R5 · Workstation exploitation — Mitigate
+      </summary>
+      <p>
+       Inventory versions and support; patch and migrate unsupported endpoints, with a temporary supported bridge if needed.
+      </p>
+      <p class="notes">
+       <b>
+        Why:
+       </b>
+       Addresses preventable endpoint exposure; migration needs application compatibility testing.
+      </p>
+     </details>
+     <details open="">
+      <summary>
+       R3 · Storage failure and data corruption — Mitigate
+      </summary>
+      <p>
+       Create protected independent backups and test restoration against recovery needs.
+      </p>
+      <p class="notes">
+       <b>
+        Why:
+       </b>
+       Reduces recovery consequences; backups must be usable and protected against the same incident.
+      </p>
+     </details>
+     <details open="">
+      <summary>
+       R1 · Headquarters connectivity outage — Mitigate and share contractual exposure
+      </summary>
+      <p>
+       Evaluate diverse connectivity and firewall failover; use provider service commitments for part of the exposure.
+      </p>
+      <p class="notes">
+       <b>
+        Why:
+       </b>
+       Redundancy reduces outage impact; contracts can share financial exposure but cannot guarantee continuity.
+      </p>
+     </details>
+     <details open="">
+      <summary>
+       R2 · Headquarters power or site disruption — Mitigate
+      </summary>
+      <p>
+       Verify UPS/generator protection and develop alternate recovery with defined recovery objectives.
+      </p>
+      <p class="notes">
+       <b>
+        Why:
+       </b>
+       Addresses common-location dependency even though the event is rated less likely; remaining downtime needs management acceptance.
+      </p>
+     </details>
+     <p class="small">
+      Safeguard examples: Center for Internet Security (n.d.), Controls 1, 6, 7, 11, and 12. Treatment concepts: Gibson and Igonor (2022), course reading; verify relevant chapter citations before submission.
+     </p>
+    </section>
+    <!-- SLIDE 8: Turn assessment into decisions. -->
+    <section hidden="">
+     <span class="eyebrow">
+      Management summary &amp; conclusion
+     </span>
+     <h2>
+      Turn assessment into decisions.
+     </h2>
+     <div class="grid">
+      <div class="card">
+       <h3>
+        First: verify controls
+       </h3>
+       <p>
+        Resolve unknown safeguards and document the basis for the final risk ratings.
+       </p>
+      </div>
+      <div class="card">
+       <h3>
+        Next: assign and fund
+       </h3>
+       <p>
+        Identify the money, employees, and responsibilities needed for the selected treatments.
+       </p>
+      </div>
+      <div class="card">
+       <h3>
+        Then: test and review
+       </h3>
+       <p>
+        Check whether implemented safeguards reduce the identified risks and address remaining exposure.
+       </p>
+      </div>
+     </div>
+     <p class="rule">
+      Management takeaway: YieldMore’s central services connect the business. Management needs a justified order of action to protect those services and support continued operations.
+     </p>
+     <details>
+      <summary>
+       Understand this slide
+      </summary>
+      <p class="notes">
+       Proposed decision: authorize IT to verify authentication, endpoint support, backups, and failover first. Confirmed high risks should receive named owners and a costed implementation plan. No dollar budget or staffing level is assumed from the scenario.
+      </p>
+     </details>
+    </section>
+    <!-- SLIDE 9: Make time to reduce the risk. -->
+    <section hidden="">
+     <span class="eyebrow">
+      Conclusion
+     </span>
+     <h2>
+      Make time to reduce the risk.
+     </h2>
+     <p class="lead">
+      These risks are common in many companies. Identifying them is the first step; making time and assigning responsibility to address them is just as important.
+     </p>
+     <p>
+      I wanted to share a video I made using NotebookLM that gives a quick overview of what we discussed.
+     </p>
+     <div class="card" style="padding:6px;border:1px solid var(--blue);box-shadow:0 0 24px color-mix(in srgb,var(--blue) 25%,transparent);overflow:hidden">
+      <video aria-label="YieldMore: Key Risks and Recommended Actions" controls="" playsinline="" preload="metadata" style="display:block;width:100%;height:auto;max-height:70vh;border-radius:10px;background:#000">
+       <source src="images/YieldMore_Key_Risks_and_Recommended_Actions.mp4" type="video/mp4"/>
+       Your browser does not support embedded video.
+       <a href="images/YieldMore_Key_Risks_and_Recommended_Actions.mp4">
+        Download the YieldMore video
+       </a>
+       .
+      </video>
+     </div>
+     <p class="small">
+      <a href="images/YieldMore_Key_Risks_and_Recommended_Actions.mp4">
+       Open the video separately
+      </a>
+      · Created using NotebookLM.
+     </p>
+     <p>
+      And as always, thank you.
+     </p>
+     <p style="color:var(--blue);font-size:26px">
+      <b>
+       ~Erika
+      </b>
+     </p>
+     <details>
+      <summary>
+       Understand the takeaway
+      </summary>
+      <p class="notes">
+       The recommendations address conditional gaps in the case. Verifying the actual safeguards could change both risk ratings and treatment priorities. Residual risk remains after improvements, so management needs to review the results.
+      </p>
+     </details>
+    </section>
+    <!-- SLIDE 10: The evidence behind the assessment. -->
+    <section hidden="">
+     <span class="eyebrow">
+      References
+     </span>
+     <h2>
+      The evidence behind the assessment.
+     </h2>
+     <p class="small">
+      Professional guidance is cited in the analysis. Course-book details below come from the supplied reading list; verify title-page publication details and relevant chapters before submission.
+     </p>
+     <ul class="sources">
+      <li>
+       Joint Task Force Transformation Initiative. (2012).
+       <i>
+        Guide for conducting risk assessments
+       </i>
+       (NIST SP 800-30 Rev. 1). National Institute of Standards and Technology.
+       <a href="https://doi.org/10.6028/NIST.SP.800-30r1">
+        https://doi.org/10.6028/NIST.SP.800-30r1
+       </a>
+      </li>
+      <li>
+       Center for Internet Security. (n.d.).
+       <i>
+        The 18 CIS Critical Security Controls.
+       </i>
+       <a href="https://www.cisecurity.org/controls/cis-controls-list">
+        CIS Controls
+       </a>
+      </li>
+      <li>
+       Microsoft. (n.d.).
+       <i>
+        Windows 10 Extended Security Updates (ESU) program.
+       </i>
+       <a href="https://learn.microsoft.com/en-us/windows/whats-new/extended-security-updates">
+        Microsoft Learn
+       </a>
+      </li>
+      <li>
+       Gibson, D., &amp; Igonor, A. (2022).
+       <i>
+        Managing risk in information systems
+       </i>
+       (3rd ed.). Jones &amp; Bartlett Learning.
+       <a href="https://www.jblearning.com/catalog/productdetails/9781284183719">
+        Publisher listing
+       </a>
+      </li>
+      <li>
+       McCumber, J. (2007).
+       <i>
+        Assessing and managing security risk in IT systems: A structured methodology.
+       </i>
+       Auerbach Publications.
+       <span class="small">
+        Provisional: course list says 2nd edition; verify year and edition against the book’s copyright page.
+       </span>
+      </li>
+      <li>
+       Rambel-Stone, M. (2025).
+       <i>
+        INFA 713 McCumber chapters 1–3
+       </i>
+       [Course slides]. Dakota State University.
+      </li>
+      <li>
+       Rambel-Stone, M. (2026).
+       <i>
+        INFA 713 final research project
+       </i>
+       [Course assignment]. Dakota State University.
+      </li>
+     </ul>
+    </section>
+    <div class="controls">
+     <button id="back">
+      Back
+     </button>
+     <span aria-live="polite" class="small" id="count">
+     </span>
+     <button id="next">
+      Next
+     </button>
+    </div>
+   </main>
+  </div>
+  <script>
+   const names = ['Title', 'Project scenario', 'Purpose', 'Assessment approach', 'Threat / vulnerability pairs', 'Risk priorities', 'Risk-handling plan', 'Management summary', 'Conclusion', 'References'];
+const slides = [...document.querySelectorAll('main>section')];
+let current = 0;
+const nav = document.getElementById('nav');
+names.forEach((n, i) => {
+    const b = document.createElement('button');
+    b.textContent = n;
+    b.onclick = () => show(i);
+    nav.append(b)
+});
+
+function show(i) {
+    current = i;
+    slides.forEach((s, j) => s.hidden = j !== i);
+    [...nav.children].forEach((b, j) => {
+        b.classList.toggle('active', j === i);
+        j === i ? b.setAttribute('aria-current', 'step') : b.removeAttribute('aria-current')
+    });
+    document.getElementById('count').textContent = (i + 1) + ' / ' + slides.length;
+    document.getElementById('progress').style.width = ((i + 1) / slides.length * 100) + '%';
+    document.getElementById('back').disabled = i === 0;
+    document.getElementById('next').disabled = i === slides.length - 1
+}
+document.getElementById('back').onclick = () => show(current - 1);
+document.getElementById('next').onclick = () => show(current + 1);
+document.addEventListener('keydown', e => {
+    if (e.target.closest('button,a,summary')) return;
+    if (e.key === 'ArrowRight' && current < slides.length - 1) show(current + 1);
+    if (e.key === 'ArrowLeft' && current > 0) show(current - 1)
+});
+const t = document.getElementById('theme');
+
+function theme(light) {
+    document.body.classList.toggle('light', light);
+    t.textContent = light ? 'Dark mode' : 'Light mode'
+}
+try {
+    theme(localStorage.getItem('yieldmore-theme') === 'light')
+} catch {}
+t.onclick = () => {
+    theme(!document.body.classList.contains('light'));
+    try {
+        localStorage.setItem('yieldmore-theme', document.body.classList.contains('light') ? 'light' : 'dark')
+    } catch {}
+};
+const presets = [
+    [3, 3],
+    [3, 3],
+    [2, 3],
+    [2, 3],
+    [1, 3]
+];
+const pick = document.getElementById('riskpick'),
+    like = document.getElementById('like'),
+    impact = document.getElementById('impact');
+
+function calc() {
+    const l = +like.value,
+        i = +impact.value,
+        n = ({
+            1: .1,
+            2: .5,
+            3: 1
+        } [l]) * ({
+            1: 10,
+            2: 50,
+            3: 100
+        } [i]);
+    document.getElementById('score').textContent = ({
+        1: '0.10',
+        2: '0.50',
+        3: '1.00'
+    } [l]) + ' × ' + ({
+        1: 10,
+        2: 50,
+        3: 100
+    } [i]) + ' = ' + n + ' · ' + (n > 50 ? 'High' : n > 10 ? 'Medium' : 'Low');
+    document.getElementById('matrix').innerHTML = '';
+    for (let row = 3; row >= 1; row--)
+        for (let col = 1; col <= 3; col++) {
+            const v = ({
+                    1: .1,
+                    2: .5,
+                    3: 1
+                } [row]) * ({
+                    1: 10,
+                    2: 50,
+                    3: 100
+                } [col]),
+                d = document.createElement('div');
+            d.className = 'cell ' + (v > 50 ? 'high' : v > 10 ? 'medium' : 'low') + (row === l && col === i ? ' selected' : '');
+            d.textContent = v;
+            d.setAttribute('aria-label', 'Likelihood ' + row + ', impact ' + col + ', score ' + v + (row === l && col === i ? ', selected' : ''));
+            document.getElementById('matrix').append(d)
+        }
+}
+
+function reset() {
+    const p = presets[+pick.value];
+    like.value = p[0];
+    impact.value = p[1];
+    calc()
+}
+pick.onchange = reset;
+like.onchange = impact.onchange = calc;
+document.getElementById('resetRisk').onclick = reset;
+reset();
+show(0);
+  </script>
+ </body>
+</html>
