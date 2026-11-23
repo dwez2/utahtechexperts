@@ -613,6 +613,71 @@
     }
     .summary-point span { color: var(--muted); line-height: 1.4; }
 
+    .opening-question {
+      max-width: 1120px;
+      margin-bottom: clamp(22px, 3vw, 38px);
+      padding-left: 24px;
+      border-left: 3px solid var(--cyan);
+    }
+    .opening-question p {
+      max-width: 1050px;
+      margin-bottom: 0;
+      color: #d9e8ef;
+      font-size: clamp(1.08rem, 1.65vw, 1.45rem);
+      line-height: 1.55;
+    }
+    .question-grid,
+    .case-grid {
+      display: grid;
+      gap: clamp(14px, 2vw, 24px);
+    }
+    .question-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .case-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .question-card,
+    .case-card {
+      padding: clamp(20px, 2.5vw, 30px);
+      background: linear-gradient(145deg, rgba(9, 45, 68, .84), rgba(5, 24, 39, .74));
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .16);
+      transition: transform .35s var(--ease), border-color .35s ease, background .35s ease, box-shadow .35s ease;
+    }
+    .question-card b,
+    .case-card b {
+      display: block;
+      margin-bottom: 9px;
+      color: var(--cyan-soft);
+    }
+    .question-card span,
+    .case-card p { color: var(--muted); line-height: 1.48; }
+    .case-card p:last-child { margin-bottom: 0; }
+    .case-tag {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--cyan);
+      font: 700 .72rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .case-connection {
+      margin-top: clamp(18px, 2.4vw, 30px);
+      padding: 18px 22px;
+      background: rgba(24, 200, 242, .07);
+      border-left: 3px solid var(--cyan);
+      color: #d9e8ef;
+      font-size: clamp(.96rem, 1.2vw, 1.08rem);
+      line-height: 1.5;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .question-card:hover,
+      .case-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(140, 236, 255, .58);
+        background: linear-gradient(145deg, rgba(10, 56, 83, .9), rgba(5, 29, 47, .84));
+        box-shadow: 0 22px 55px rgba(0, 0, 0, .2), 0 0 24px rgba(24, 200, 242, .09);
+      }
+    }
+
     .apa-list {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -986,6 +1051,8 @@
       .resource-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .video-grid { grid-template-columns: 1fr; }
       .summary-layout { grid-template-columns: 1fr; }
+      .question-grid { grid-template-columns: 1fr; }
+      .case-grid { grid-template-columns: 1fr; }
       .apa-list { grid-template-columns: 1fr; }
     }
 
@@ -1139,7 +1206,7 @@
           <article class="card" data-jump="context"><span class="card-number">01</span><h3>Context</h3><p>CSAM and Apple’s proposal</p></article>
           <article class="card" data-jump="technology"><span class="card-number">02</span><h3>Technology</h3><p>NeuralHash and safety vouchers</p></article>
           <article class="card" data-jump="harms-1"><span class="card-number">03</span><h3>Privacy analysis</h3><p>Harms and principles</p></article>
-          <article class="card" data-jump="laws"><span class="card-number">04</span><h3>Legal context</h3><p>Federal, state, and international law</p></article>
+          <article class="card" data-jump="laws"><span class="card-number">04</span><h3>Legal context</h3><p>Applicable laws and two Apple cases</p></article>
           <article class="card" data-jump="arguments"><span class="card-number">05</span><h3>The debate</h3><p>Arguments for and against</p></article>
           <article class="card" data-jump="timeline"><span class="card-number">06</span><h3>Outcome</h3><p>Delay, abandonment, and replacement</p></article>
           <article class="card" data-jump="findings"><span class="card-number">07</span><h3>Findings</h3><p>Recommendations and lessons</p></article>
@@ -1155,7 +1222,7 @@
         <div class="summary-layout reveal">
           <div class="summary-copy">
             <p>Apple’s 2021 proposal attempted to identify collections of known child sexual abuse material connected to iCloud Photos while limiting access to users’ other images. The design used NeuralHash, encrypted safety vouchers, a match threshold, and human review before a confirmed account could be reported.</p>
-            <p>This project examines whether that child-safety goal could coexist with privacy. It evaluates the proposed technology through privacy harms, privacy principles, legal requirements, public criticism, and Apple’s eventual decision not to release the iCloud Photos scanning system.</p>
+            <p>This project examines whether that child-safety goal could coexist with privacy. It evaluates the proposed technology through privacy harms, privacy principles, legal requirements, public criticism, and Apple’s eventual decision not to release the iCloud Photos scanning system. It also uses FIRAC to examine <em>Serrano v. Apple</em> and <em>Apple v. Corellium</em>.</p>
           </div>
           <div class="summary-points">
             <div class="summary-point"><b>Purpose</b><span>Protect children and reduce the continued storage and distribution of known CSAM.</span></div>
@@ -1166,6 +1233,22 @@
         </div>
       </div>
       <div class="source-line">Summary of the research, analysis, and findings presented on this website.</div>
+    </section>
+
+    <section class="slide" id="opening-question" data-title="The question behind the project">
+      <div>
+        <div class="kicker reveal">The Question Behind the Project</div>
+        <h2 class="reveal">If it is your phone, whose photo is it?</h2>
+        <div class="opening-question reveal">
+          <p>When you purchase an iPhone, the phone belongs to you. But if one of your photos is uploaded to iCloud, does Apple have the right to scan it, decide whether it is inappropriate, and potentially report it? Would knowing that change whether you choose an Apple device?</p>
+        </div>
+        <div class="question-grid reveal">
+          <div class="question-card"><b>Ownership</b><span>Does uploading a photo change who controls it?</span></div>
+          <div class="question-card"><b>Review</b><span>When should Apple be allowed to review a matched image?</span></div>
+          <div class="question-card"><b>Reporting</b><span>What happens if an innocent photo is falsely matched and reported?</span></div>
+        </div>
+      </div>
+      <div class="source-line">Opening questions from the introduction to the accompanying paper.</div>
     </section>
 
     <section class="slide" id="context" data-title="What is CSAM?">
@@ -1282,6 +1365,27 @@
         </div>
       </div>
       <div class="source-line">Sources: 18 U.S.C. §§ 2258A and 2703; CCPA/CPRA; GDPR, 2016</div>
+    </section>
+
+    <section class="slide" id="legal-cases" data-title="Two Apple cases">
+      <div>
+        <div class="kicker reveal">FIRAC Connection</div>
+        <h2 class="reveal">Two Apple cases shaped the analysis</h2>
+        <div class="case-grid reveal">
+          <article class="case-card">
+            <span class="case-tag">Privacy and user control</span>
+            <h3>Serrano v. Apple</h3>
+            <p>The complaint alleges that Apple continued collecting and using consumer activity after users changed their privacy settings. It raises the question of whether Apple kept the privacy promises it made to its users.</p>
+          </article>
+          <article class="case-card">
+            <span class="case-tag">Security research and control</span>
+            <h3>Apple v. Corellium</h3>
+            <p>Corellium created virtual iPhones for security research. The court found that its use of iOS was fair use for the copyright claim, while the separate DMCA issue remained unresolved at that stage.</p>
+          </article>
+        </div>
+        <div class="case-connection reveal"><strong>Connection to the proposal:</strong> Together, the cases show why a future CSAM system would need transparent rules, independent testing, clear limits, and proof that Apple was following its own privacy promises.</div>
+      </div>
+      <div class="source-line">Sources: <em>Serrano v. Apple Inc.</em>, 2023; Brandom, 2020; MacDailyNews, 2021</div>
     </section>
 
     <section class="slide" id="arguments" data-title="Arguments for and against">
@@ -1495,7 +1599,7 @@
           <p class="apa-entry">DocumentCloud. (n.d.). <em>Apple v. Corellium court filing</em>. <a href="https://www.documentcloud.org/documents/20438330-20656722-0-117887/" target="_blank" rel="noopener noreferrer">https://www.documentcloud.org/documents/20438330-20656722-0-117887/</a></p>
           <p class="apa-entry">Electronic Frontier Foundation. (2021, August 5). Apple’s plan to “think different” about encryption opens a backdoor to your private life. <a href="https://www.eff.org/deeplinks/2021/08/apples-plan-think-different-about-encryption-opens-backdoor-your-private-life" target="_blank" rel="noopener noreferrer">https://www.eff.org/deeplinks/2021/08/apples-plan-think-different-about-encryption-opens-backdoor-your-private-life</a></p>
           <p class="apa-entry">European Parliament and Council of the European Union. (2016). Regulation (EU) 2016/679 (General Data Protection Regulation). <em>Official Journal of the European Union, L 119</em>, 1–88. <a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" target="_blank" rel="noopener noreferrer">https://eur-lex.europa.eu/eli/reg/2016/679/oj</a></p>
-          <p class="apa-entry">MacDailyNews Webmaster. (2021, August 17). Apple appeals lawsuit against Corellium, after Corellium announces initiative to verify Apple’s CSAM scanning. <em>MacDailyNews</em>. <a href="https://macdailynews.com/2021/08/17/apple-appeals-lawsuit-against-corellium-after-corellium-announces-initiative-to-verify-apples-csam-scanning/" target="_blank" rel="noopener noreferrer">https://macdailynews.com/2021/08/17/apple-appeals-lawsuit-against-corellium-after-corellium-announces-initiative-to-verify-apples-csam-scanning/</a></p>
+          <p class="apa-entry">MacDailyNews. (2021, August 17). <em>Apple appeals lawsuit against Corellium, after Corellium announces initiative to verify Apple’s CSAM scanning.</em> <a href="https://macdailynews.com/2021/08/17/apple-appeals-lawsuit-against-corellium-after-corellium-announces-initiative-to-verify-apples-csam-scanning/" target="_blank" rel="noopener noreferrer">https://macdailynews.com/2021/08/17/apple-appeals-lawsuit-against-corellium-after-corellium-announces-initiative-to-verify-apples-csam-scanning/</a></p>
           <p class="apa-entry">Newman, L. H. (2021, September 3). Apple backs down on its controversial photo-scanning plans. <em>WIRED</em>. <a href="https://www.wired.com/story/apple-icloud-photo-scan-csam-pause-backlash/" target="_blank" rel="noopener noreferrer">https://www.wired.com/story/apple-icloud-photo-scan-csam-pause-backlash/</a></p>
           <p class="apa-entry">Newman, L. H. (2022, December 7). Apple kills its plan to scan your photos for CSAM. Here’s what’s next. <em>WIRED</em>. <a href="https://www.wired.com/story/apple-photo-scanning-csam-communication-safety-messages/" target="_blank" rel="noopener noreferrer">https://www.wired.com/story/apple-photo-scanning-csam-communication-safety-messages/</a></p>
           <p class="apa-entry">Organisation for Economic Co-operation and Development. (2013). <em>The OECD privacy framework</em>. <a href="https://legalinstruments.oecd.org/en/instruments/OECD-LEGAL-0188" target="_blank" rel="noopener noreferrer">https://legalinstruments.oecd.org/en/instruments/OECD-LEGAL-0188</a></p>
@@ -1510,7 +1614,7 @@
         <h2 class="reveal">APA references · R–U</h2>
         <div class="apa-list reveal">
           <p class="apa-entry">RAINN. (2026, May 31). <em>What is CSAM?</em> <a href="https://rainn.org/get-the-facts-about-csam-child-sexual-abuse-material/what-is-csam/" target="_blank" rel="noopener noreferrer">https://rainn.org/get-the-facts-about-csam-child-sexual-abuse-material/what-is-csam/</a></p>
-          <p class="apa-entry"><em>Serrano v. Apple Inc.</em>, No. 3:22-cv-07069 (N.D. Cal. filed November 11, 2022). <a href="https://9to5mac.com/wp-content/uploads/sites/6/2023/01/47387693_complaint.pdf" target="_blank" rel="noopener noreferrer">https://9to5mac.com/wp-content/uploads/sites/6/2023/01/47387693_complaint.pdf</a></p>
+          <p class="apa-entry"><em>Complaint, Serrano v. Apple Inc.</em>, No. 2:23-cv-00070 (E.D. Pa. Jan. 6, 2023). <a href="https://9to5mac.com/wp-content/uploads/sites/6/2023/01/47387693_complaint.pdf" target="_blank" rel="noopener noreferrer">https://9to5mac.com/wp-content/uploads/sites/6/2023/01/47387693_complaint.pdf</a></p>
           <p class="apa-entry">Solove, D. J. (2006). A taxonomy of privacy. <em>University of Pennsylvania Law Review, 154</em>(3), 477–564. <a href="https://scholarship.law.gwu.edu/faculty_publications/921/" target="_blank" rel="noopener noreferrer">https://scholarship.law.gwu.edu/faculty_publications/921/</a></p>
           <p class="apa-entry">18 U.S.C. § 2258A (2018). <a href="https://uscode.house.gov/us/usc/119-118/t18/s2258A/" target="_blank" rel="noopener noreferrer">https://uscode.house.gov/us/usc/119-118/t18/s2258A/</a></p>
           <p class="apa-entry">18 U.S.C. § 2703 (2018). <a href="https://uscode.house.gov/us/usc/119-118/t18/s2703/" target="_blank" rel="noopener noreferrer">https://uscode.house.gov/us/usc/119-118/t18/s2703/</a></p>
@@ -1525,7 +1629,7 @@
     <div class="footer-name">Erika Hernandez</div>
     <div class="footer-course">INFA 702 · Data Privacy · Fall 2026</div>
     <div class="footer-right">
-      <div class="counter" id="counter" aria-live="polite">01 / 25</div>
+      <div class="counter" id="counter" aria-live="polite">01 / 27</div>
       <div class="nav-controls">
         <button class="nav-btn" id="previousButton" type="button" aria-label="Previous slide">↑</button>
         <button class="nav-btn" id="nextButton" type="button" aria-label="Next slide">↓</button>
