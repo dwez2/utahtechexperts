@@ -765,7 +765,7 @@ output {
      </div>
     
      <!-- Academic portfolio and attribution notice -->
-     <aside class="rule small" aria-label="Academic use notice">
+     <aside class="rule small" aria-label="Academic use notice" style="border-left-color: #e53935;">
       <strong>Academic portfolio notice</strong>
       <p>This public website presents an academic case study created by Erika Hernandez for INFA 713 at Dakota State University. YieldMore is the organization described in the instructor-provided scenario. The analysis, risk ratings, and recommendations illustrate my application of course concepts; they are not findings from an assessment of a real organization.</p>
       <p>You are welcome to view this project for learning and portfolio review. Please do not copy, adapt, or submit its analysis, wording, or presentation as your own coursework. Cite this project when discussing it and complete your own independent analysis for academic assignments. Third-party sources and the course scenario remain attributed to their respective authors.</p>
@@ -811,18 +811,27 @@ output {
      <span class="eyebrow">Senior-management briefing</span>
      <h2>Executive summary memo</h2>
      <div class="card">
-      <p><strong>To:</strong> YieldMore Senior Management and Enterprise Risk Management Committee<br>
+      <p><strong>MEMORANDUM</strong></p>
+      <p><strong>To:</strong> Chief Executive Officer / Board of Directors<br>
        <strong>From:</strong> Erika Hernandez, IT Security Manager (academic scenario)<br>
-       <strong>Subject:</strong> Priority IT risks and recommended management actions</p>
-      <h3 style="margin-top:24px">Purpose and business exposure</h3>
-      <p>This assessment evaluates five threat/vulnerability pairs affecting YieldMore’s headquarters, two production facilities, and nationwide sales force. Identity, application, and database services are located at the Indiana headquarters. Disruption or compromise of these services could affect inventory, sales, supply-chain coordination, and customer information across the business.</p>
-      <h3 style="margin-top:24px">Priority findings</h3>
-      <p>Under the stated assessment assumptions, compromised VPN accounts (R4) and workstation exploitation (R5) rank first, each scoring 100 (High). Storage failure or data corruption (R3) and an HQ firewall or internet outage (R1) each score 50 (Medium). A major headquarters power or site disruption (R2) scores 10 (Low), although its potential business impact remains High. These scores establish a proposed order for action; they are not measured incident probabilities.</p>
-      <h3 style="margin-top:24px">Recommended response</h3>
-      <p>First, verify remote-access authentication and permissions, Windows 10 support and patch status, independent backups and restore testing, network failover, and power and alternate-site recovery arrangements. Where gaps are confirmed, prioritize stronger remote access and endpoint protection, followed by tested data recovery and connectivity improvements. Mitigate the five risks, share part of the connectivity exposure through appropriate provider commitments, and have management review and explicitly accept any remaining exposure.</p>
-      <h3 style="margin-top:24px">Decision requested</h3>
-      <p>Authorize IT to validate existing safeguards and prepare an implementation plan identifying responsible owners, required funding and staff time, target dates, and verification measures. Management should approve resources based on confirmed gaps and business impact, then review residual risk after safeguards are tested.</p>
-      <p class="small">Assessment boundary: the scenario does not establish whether these safeguards are absent. Ratings are conditional and must be revised if verification changes the assumptions. The following sections explain the assessment method, ratings, treatments, and supporting references.</p>
+       <strong>Date:</strong> November 23, 2026<br>
+       <strong>Subject:</strong> YieldMore IT Risk Assessment and Priority Actions</p>
+
+      <h3 style="margin-top:24px">Executive Summary</h3>
+      <p>No incident is reported in the scenario. This assessment identifies five potential risks to YieldMore’s centralized IT services. Under the stated assumptions, VPN account compromise and workstation exploitation are the highest priorities. Disruption could affect inventory, sales, supply-chain coordination, and customer-information access across the business. Existing safeguards must be verified before ratings are finalized.</p>
+
+      <h3 style="margin-top:24px">Risk Assessment</h3>
+      <p><strong>Data and systems:</strong> Customer and operational information; headquarters’ Active Directory, application, and database servers; site workstations; VPN access; and shared headquarters connectivity. Other risks include storage failure, connectivity outages, and headquarters disruption. <strong>Regulatory concerns:</strong> Data types and applicable obligations require verification; the scenario establishes no specific violation.</p>
+
+      <h3 style="margin-top:24px">Actions Taken</h3>
+      <p>Completed a scenario-based assessment and proposed risk priorities and treatments. No live investigation, containment, recovery, or safeguard implementation has been performed. Existing authentication, patching, backups, failover, and power protections remain unverified.</p>
+
+      <h3 style="margin-top:24px">Recommendations</h3>
+      <p><strong>Immediate:</strong> Verify MFA, VPN permissions, Windows support and updates, and usable independent backups. <strong>Resources:</strong> Assign an IT owner to estimate costs, staff time, and completion dates for confirmed gaps. <strong>Strategic:</strong> Test restores and improve connectivity and alternate recovery where needed.</p>
+
+      <h3 style="margin-top:24px">Decision Required</h3>
+      <p>Approve staff time to validate controls and develop a costed remediation plan. Approve funding and any policy changes after gaps are confirmed. Assign management responsibility for reviewing and accepting documented residual risks. No fixed budget is requested because implementation costs are not supplied.</p>
+      <p class="small">Adapted from the course Executive Memo Template v1. This memo summarizes an academic risk assessment, rather than a confirmed incident.</p>
      </div>
     </section>
 
