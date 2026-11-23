@@ -174,6 +174,31 @@
     }
     .byline strong { color: var(--white); }
 
+    .portfolio-notice {
+      max-width: 900px;
+      margin-top: 22px;
+      padding: 14px 17px;
+      background: rgba(2, 11, 20, .68);
+      border: 1px solid rgba(140, 236, 255, .2);
+      border-left: 3px solid var(--cyan);
+      backdrop-filter: blur(12px);
+    }
+    .portfolio-notice strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--cyan-soft);
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .portfolio-notice p {
+      margin: 0;
+      color: rgba(216, 232, 240, .78);
+      font-size: clamp(.68rem, .74vw, .78rem);
+      line-height: 1.45;
+    }
+    .portfolio-notice p + p { margin-top: 6px; }
+
     .grid-2, .grid-3, .grid-4 {
       display: grid;
       gap: clamp(14px, 2vw, 26px);
@@ -552,6 +577,48 @@
     .resource-slide .kicker { color: var(--amber); }
     .resource-slide .resource-card { border-top-color: rgba(255, 186, 98, .72); }
 
+    .summary-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+      gap: clamp(22px, 4vw, 58px);
+      align-items: start;
+    }
+    .summary-copy {
+      padding-left: 24px;
+      border-left: 3px solid var(--cyan);
+    }
+    .summary-copy p { font-size: clamp(1rem, 1.3vw, 1.18rem); }
+    .summary-points { display: grid; gap: 12px; }
+    .summary-point {
+      padding: 16px 18px;
+      background: rgba(7, 36, 55, .66);
+      border: 1px solid var(--line);
+    }
+    .summary-point b {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--cyan-soft);
+    }
+    .summary-point span { color: var(--muted); line-height: 1.4; }
+
+    .apa-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 28px;
+      align-items: start;
+    }
+    .apa-entry {
+      margin: 0;
+      padding-left: 20px;
+      color: #d8e8f0;
+      font-size: clamp(.68rem, .76vw, .8rem);
+      line-height: 1.38;
+      text-indent: -20px;
+      overflow-wrap: anywhere;
+    }
+    .apa-entry a { color: var(--cyan-soft); text-decoration: none; }
+    .apa-entry a:hover { text-decoration: underline; }
+
     .video-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -614,6 +681,34 @@
       text-transform: uppercase;
     }
     .brand span { color: var(--cyan); }
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      pointer-events: auto;
+    }
+    .pdf-download {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 14px;
+      color: var(--cyan-soft);
+      background: rgba(4, 24, 39, .72);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font: 700 .7rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      letter-spacing: .08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: .25s ease;
+    }
+    .pdf-download:hover,
+    .pdf-download:focus-visible {
+      color: var(--white);
+      border-color: var(--cyan);
+      background: rgba(24, 200, 242, .12);
+      outline: none;
+    }
     .menu-btn {
       width: 44px;
       height: 44px;
@@ -878,6 +973,8 @@
       .source-line { display: none; }
       .resource-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .video-grid { grid-template-columns: 1fr; }
+      .summary-layout { grid-template-columns: 1fr; }
+      .apa-list { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 700px) {
@@ -900,7 +997,7 @@
         align-items: end;
         background-image:
           linear-gradient(180deg, rgba(2, 11, 20, .08) 0%, rgba(2, 11, 20, .28) 34%, rgba(2, 11, 20, .88) 68%, rgba(2, 11, 20, .99) 100%),
-          url("assets/csam-privacy-hero.png");
+          url("images/csam-privacy-hero.png");
         background-size: cover, auto 62%;
         background-position: center, 82% 4%;
         background-repeat: no-repeat;
@@ -909,7 +1006,7 @@
       .balance-slide {
         background-image:
           linear-gradient(180deg, rgba(2, 11, 20, .68) 0%, rgba(2, 11, 20, .9) 58%, rgba(2, 11, 20, .98) 100%),
-          url("assets/privacy-balance.png");
+          url("images/privacy-balance.png");
       }
       h1 { font-size: clamp(2.85rem, 14vw, 4.5rem); line-height: .94; }
       h2 { margin-bottom: 22px; font-size: clamp(2.2rem, 11vw, 3.4rem); line-height: 1; }
@@ -947,13 +1044,16 @@
       .nav-controls { gap: 6px; }
       .nav-btn { width: 32px; height: 32px; }
       .topbar { height: 58px; padding-inline: 16px; }
-      .brand { max-width: calc(100vw - 82px); overflow: hidden; font-size: .7rem; white-space: nowrap; text-overflow: ellipsis; }
+      .brand { max-width: calc(100vw - 174px); overflow: hidden; font-size: .7rem; white-space: nowrap; text-overflow: ellipsis; }
+      .pdf-download { min-height: 34px; padding-inline: 10px; font-size: .62rem; }
       .menu-btn { width: 40px; height: 40px; }
       .slide-menu { grid-template-columns: 1fr; }
       .menu-intro { display: none; }
       .menu-list { grid-template-columns: 1fr; padding: 72px 22px calc(var(--footer-h) + 28px); }
       .close-menu { position: absolute; top: 16px; right: 18px; }
       .hint { display: none; }
+      .portfolio-notice { margin-top: 16px; padding: 12px 13px; }
+      .portfolio-notice p { font-size: .66rem; }
     }
 
     @media (max-width: 390px) {
@@ -971,24 +1071,32 @@
     }
 
     @media print {
+      @page { size: 16in 9in; margin: 0; }
       body { overflow: visible; background: white; color: black; }
       .presentation { height: auto; overflow: visible; }
       .slide {
-        min-height: 7.5in;
+        width: 16in;
+        min-height: 9in;
+        height: 9in;
         page-break-after: always;
+        overflow: hidden;
         color: white;
         print-color-adjust: exact;
         -webkit-print-color-adjust: exact;
       }
       .topbar, .footer, .slide-menu, .hint { display: none !important; }
       .reveal { opacity: 1; transform: none; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
     }
   </style>
 </head>
 <body>
   <header class="topbar" aria-label="Presentation controls">
     <div class="brand"><span>Final</span> Research Project</div>
-    <button class="menu-btn" id="menuButton" type="button" aria-label="Open slide menu" aria-expanded="false">☰</button>
+    <div class="top-actions">
+      <a class="pdf-download" href="INFA702.pdf" download aria-label="Download this presentation as a PDF">Download PDF ↓</a>
+      <button class="menu-btn" id="menuButton" type="button" aria-label="Open slide menu" aria-expanded="false">☰</button>
+    </div>
   </header>
 
   <main class="presentation" id="presentation">
@@ -1002,6 +1110,11 @@
           <span>INFA 702 · Data Privacy</span>
           <span>Professor Quentin Covert</span>
         </div>
+        <aside class="portfolio-notice reveal" aria-label="Academic portfolio notice">
+          <strong>Academic portfolio notice</strong>
+          <p>This public website presents an academic case study created by Erika Hernandez for INFA 702 at Dakota State University. Apple’s proposed CSAM detection system is discussed as the subject of academic research. The analysis, privacy-harm classifications, legal discussion, and recommendations illustrate my application of course concepts; they are not findings from an assessment performed for Apple or any other organization.</p>
+          <p>You are welcome to view this project for learning and portfolio review. Please do not copy, adapt, or submit its analysis, wording, or presentation as your own coursework. Cite this project when discussing it and complete your own independent analysis for academic assignments. Third-party sources remain attributed to their respective authors.</p>
+        </aside>
       </div>
       <div class="hint">Use arrow keys, space, or scroll</div>
     </section>
@@ -1021,6 +1134,26 @@
           <article class="card" data-jump="conclusion"><span class="card-number">08</span><h3>Conclusion</h3><p>The lasting privacy question</p></article>
         </div>
       </div>
+    </section>
+
+    <section class="slide" id="executive-summary" data-title="Executive summary">
+      <div>
+        <div class="kicker reveal">Executive Summary</div>
+        <h2 class="reveal">What this project found</h2>
+        <div class="summary-layout reveal">
+          <div class="summary-copy">
+            <p>Apple’s 2021 proposal attempted to identify collections of known child sexual abuse material connected to iCloud Photos while limiting access to users’ other images. The design used NeuralHash, encrypted safety vouchers, a match threshold, and human review before a confirmed account could be reported.</p>
+            <p>This project examines whether that child-safety goal could coexist with privacy. It evaluates the proposed technology through privacy harms, privacy principles, legal requirements, public criticism, and Apple’s eventual decision not to release the iCloud Photos scanning system.</p>
+          </div>
+          <div class="summary-points">
+            <div class="summary-point"><b>Purpose</b><span>Protect children and reduce the continued storage and distribution of known CSAM.</span></div>
+            <div class="summary-point"><b>Central risk</b><span>Create scanning infrastructure that could produce false matches or expand beyond its original purpose.</span></div>
+            <div class="summary-point"><b>Outcome</b><span>Apple delayed and later abandoned the proposal, focusing instead on Communication Safety.</span></div>
+            <div class="summary-point"><b>Recommendation</b><span>Use transparency, independent testing, data minimization, appeals, and outside expertise before deploying comparable systems.</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="source-line">Summary of the research, analysis, and findings presented on this website.</div>
     </section>
 
     <section class="slide" id="context" data-title="What is CSAM?">
@@ -1323,13 +1456,64 @@
         </div>
       </div>
     </section>
+
+    <section class="slide resource-slide" id="apa-references-1" data-title="APA references A–C">
+      <div>
+        <div class="kicker reveal">Complete Reference List</div>
+        <h2 class="reveal">APA references · A–C</h2>
+        <div class="apa-list reveal">
+          <p class="apa-entry">Apple Inc. (2021). <em>Expanded protections for children: Frequently asked questions</em>. <a href="https://www.apple.com/child-safety/pdf/Expanded_Protections_for_Children_Frequently_Asked_Questions.pdf" target="_blank" rel="noopener noreferrer">https://www.apple.com/child-safety/pdf/Expanded_Protections_for_Children_Frequently_Asked_Questions.pdf</a></p>
+          <p class="apa-entry">Apple Inc. (n.d.). <em>Child safety</em>. <a href="https://www.apple.com/child-safety/" target="_blank" rel="noopener noreferrer">https://www.apple.com/child-safety/</a></p>
+          <p class="apa-entry">Brandom, R. (2020, December 29). Apple loses early challenge in virtualization copyright claim. <em>The Verge</em>. <a href="https://www.theverge.com/2020/12/29/22205130/apple-corellium-dismissed-copyright-dmca-fair-use" target="_blank" rel="noopener noreferrer">https://www.theverge.com/2020/12/29/22205130/apple-corellium-dismissed-copyright-dmca-fair-use</a></p>
+          <p class="apa-entry">Brodkin, J. (2021, August 19). Apple photo-scanning plan faces global backlash from 90 rights groups. <em>Ars Technica</em>. <a href="https://arstechnica.com/tech-policy/2021/08/apple-photo-scanning-plan-faces-global-backlash-from-90-rights-groups/" target="_blank" rel="noopener noreferrer">https://arstechnica.com/tech-policy/2021/08/apple-photo-scanning-plan-faces-global-backlash-from-90-rights-groups/</a></p>
+          <p class="apa-entry">California Office of the Attorney General. (n.d.). <em>California Consumer Privacy Act (CCPA)</em>. <a href="https://www.oag.ca.gov/privacy/ccpa" target="_blank" rel="noopener noreferrer">https://www.oag.ca.gov/privacy/ccpa</a></p>
+          <p class="apa-entry">Canetti, R., &amp; Kaptchuk, G. (2021, August 10). The broken promise of Apple’s announced forbidden-photo reporting system—and how to fix it. <em>Center for Reliable Information Systems &amp; Cyber Security, Boston University</em>. <a href="https://www.bu.edu/riscs/2021/08/10/apple-csam/" target="_blank" rel="noopener noreferrer">https://www.bu.edu/riscs/2021/08/10/apple-csam/</a></p>
+          <p class="apa-entry">Clark, M. (2022, December 9). Activists respond to Apple choosing encryption over invasive image scanning plans. <em>The Verge</em>. <a href="https://www.theverge.com/2022/12/9/23500838/apple-csam-plans-dropped-eff-ncmec-cdt-reactions" target="_blank" rel="noopener noreferrer">https://www.theverge.com/2022/12/9/23500838/apple-csam-plans-dropped-eff-ncmec-cdt-reactions</a></p>
+          <p class="apa-entry">Clayton, J. (2021, August 6). Apple plans to scan iPhones for child abuse images. <em>BBC News</em>. <a href="https://www.bbc.com/news/technology-58109748" target="_blank" rel="noopener noreferrer">https://www.bbc.com/news/technology-58109748</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide resource-slide" id="apa-references-2" data-title="APA references C–P">
+      <div>
+        <div class="kicker reveal">Complete Reference List</div>
+        <h2 class="reveal">APA references · C–P</h2>
+        <div class="apa-list reveal">
+          <p class="apa-entry">Corellium. (n.d.). <em>iOS devices</em>. <a href="https://support.corellium.com/devices/ios" target="_blank" rel="noopener noreferrer">https://support.corellium.com/devices/ios</a></p>
+          <p class="apa-entry">DocumentCloud. (n.d.). <em>Apple v. Corellium court filing</em>. <a href="https://www.documentcloud.org/documents/20438330-20656722-0-117887/" target="_blank" rel="noopener noreferrer">https://www.documentcloud.org/documents/20438330-20656722-0-117887/</a></p>
+          <p class="apa-entry">Electronic Frontier Foundation. (2021, August 5). Apple’s plan to “think different” about encryption opens a backdoor to your private life. <a href="https://www.eff.org/deeplinks/2021/08/apples-plan-think-different-about-encryption-opens-backdoor-your-private-life" target="_blank" rel="noopener noreferrer">https://www.eff.org/deeplinks/2021/08/apples-plan-think-different-about-encryption-opens-backdoor-your-private-life</a></p>
+          <p class="apa-entry">European Parliament and Council of the European Union. (2016). Regulation (EU) 2016/679 (General Data Protection Regulation). <em>Official Journal of the European Union, L 119</em>, 1–88. <a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" target="_blank" rel="noopener noreferrer">https://eur-lex.europa.eu/eli/reg/2016/679/oj</a></p>
+          <p class="apa-entry">MacDailyNews Webmaster. (2021, August 17). Apple appeals lawsuit against Corellium, after Corellium announces initiative to verify Apple’s CSAM scanning. <em>MacDailyNews</em>. <a href="https://macdailynews.com/2021/08/17/apple-appeals-lawsuit-against-corellium-after-corellium-announces-initiative-to-verify-apples-csam-scanning/" target="_blank" rel="noopener noreferrer">https://macdailynews.com/2021/08/17/apple-appeals-lawsuit-against-corellium-after-corellium-announces-initiative-to-verify-apples-csam-scanning/</a></p>
+          <p class="apa-entry">Newman, L. H. (2021, September 3). Apple backs down on its controversial photo-scanning plans. <em>WIRED</em>. <a href="https://www.wired.com/story/apple-icloud-photo-scan-csam-pause-backlash/" target="_blank" rel="noopener noreferrer">https://www.wired.com/story/apple-icloud-photo-scan-csam-pause-backlash/</a></p>
+          <p class="apa-entry">Newman, L. H. (2022, December 7). Apple kills its plan to scan your photos for CSAM. Here’s what’s next. <em>WIRED</em>. <a href="https://www.wired.com/story/apple-photo-scanning-csam-communication-safety-messages/" target="_blank" rel="noopener noreferrer">https://www.wired.com/story/apple-photo-scanning-csam-communication-safety-messages/</a></p>
+          <p class="apa-entry">Organisation for Economic Co-operation and Development. (2013). <em>The OECD privacy framework</em>. <a href="https://legalinstruments.oecd.org/en/instruments/OECD-LEGAL-0188" target="_blank" rel="noopener noreferrer">https://legalinstruments.oecd.org/en/instruments/OECD-LEGAL-0188</a></p>
+          <p class="apa-entry">Porter, J. (2021, December 15). Apple scrubs controversial CSAM detection feature from webpage but says plans haven’t changed. <em>The Verge</em>. <a href="https://www.theverge.com/2021/12/15/22837631/apple-csam-detection-child-safety-feature-webpage-removal-delay" target="_blank" rel="noopener noreferrer">https://www.theverge.com/2021/12/15/22837631/apple-csam-detection-child-safety-feature-webpage-removal-delay</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide resource-slide" id="apa-references-3" data-title="APA references R–U">
+      <div>
+        <div class="kicker reveal">Complete Reference List</div>
+        <h2 class="reveal">APA references · R–U</h2>
+        <div class="apa-list reveal">
+          <p class="apa-entry">RAINN. (2026, May 31). <em>What is CSAM?</em> <a href="https://rainn.org/get-the-facts-about-csam-child-sexual-abuse-material/what-is-csam/" target="_blank" rel="noopener noreferrer">https://rainn.org/get-the-facts-about-csam-child-sexual-abuse-material/what-is-csam/</a></p>
+          <p class="apa-entry"><em>Serrano v. Apple Inc.</em>, No. 3:22-cv-07069 (N.D. Cal. filed November 11, 2022). <a href="https://9to5mac.com/wp-content/uploads/sites/6/2023/01/47387693_complaint.pdf" target="_blank" rel="noopener noreferrer">https://9to5mac.com/wp-content/uploads/sites/6/2023/01/47387693_complaint.pdf</a></p>
+          <p class="apa-entry">Solove, D. J. (2006). A taxonomy of privacy. <em>University of Pennsylvania Law Review, 154</em>(3), 477–564. <a href="https://scholarship.law.gwu.edu/faculty_publications/921/" target="_blank" rel="noopener noreferrer">https://scholarship.law.gwu.edu/faculty_publications/921/</a></p>
+          <p class="apa-entry">18 U.S.C. § 2258A (2018). <a href="https://uscode.house.gov/us/usc/119-118/t18/s2258A/" target="_blank" rel="noopener noreferrer">https://uscode.house.gov/us/usc/119-118/t18/s2258A/</a></p>
+          <p class="apa-entry">18 U.S.C. § 2703 (2018). <a href="https://uscode.house.gov/us/usc/119-118/t18/s2703/" target="_blank" rel="noopener noreferrer">https://uscode.house.gov/us/usc/119-118/t18/s2703/</a></p>
+          <p class="apa-entry">Wall Street Journal. (2021, August 13). <em>Apple’s software chief explains “misunderstood” iPhone child-protection features (exclusive)</em> [Video]. YouTube. <a href="https://www.youtube.com/watch?v=OQUO1DSwYN0" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=OQUO1DSwYN0</a></p>
+        </div>
+        <p class="resource-note reveal">The two additional optional videos remain available in the video-resource section. Their publishing details were not used as research citations in the presentation.</p>
+      </div>
+    </section>
   </main>
 
   <footer class="footer" id="footer">
     <div class="footer-name">Erika Hernandez</div>
     <div class="footer-course">INFA 702 · Data Privacy · Fall 2026</div>
     <div class="footer-right">
-      <div class="counter" id="counter" aria-live="polite">01 / 16</div>
+      <div class="counter" id="counter" aria-live="polite">01 / 25</div>
       <div class="nav-controls">
         <button class="nav-btn" id="previousButton" type="button" aria-label="Previous slide">↑</button>
         <button class="nav-btn" id="nextButton" type="button" aria-label="Next slide">↓</button>
