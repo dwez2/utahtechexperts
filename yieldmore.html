@@ -763,7 +763,14 @@ output {
        Recovery
       </span>
      </div>
-    </section>
+    
+     <!-- Academic portfolio and attribution notice -->
+     <aside class="rule small" aria-label="Academic use notice">
+      <strong>Academic portfolio notice</strong>
+      <p>This public website presents an academic case study created by Erika Hernandez for INFA 713 at Dakota State University. YieldMore is the organization described in the instructor-provided scenario. The analysis, risk ratings, and recommendations illustrate my application of course concepts; they are not findings from an assessment of a real organization.</p>
+      <p>You are welcome to view this project for learning and portfolio review. Please do not copy, adapt, or submit its analysis, wording, or presentation as your own coursework. Cite this project when discussing it and complete your own independent analysis for academic assignments. Third-party sources and the course scenario remain attributed to their respective authors.</p>
+     </aside>
+</section>
     <!-- SLIDE 2: Project scenario -->
     <section hidden="">
      <span class="eyebrow">
@@ -799,6 +806,26 @@ output {
       Reproduced from the instructor-provided INFA 713 Final Research Project (2026). Scenario wording retained.
      </p>
     </section>
+    <!-- Executive summary memo: inserted after the project scenario -->
+    <section hidden>
+     <span class="eyebrow">Senior-management briefing</span>
+     <h2>Executive summary memo</h2>
+     <div class="card">
+      <p><strong>To:</strong> YieldMore Senior Management and Enterprise Risk Management Committee<br>
+       <strong>From:</strong> Erika Hernandez, IT Security Manager (academic scenario)<br>
+       <strong>Subject:</strong> Priority IT risks and recommended management actions</p>
+      <h3 style="margin-top:24px">Purpose and business exposure</h3>
+      <p>This assessment evaluates five threat/vulnerability pairs affecting YieldMore’s headquarters, two production facilities, and nationwide sales force. Identity, application, and database services are located at the Indiana headquarters. Disruption or compromise of these services could affect inventory, sales, supply-chain coordination, and customer information across the business.</p>
+      <h3 style="margin-top:24px">Priority findings</h3>
+      <p>Under the stated assessment assumptions, compromised VPN accounts (R4) and workstation exploitation (R5) rank first, each scoring 100 (High). Storage failure or data corruption (R3) and an HQ firewall or internet outage (R1) each score 50 (Medium). A major headquarters power or site disruption (R2) scores 10 (Low), although its potential business impact remains High. These scores establish a proposed order for action; they are not measured incident probabilities.</p>
+      <h3 style="margin-top:24px">Recommended response</h3>
+      <p>First, verify remote-access authentication and permissions, Windows 10 support and patch status, independent backups and restore testing, network failover, and power and alternate-site recovery arrangements. Where gaps are confirmed, prioritize stronger remote access and endpoint protection, followed by tested data recovery and connectivity improvements. Mitigate the five risks, share part of the connectivity exposure through appropriate provider commitments, and have management review and explicitly accept any remaining exposure.</p>
+      <h3 style="margin-top:24px">Decision requested</h3>
+      <p>Authorize IT to validate existing safeguards and prepare an implementation plan identifying responsible owners, required funding and staff time, target dates, and verification measures. Management should approve resources based on confirmed gaps and business impact, then review residual risk after safeguards are tested.</p>
+      <p class="small">Assessment boundary: the scenario does not establish whether these safeguards are absent. Ratings are conditional and must be revised if verification changes the assumptions. The following sections explain the assessment method, ratings, treatments, and supporting references.</p>
+     </div>
+    </section>
+
     <!-- SLIDE 3: One headquarters. A nationwide business. -->
     <section hidden="">
      <span class="eyebrow">
@@ -1035,7 +1062,7 @@ output {
         </tr>
         <tr>
          <td>
-          3 · R10
+          3 · R3
          </td>
          <td>
           Storage failure / data corruption
@@ -1538,7 +1565,7 @@ output {
    </main>
   </div>
   <script>
-   const names = ['Title', 'Project scenario', 'Purpose', 'Assessment approach', 'Threat / vulnerability pairs', 'Risk priorities', 'Risk-handling plan', 'Management summary', 'Conclusion', 'References'];
+   const names = ['Title', 'Project scenario', 'Executive summary memo', 'Purpose', 'Assessment approach', 'Threat / vulnerability pairs', 'Risk priorities', 'Risk-handling plan', 'Management summary', 'Conclusion', 'References'];
 const slides = [...document.querySelectorAll('main>section')];
 let current = 0;
 const nav = document.getElementById('nav');
