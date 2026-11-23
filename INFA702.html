@@ -593,6 +593,18 @@
       padding: 16px 18px;
       background: rgba(7, 36, 55, .66);
       border: 1px solid var(--line);
+      border-radius: 4px;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, .12);
+      backdrop-filter: blur(16px);
+      transition: transform .35s var(--ease), border-color .35s ease, background .35s ease, box-shadow .35s ease;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .summary-point:hover {
+        transform: translateY(-4px);
+        border-color: rgba(140, 236, 255, .58);
+        background: linear-gradient(145deg, rgba(10, 56, 83, .9), rgba(5, 29, 47, .84));
+        box-shadow: 0 22px 55px rgba(0, 0, 0, .2), 0 0 24px rgba(24, 200, 242, .09);
+      }
     }
     .summary-point b {
       display: block;
@@ -1093,22 +1105,10 @@
 <body>
   <header class="topbar" aria-label="Presentation controls">
     <div class="brand"><span>Final</span> Research Project</div>
-<div class="top-actions">
-  <a class="pdf-download"
-     href="images/INFA702.pdf"
-     download
-     aria-label="Download this presentation as a PDF">
-    Download PDF ↓
-  </a>
-
-  <button class="menu-btn"
-          id="menuButton"
-          type="button"
-          aria-label="Open slide menu"
-          aria-expanded="false">
-    ☰
-  </button>
-</div>
+    <div class="top-actions">
+      <a class="pdf-download" href="images/INFA702.pdf" download aria-label="Download this presentation as a PDF">Download PDF ↓</a>
+      <button class="menu-btn" id="menuButton" type="button" aria-label="Open slide menu" aria-expanded="false">☰</button>
+    </div>
   </header>
 
   <main class="presentation" id="presentation">
