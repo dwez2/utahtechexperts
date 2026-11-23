@@ -672,6 +672,14 @@ output {
         text-align: left
     }
 }
+  
+/* Animated light follows the headquarters dependency connections. */
+.dependency-tree { position: relative; }
+.dependency-flow { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.dependency-flow path { fill: none; stroke: var(--blue); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 12 100; stroke-dashoffset: 12; filter: drop-shadow(0 0 5px var(--blue)); animation: headquarters-flow 3.5s linear infinite; }
+@keyframes headquarters-flow { from { stroke-dashoffset: 12; } to { stroke-dashoffset: -100; } }
+@media (prefers-reduced-motion: reduce) { .dependency-flow { display: none; } }
+@media print { .dependency-flow { display: none; } }
   </style>
   <!-- Browser tab icon: upload the PNG to your images folder -->
   <link href="images/yieldmore-icon.png" rel="icon" type="image/png"/>
@@ -814,7 +822,7 @@ output {
       <p><strong>MEMORANDUM</strong></p>
       <p><strong>To:</strong> Chief Executive Officer / Board of Directors<br>
        <strong>From:</strong> Erika Hernandez, IT Security Manager (academic scenario)<br>
-       <strong>Date:</strong> November 23, 2026<br>
+       <strong>Date:</strong> <time id="memo-date" datetime="2026-11-23">November 23, 2026</time><br>
        <strong>Subject:</strong> YieldMore IT Risk Assessment and Priority Actions</p>
 
       <h3 style="margin-top:24px">Executive Summary</h3>
@@ -1574,6 +1582,55 @@ output {
    </main>
   </div>
   <script>
+
+// Show the current date in the visitor's local time zone.
+function refreshMemoDate() {
+    const now = new Date();
+    const memoDate = document.getElementById('memo-date');
+    memoDate.textContent = now.toLocaleDateString('en-US', {
+        year: 'numeric', month: 'long', day: 'numeric'
+    });
+    memoDate.dateTime = [now.getFullYear(),
+        String(now.getMonth() + 1).padStart(2, '0'),
+        String(now.getDate()).padStart(2, '0')].join('-');
+}
+refreshMemoDate();
+setInterval(refreshMemoDate, 60000);
+
+// Recalculate the light paths when the purpose slide becomes visible or resizes.
+function drawDependencyFlow() {
+    const tree = document.querySelector('.dependency-tree');
+    if (!tree || !tree.getBoundingClientRect().width) return;
+    const box = tree.getBoundingClientRect();
+    const headquarters = tree.querySelector('.tree-hq').getBoundingClientRect();
+    let svg = tree.querySelector('.dependency-flow');
+    const ns = 'http://www.w3.org/2000/svg';
+    if (!svg) {
+        svg = document.createElementNS(ns, 'svg');
+        svg.setAttribute('class', 'dependency-flow');
+        svg.setAttribute('aria-hidden', 'true');
+        tree.append(svg);
+    }
+    svg.setAttribute('viewBox', `0 0 ${box.width} ${box.height}`);
+    svg.replaceChildren();
+    const x = headquarters.left - box.left + headquarters.width / 2;
+    const y = headquarters.bottom - box.top;
+    const mobile = window.matchMedia('(max-width:700px)').matches;
+    tree.querySelectorAll('.tree-leaf').forEach(leaf => {
+        const end = leaf.getBoundingClientRect();
+        const targetX = end.left - box.left + (mobile ? 0 : end.width / 2);
+        const targetY = end.top - box.top + (mobile ? end.height / 2 : 0);
+        const path = document.createElementNS(ns, 'path');
+        path.setAttribute('d', mobile
+            ? `M ${x} ${y} V ${y + 12} H 1 V ${targetY} H ${targetX}`
+            : `M ${x} ${y} V ${y + 38} H ${targetX} V ${targetY}`);
+        path.setAttribute('pathLength', '100');
+        svg.append(path);
+    });
+}
+new ResizeObserver(() => requestAnimationFrame(drawDependencyFlow))
+    .observe(document.querySelector('.dependency-tree'));
+
    const names = ['Title', 'Project scenario', 'Executive summary memo', 'Purpose', 'Assessment approach', 'Threat / vulnerability pairs', 'Risk priorities', 'Risk-handling plan', 'Management summary', 'Conclusion', 'References'];
 const slides = [...document.querySelectorAll('main>section')];
 let current = 0;
@@ -1587,6 +1644,8 @@ names.forEach((n, i) => {
 
 function show(i) {
     current = i;
+    refreshMemoDate();
+    requestAnimationFrame(drawDependencyFlow);
     slides.forEach((s, j) => s.hidden = j !== i);
     [...nav.children].forEach((b, j) => {
         b.classList.toggle('active', j === i);
